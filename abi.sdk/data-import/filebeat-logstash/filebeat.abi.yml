@@ -1,0 +1,54 @@
+# =============================================================================
+# ABI 服务端日志采集配置：Filebeat -> Logstash -> ABI Ingest Gateway (:8081)
+# 对标 ThinkingData v3.4「Filebeat + Logstash 使用指南」
+# 适用场景：采集 Go / Java 服务端 SDK `LoggerConsumer` 落盘的 `abi.log.*` JSONL 文件
+# =============================================================================
+
+filebeat.inputs:
+  - type: filestream
+    id: abi-sdk-logger-consumer-jsonl
+    enabled: true
+    # LoggerConsumer 配置的本地落盘目录（按天 abi.log.YYYY-MM-DD 或按小时 abi.log.YYYY-MM-DD-HH）
+    paths:
+      - /var/log/abi/abi.log.*
+      - /var/log/abi/*.jsonl
+
+    # 确保跨进程追加写入时按换行符完整读取单条事件 JSON
+    prospector.scanner.check_interval: 1s
+    clean_inactive: 72h
+    ignore_older: 48h
+    close.on_state_change.inactive: 5m
+
+    # 注入所属项目元数据（供下游 Logstash 组装标准批量上报结构）
+    fields_under_root: false
+    fields:
+      abi_project_id: 1
+      abi_project_token: "${ABI_PROJECT_TOKEN:abi_tok_replace_me}"
+
+# 启用本地持久化队列，防止 Logstash 瞬时重启或网关限流时丢失断点
+queue.spool:
+  file:
+    path: "${path.data}/spool.dat"
+    size: 512MiB
+    page_size: 16KiB
+  write:
+    buffer_size: 10MiB
+    flush.timeout: 1s
+    flush.events: 1024
+
+# 输出至 Logstash Beats 输入端口进行批量聚合与协议封装
+output.logstash:
+  hosts: ["127.0.0.1:5044"]
+  loadbalance: true
+  compression_level: 3
+  worker: 2
+  bulk_max_size: 200
+  pipelining: 2
+
+logging.level: info
+logging.to_files: true
+logging.files:
+  path: /var/log/filebeat
+  name: filebeat-abi
+  keepfiles: 7
+  permissions: 0640

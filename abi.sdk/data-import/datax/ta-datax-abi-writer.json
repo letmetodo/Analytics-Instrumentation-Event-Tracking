@@ -1,0 +1,119 @@
+{
+  "job": {
+    "setting": {
+      "speed": {
+        "channel": 4,
+        "bytes": 10485760
+      },
+      "errorLimit": {
+        "record": 0,
+        "percentage": 0.0
+      }
+    },
+    "content": [
+      {
+        "reader": {
+          "name": "mysqlreader",
+          "parameter": {
+            "username": "${SOURCE_MYSQL_USER}",
+            "password": "${SOURCE_MYSQL_PASS}",
+            "column": [
+              "order_event_uuid",
+              "user_account_id",
+              "visitor_distinct_id",
+              "client_public_ip",
+              "paid_at_epoch_ms",
+              "order_snowflake_id",
+              "pay_amount",
+              "currency",
+              "os_name",
+              "app_version"
+            ],
+            "splitPk": "id",
+            "connection": [
+              {
+                "table": [
+                  "biz_historical_orders"
+                ],
+                "jdbcUrl": [
+                  "jdbc:mysql://127.0.0.1:3306/legacy_ecommerce?useUnicode=true&characterEncoding=utf8&useSSL=false"
+                ]
+              }
+            ],
+            "where": "paid_at_epoch_ms >= 1761955200000 AND status = 'PAID'"
+          }
+        },
+        "writer": {
+          "name": "ta-datax-abi-writer",
+          "parameter": {
+            "description": "对标 ThinkingData ta-datax-writer：将历史关系库/离线数仓存量数据批量导入 ABI 采集网关 (:8081) 或 StarRocks OLAP",
+            "serverUrl": "http://127.0.0.1:8081/collect/api/v1/track/batch",
+            "projectId": 1,
+            "projectToken": "${ABI_PROJECT_TOKEN}",
+            "compress": "gzip",
+            "batchSize": 200,
+            "maxRetryTimes": 5,
+            "retrySleepMs": 1000,
+            "dryRun": false,
+            "eventType": "track",
+            "eventName": "OrderPaid",
+            "columnMapping": {
+              "event_id": {
+                "sourceColumnIndex": 0,
+                "required": true,
+                "comment": "必填确定性幂等主键（如 'ord_paid_' + order_id），防止 DataX 任务重跑产生重复事件"
+              },
+              "login_id": {
+                "sourceColumnIndex": 1,
+                "maxUtf8Bytes": 128,
+                "comment": "实名登录账号 ID（<= 128 UTF-8 字节；与 distinct_id 至少一个非空）"
+              },
+              "distinct_id": {
+                "sourceColumnIndex": 2,
+                "maxUtf8Bytes": 64,
+                "comment": "访客/设备标识 ID（<= 64 UTF-8 字节；纯后端存量账号无访客 ID 时可留空，切勿将 login_id 回填至 distinct_id）"
+              },
+              "timestamp": {
+                "sourceColumnIndex": 4,
+                "unit": "ms",
+                "comment": "必填历史业务实际发生时间戳（毫秒），严禁使用迁移脚本执行时的当前系统时间"
+              },
+              "properties": {
+                "#ip": {
+                  "sourceColumnIndex": 3,
+                  "type": "string",
+                  "comment": "透传历史事件发生时的客户端公网 IP，供 Flink Job1 解析国家/省/市并自动剥离 #ip"
+                },
+                "order_id": {
+                  "sourceColumnIndex": 5,
+                  "type": "string",
+                  "comment": "64 位雪花 ID (> 2^53 - 1) 强制映射为 string，杜绝 IEEE-754 双精度截断"
+                },
+                "amount": {
+                  "sourceColumnIndex": 6,
+                  "type": "number"
+                },
+                "currency": {
+                  "sourceColumnIndex": 7,
+                  "type": "string"
+                },
+                "$os": {
+                  "sourceColumnIndex": 8,
+                  "type": "string"
+                },
+                "$app_version": {
+                  "sourceColumnIndex": 9,
+                  "type": "string"
+                },
+                "$lib": {
+                  "constantValue": "abi-datax-writer",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

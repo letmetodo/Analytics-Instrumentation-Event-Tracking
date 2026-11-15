@@ -1,0 +1,32 @@
+{
+  "name": "@anylink/abi-node-sdk",
+  "version": "1.0.0",
+  "description": "ABI Node.js Server Analytics SDK (ThinkingData Node.js Server SDK v3.4 compatible, zero external runtime dependencies)",
+  "type": "module",
+  "main": "./src/index.mjs",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "default": "./src/index.mjs"
+    }
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "test": "node --test ./test/abi-node-sdk.test.mjs",
+    "demo": "node ./examples/demo.mjs",
+    "demo:yes": "node ./examples/demo.mjs --yes"
+  },
+  "keywords": [
+    "abi",
+    "analytics",
+    "uba",
+    "bi",
+    "thinkingdata",
+    "nodejs",
+    "server-sdk"
+  ],
+  "license": "Proprietary"
+}

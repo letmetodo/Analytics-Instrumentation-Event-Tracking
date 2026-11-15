@@ -1,0 +1,45 @@
+# =============================================================================
+# ABI Vector 高性能日志采集配置 (`vector.abi.toml`)
+# 适用场景：以极低内存占用采集 `LoggerConsumer` 产出的 `abi.log.*` JSONL 文件并批量 Gzip 推送至 `:8081`
+# 启动命令：vector --config vector/vector.abi.toml
+# =============================================================================
+
+data_dir = "/var/lib/vector"
+
+[sources.abi_logger_jsonl]
+type = "file"
+include = ["/var/log/abi/abi.log.*", "/var/log/abi/*.jsonl"]
+read_from = "beginning"
+ignore_older_secs = 172800
+fingerprint.strategy = "device_and_inode"
+
+[transforms.abi_parse_event]
+type = "remap"
+inputs = ["abi_logger_jsonl"]
+source = '''
+. = parse_json!(.message)
+if !exists(.event_id) || .event_id == "" {
+  .event_id = uuid_v4()
+}
+if !exists(.timestamp) || to_int(.timestamp) == 0 {
+  .timestamp = to_unix_timestamp(now(), unit: "milliseconds")
+}
+'''
+
+[sinks.abi_ingest_gateway]
+type = "http"
+inputs = ["abi_parse_event"]
+uri = "http://127.0.0.1:8081/collect/api/v1/track/batch"
+method = "post"
+compression = "gzip"
+batch.max_events = 200
+batch.timeout_secs = 2
+encoding.codec = "json"
+framing.method = "character_delimited"
+framing.character_delimited.delimiter = "\n"
+
+[sinks.abi_ingest_gateway.request]
+retry_attempts = 5
+retry_initial_backoff_secs = 1
+timeout_secs = 10
+headers = { "Content-Type" = "application/json", "X-ABI-Project-Id" = "1", "X-ABI-Project-Token" = "${ABI_PROJECT_TOKEN}" }

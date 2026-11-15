@@ -1,0 +1,122 @@
+{
+  "max_distinct_id_bytes": 64,
+  "max_login_id_bytes": 128,
+  "cases": [
+    {
+      "name": "valid_ascii",
+      "distinct_id": "d-valid-1",
+      "login_id": "acc-valid-1",
+      "valid": true,
+      "normalized_distinct_id": "d-valid-1",
+      "normalized_login_id": "acc-valid-1"
+    },
+    {
+      "name": "distinct_id_only_valid",
+      "distinct_id": "dev-visitor-only-01",
+      "login_id": "",
+      "valid": true,
+      "normalized_distinct_id": "dev-visitor-only-01",
+      "normalized_login_id": ""
+    },
+    {
+      "name": "login_id_only_128_bytes_valid",
+      "distinct_id": "",
+      "login_id": "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu",
+      "valid": true,
+      "normalized_distinct_id": "",
+      "normalized_login_id": "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"
+    },
+    {
+      "name": "both_identities_empty_rejected",
+      "distinct_id": "   ",
+      "login_id": "\t\n",
+      "valid": false
+    },
+    {
+      "name": "exact_boundary_64_and_128_bytes",
+      "distinct_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "login_id": "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu",
+      "valid": true,
+      "normalized_distinct_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "normalized_login_id": "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"
+    },
+    {
+      "name": "distinct_id_65_bytes_rejected",
+      "distinct_id": "ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "login_id": "",
+      "valid": false
+    },
+    {
+      "name": "login_id_129_bytes_rejected",
+      "distinct_id": "d-1",
+      "login_id": "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu",
+      "valid": false
+    },
+    {
+      "name": "multibyte_distinct_id_66_bytes_rejected",
+      "distinct_id": "中中中中中中中中中中中中中中中中中中中中中中",
+      "login_id": "",
+      "valid": false
+    },
+    {
+      "name": "multibyte_login_id_129_bytes_rejected",
+      "distinct_id": "d-1",
+      "login_id": "中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中",
+      "valid": false
+    },
+    {
+      "name": "nul_byte_in_identity_rejected",
+      "distinct_id": "bad\u0000id",
+      "login_id": "",
+      "valid": false
+    },
+    {
+      "name": "padded_identity_boundary_normalized",
+      "distinct_id": " dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd ",
+      "login_id": " uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu ",
+      "valid": true,
+      "normalized_distinct_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "normalized_login_id": "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"
+    },
+    {
+      "name": "internal_unicode_whitespace_preserved",
+      "distinct_id": "Device\u3000One",
+      "login_id": "",
+      "valid": true,
+      "normalized_distinct_id": "Device\u3000One",
+      "normalized_login_id": ""
+    },
+    {
+      "name": "edge_bell_rejected",
+      "distinct_id": "\u0007Device\u0007",
+      "login_id": "",
+      "valid": false
+    },
+    {
+      "name": "internal_control_rejected",
+      "distinct_id": "Dev\u001fice",
+      "login_id": "",
+      "valid": false
+    },
+    {
+      "name": "del_in_login_rejected",
+      "distinct_id": "Device",
+      "login_id": "Account\u007f",
+      "valid": false
+    },
+    {
+      "name": "emoji_exact_boundary",
+      "distinct_id": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀",
+      "login_id": "",
+      "valid": true,
+      "normalized_distinct_id": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀",
+      "normalized_login_id": ""
+    },
+    {
+      "name": "emoji_over_boundary",
+      "distinct_id": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀",
+      "login_id": "",
+      "valid": false
+    }
+  ]
+}

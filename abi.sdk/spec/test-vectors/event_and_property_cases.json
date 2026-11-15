@@ -1,0 +1,43 @@
+{
+  "max_safe_integer": 9007199254740991,
+  "event_name_cases": [
+    { "event_name": "page_view", "valid": true },
+    { "event_name": "OrderPaid_2026", "valid": true },
+    { "event_name": "_internal_click", "valid": true },
+    { "event_name": "$signup", "valid": true },
+    { "event_name": "$login", "valid": true },
+    { "event_name": "$pageview", "valid": true },
+    { "event_name": "$AppStart", "valid": true },
+    { "event_name": "$AppEnd", "valid": true },
+    { "event_name": "$AppClick", "valid": true },
+    { "event_name": "$AppViewScreen", "valid": true },
+    { "event_name": "$user_set", "valid": true },
+    { "event_name": "$user_set_once", "valid": true },
+    { "event_name": "$user_add", "valid": true },
+    { "event_name": "$user_unset", "valid": true },
+    { "event_name": "$user_append", "valid": true },
+    { "event_name": "$user_uniq_append", "valid": true },
+    { "event_name": "$user_del", "valid": true },
+    { "event_name": "$identify", "valid": false },
+    { "event_name": "#identify", "valid": false },
+    { "event_name": "", "valid": false },
+    { "event_name": "123_starts_with_digit", "valid": false },
+    { "event_name": "bad-hyphen-name", "valid": false },
+    { "event_name": "$unknown_system_event", "valid": false }
+  ],
+  "property_key_cases": [
+    { "key": "amount", "valid": true },
+    { "key": "sku_id_1", "valid": true },
+    { "key": "$os", "valid": true },
+    { "key": "#os", "valid": true },
+    { "key": "$app_version", "valid": true },
+    { "key": "$duration", "valid": true },
+    { "key": "$device_id", "valid": true },
+    { "key": "$screen_width", "valid": true },
+    { "key": "$anonymous_id", "valid": false },
+    { "key": "#anonymous_id", "valid": false },
+    { "key": "bad-key", "valid": false },
+    { "key": "9starts_with_num", "valid": false },
+    { "key": "$unregistered_sys_key", "valid": false }
+  ]
+}

@@ -1,0 +1,22 @@
+# Java Maven 编译、测试与 javadoc 产物
+java/target/
+
+# TypeScript 编译产物与本地依赖
+ts-web/dist/
+ts-web/node_modules/
+ts-web/coverage/
+
+# Go 测试二进制与覆盖率
+go/*.test
+go/coverage.out
+go/coverage.html
+
+# 移动端本地构建缓存
+mobile/flutter/.dart_tool/
+mobile/flutter/build/
+mobile/android/.gradle/
+mobile/android/build/
+mobile/ios/build/
+mobile/ios/DerivedData/
+
+.DS_Store

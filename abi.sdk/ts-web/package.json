@@ -1,0 +1,46 @@
+{
+  "name": "@anylink/abi-web-sdk",
+  "version": "1.0.0",
+  "description": "ABI Web, H5, H5-App Bridge, WeChat MiniProgram, React Native, Cocos Creator, Egret, LayaAir & Weex Analytics SDK",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./adapters/miniapp": {
+      "types": "./dist/adapters/miniapp.d.ts",
+      "default": "./dist/adapters/miniapp.js"
+    },
+    "./adapters/react-native": {
+      "types": "./dist/adapters/react-native.d.ts",
+      "default": "./dist/adapters/react-native.js"
+    },
+    "./adapters/h5-bridge": {
+      "types": "./dist/adapters/h5-bridge.d.ts",
+      "default": "./dist/adapters/h5-bridge.js"
+    },
+    "./adapters/game-engines": {
+      "types": "./dist/adapters/game-engines.d.ts",
+      "default": "./dist/adapters/game-engines.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run --config vitest.config.ts"
+  },
+  "keywords": [
+    "abi",
+    "analytics",
+    "uba",
+    "event-tracking",
+    "sdk"
+  ],
+  "license": "Proprietary",
+  "devDependencies": {
+    "typescript": "5.7.3",
+    "vitest": "3.2.4"
+  }
+}

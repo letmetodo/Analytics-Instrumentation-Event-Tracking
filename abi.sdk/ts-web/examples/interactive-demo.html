@@ -1,0 +1,2330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ABI Web SDK 交互式联调演练场</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #1e293b;
+      --panel-alt: #0b1120;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --emerald: #10b981;
+      --emerald-hover: #059669;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --violet: #a855f7;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: Inter, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    header {
+      padding: 16px 24px;
+      background: #0b1120;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge {
+      font-size: 11px;
+      font-family: var(--mono);
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+
+    .badge.active-pill {
+      background: rgba(16, 185, 129, 0.18);
+      color: #6ee7b7;
+      border-color: rgba(16, 185, 129, 0.45);
+    }
+
+    .config-bar {
+      margin: 16px 24px;
+      padding: 16px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+      align-items: end;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      background: var(--panel-alt);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 13px;
+      font-family: var(--mono);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 180px;
+      line-height: 1.5;
+    }
+
+    .status-grid {
+      margin: 0 24px 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+      gap: 12px;
+    }
+
+    .status-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+
+    .status-card .label {
+      font-size: 11px;
+      letter-spacing: 0.02em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .status-card .value {
+      font-family: var(--mono);
+      font-size: 12.5px;
+      color: var(--accent);
+      word-break: break-all;
+    }
+
+    .workspace {
+      margin: 0 24px 24px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .groups-col {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .group-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .group-card h2 {
+      margin: 0 0 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #e2e8f0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .group-card h2 span.sub {
+      font-size: 11px;
+      font-family: var(--mono);
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .btn-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .super-config-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .inline-hint {
+      font-size: 12px;
+      color: #fcd34d;
+      margin-top: 8px;
+      display: none;
+    }
+
+    .inline-hint.visible {
+      display: block;
+    }
+
+    /* 二选一分段切换器 (事件上报 vs 用户画像上报) */
+    .mode-switch-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 5px;
+      background: var(--panel-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .mode-tab-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      padding: 9px 12px;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+
+    .mode-tab-btn:hover:not(:disabled) {
+      background: rgba(51, 65, 85, 0.45);
+      color: var(--text);
+      border-color: transparent;
+    }
+
+    .mode-tab-btn.active {
+      background: rgba(56, 189, 248, 0.14);
+      border-color: rgba(56, 189, 248, 0.55);
+      color: var(--text);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .mode-tab-btn .tab-title {
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mode-tab-btn.active .tab-title {
+      color: var(--accent);
+    }
+
+    .mode-tab-btn .tab-desc {
+      font-size: 11px;
+      font-family: var(--mono);
+      color: var(--muted);
+    }
+
+    .mode-panel {
+      display: none;
+    }
+
+    .mode-panel.active {
+      display: block;
+    }
+
+    /* 分析模型模拟多选标签 */
+    .model-check-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .model-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--panel-alt);
+      font-size: 12px;
+      color: #cbd5e1;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.14s ease;
+    }
+
+    .model-chip:hover {
+      border-color: var(--accent);
+    }
+
+    .model-chip input[type="checkbox"] {
+      accent-color: var(--accent);
+      margin: 0;
+      cursor: pointer;
+    }
+
+    /* 上报成功事件条数汇总条 */
+    .report-summary-banner {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      background: rgba(16, 185, 129, 0.1);
+      color: #d1fae5;
+      font-size: 12.5px;
+      line-height: 1.55;
+      display: none;
+    }
+
+    .report-summary-banner.visible {
+      display: block;
+    }
+
+    .report-summary-banner.error {
+      border-color: rgba(244, 63, 94, 0.45);
+      background: rgba(244, 63, 94, 0.1);
+      color: #fecdd3;
+    }
+
+    .report-summary-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #6ee7b7;
+    }
+
+    .report-summary-banner.error .report-summary-title {
+      color: #fda4af;
+    }
+
+    .event-count-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .event-count-chip {
+      font-family: var(--mono);
+      font-size: 11.5px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #a7f3d0;
+    }
+
+    button {
+      cursor: pointer;
+      font-family: var(--sans);
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #273549;
+      color: var(--text);
+      transition: all 0.14s ease;
+    }
+
+    button:hover:not(:disabled) {
+      background: #334155;
+      border-color: var(--accent);
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: #082f49;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    button.primary:hover:not(:disabled) {
+      background: var(--accent-hover);
+    }
+
+    button.submit-btn {
+      background: var(--emerald);
+      color: #022c22;
+      border-color: var(--emerald);
+      font-weight: 700;
+      padding: 8px 16px;
+      font-size: 13px;
+    }
+
+    button.submit-btn:hover:not(:disabled) {
+      background: var(--emerald-hover);
+      border-color: var(--emerald-hover);
+    }
+
+    button.emerald {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.45);
+      color: #6ee7b7;
+    }
+
+    button.amber {
+      background: rgba(245, 158, 11, 0.16);
+      border-color: rgba(245, 158, 11, 0.45);
+      color: #fcd34d;
+    }
+
+    button.rose {
+      background: rgba(244, 63, 94, 0.16);
+      border-color: rgba(244, 63, 94, 0.45);
+      color: #fda4af;
+    }
+
+    button.selected-action {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+
+    .inspector-card {
+      background: var(--panel-alt);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 16px;
+      overflow: hidden;
+    }
+
+    .inspector-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--panel);
+    }
+
+    .inspector-header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .inspector-header h2 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .inspector-sub {
+      font-size: 11.5px;
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+
+    .inspector-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .batch-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+      margin-right: 4px;
+    }
+
+    .json-section {
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .json-section + .json-section {
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+      color: #cbd5e1;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .section-label span.hint {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+
+    pre.json-box,
+    textarea.json-box {
+      margin: 0;
+      padding: 12px;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #111827;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.5;
+      color: #e2e8f0;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 540px;
+    }
+
+    textarea.json-editor {
+      min-height: 320px;
+      max-height: 560px;
+      resize: vertical;
+      white-space: pre;
+      word-break: normal;
+      overflow-wrap: normal;
+      outline: none;
+      transition: border-color 0.14s ease, box-shadow 0.14s ease;
+    }
+
+    textarea.json-editor:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.22);
+    }
+
+    textarea.json-editor.invalid {
+      border-color: rgba(244, 63, 94, 0.75);
+      box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.18);
+    }
+
+    button.mini-btn {
+      padding: 3px 8px;
+      font-size: 11px;
+      border-radius: 5px;
+    }
+
+    pre.response-box {
+      max-height: 210px;
+      color: #a7f3d0;
+    }
+
+    pre.response-box.error {
+      color: #fda4af;
+      border-color: rgba(244, 63, 94, 0.45);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>
+      ABI Web SDK 交互式演练场
+      <span class="badge" id="sdk-source-badge">正在加载 SDK...</span>
+    </h1>
+    <div style="font-size: 12px; color: var(--muted);">
+      采集网关接口契约：<code>POST /collect/api/v1/track/batch</code>
+    </div>
+  </header>
+
+  <!-- 顶部 SDK 配置栏 -->
+  <section class="config-bar" aria-label="SDK 配置栏">
+    <div class="field">
+      <label for="cfg-server-url">采集网关地址 (Server URL)</label>
+      <input id="cfg-server-url" type="text" value="http://localhost:8081" />
+    </div>
+    <div class="field">
+      <label for="cfg-project-id">项目 ID (Project ID)</label>
+      <input id="cfg-project-id" type="number" value="1" min="1" />
+    </div>
+    <div class="field">
+      <label for="cfg-token">项目上报密钥 (Project Token)</label>
+      <input id="cfg-token" type="text" value="abi_tok_playground_demo_001" />
+    </div>
+    <div class="field">
+      <label for="cfg-send-mode">上报发送模式 (Send Mode)</label>
+      <select id="cfg-send-mode">
+        <option value="mock" selected>本地 Mock 模拟（无需启动后端）</option>
+        <option value="dry_run">真实网关 Dry-Run 仅校验（不落库）</option>
+        <option value="live">真实网关正式上报（写入 Kafka/StarRocks）</option>
+      </select>
+    </div>
+    <div class="field">
+      <button id="btn-init-sdk" class="primary" type="button">应用配置并重置 SDK</button>
+    </div>
+  </section>
+
+  <!-- 实时状态卡片（仅保留双身份状态：访客标识 distinct_id 与登录账号 ID login_id） -->
+  <section class="status-grid" aria-label="SDK 实时状态">
+    <div class="status-card">
+      <div class="label">访客标识 (distinct_id)</div>
+      <div class="value" id="st-distinct-id">-</div>
+    </div>
+    <div class="status-card">
+      <div class="label">登录账号 ID (login_id)</div>
+      <div class="value" id="st-login-id">(未登录)</div>
+    </div>
+  </section>
+
+  <!-- 主交互演练区：左侧配置参数与选择事件，右侧实时预览唯一待提交 JSON 并确认提交 -->
+  <main class="workspace">
+    <div class="groups-col">
+      <!-- 1. 身份与会话配置 -->
+      <div class="group-card">
+        <h2>
+          1. 身份与会话参数
+          <span class="sub">修改后右侧请求参数即时同步</span>
+        </h2>
+        <div class="btn-grid">
+          <button id="btn-identify" type="button">切换随机访客 ID (identify)</button>
+          <button id="btn-login" class="emerald" type="button">设置登录账号 (login)</button>
+          <button id="btn-logout" class="rose" type="button">退出登录 (logout)</button>
+        </div>
+      </div>
+
+      <!-- 2. 公共属性配置（支持随机生成公共参数名与值，直接合入右侧最终请求体） -->
+      <div class="group-card">
+        <h2>
+          2. 公共属性配置 (Super Properties)
+          <span class="sub">支持随机生成参数名与多类型值 · 直接写入右侧请求体 properties</span>
+        </h2>
+        <div class="super-config-grid">
+          <div class="field">
+            <label for="input-super-json">静态公共属性参数 (JSON 对象，可手动编辑或点击下方随机生成)</label>
+            <textarea id="input-super-json" rows="9">{
+  "channel": "playground_web",
+  "ab_group": "experiment_checkout_b"
+}</textarea>
+          </div>
+        </div>
+        <div class="btn-grid">
+          <button id="btn-super-random" class="amber" type="button">🎲 随机生成公共参数与值</button>
+          <button id="btn-super-add-random" class="emerald" type="button">➕ 随机追加一项参数</button>
+          <button id="btn-super-static" type="button">应用静态公共属性</button>
+          <button id="btn-super-dynamic" type="button">启用动态公共属性：关</button>
+          <button id="btn-super-clear" class="rose" type="button">清空全部公共属性</button>
+        </div>
+        <div id="super-prop-error" class="inline-hint" style="color: #fda4af;"></div>
+      </div>
+
+      <!-- 3. 事件上报 vs 用户画像上报（二选一） -->
+      <div class="group-card">
+        <h2>
+          3. 上报类型与参数构建（事件 / 用户 二选一）
+          <span class="sub" id="mode-active-sub">当前：行为事件上报 (abi.dwd_events)</span>
+        </h2>
+
+        <!-- 二选一分段切换 -->
+        <div class="mode-switch-bar" role="tablist" aria-label="事件上报与用户画像上报二选一">
+          <button
+            id="tab-mode-event"
+            class="mode-tab-btn active"
+            type="button"
+            role="tab"
+            aria-selected="true"
+          >
+            <span class="tab-title">📊 行为事件上报 (Event)</span>
+            <span class="tab-desc">写入 abi.dwd_events · 合入最终请求体 properties</span>
+          </button>
+          <button
+            id="tab-mode-user"
+            class="mode-tab-btn"
+            type="button"
+            role="tab"
+            aria-selected="false"
+          >
+            <span class="tab-title">👤 用户画像上报 (User $user_*)</span>
+            <span class="tab-desc">写入 abi.dim_users · 合入最终请求体 properties</span>
+          </button>
+        </div>
+
+        <!-- 选项 A：行为事件参数构建面板 -->
+        <div id="panel-mode-event" class="mode-panel active" role="tabpanel">
+          <div class="btn-grid">
+            <button id="btn-track-product" type="button">浏览商品事件 (ViewProduct)</button>
+            <button id="btn-track-purchase" type="button">支付订单事件 (Purchase)</button>
+            <button id="btn-time-start" class="amber" type="button">① 开始计时 (timeEvent)</button>
+            <button id="btn-time-end" class="emerald" type="button">② 生成带耗时事件 ($duration)</button>
+            <button id="btn-track-idempotent" type="button">固定 eventId 同日幂等 (track)</button>
+            <button id="btn-track-bigint" class="amber" type="button">64 位雪花大整数 (BigInt &gt; 2^53-1)</button>
+          </div>
+          <div id="timer-active-hint" class="inline-hint">⏱ PaySuccess 计时器运行中，点击「② 生成带耗时事件 ($duration)」即可将实测秒数写入右侧请求参数。</div>
+        </div>
+
+        <!-- 选项 B：用户画像操作参数构建面板 ($user_*) -->
+        <div id="panel-mode-user" class="mode-panel" role="tabpanel">
+          <div class="btn-grid">
+            <button id="btn-user-set" type="button">覆盖设置画像 (userSet)</button>
+            <button id="btn-user-set-once" type="button">首次初始化画像 (userSetOnce)</button>
+            <button id="btn-user-add" type="button">数值累加画像 (userAdd)</button>
+            <button id="btn-user-append" type="button">列表追加元素 (userAppend)</button>
+            <button id="btn-user-uniq-append" type="button">列表去重追加 (userUniqAppend)</button>
+            <button id="btn-user-unset" class="amber" type="button">清空指定属性 (userUnset)</button>
+            <button id="btn-user-delete" class="rose" type="button">删除用户画像 (userDelete)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. 多分析模型完整模拟数据生成与一键上报 -->
+      <div class="group-card">
+        <h2>
+          4. 多分析模型完整模拟事件上报
+          <span class="sub">事件 / 漏斗 / 留存 / 路径 / 分布与间隔</span>
+        </h2>
+        <div style="font-size: 12px; color: var(--muted); margin-bottom: 10px;">
+          勾选需要覆盖的分析模型，一键生成多用户全链路模拟埋点并上报，成功后返回各事件上报条数明细：
+        </div>
+        <div class="model-check-grid" aria-label="选择要模拟的分析模型">
+          <label class="model-chip">
+            <input type="checkbox" class="chk-sim-model" value="event" checked />
+            事件分析 (AppOpen / PageView / Search / Share)
+          </label>
+          <label class="model-chip">
+            <input type="checkbox" class="chk-sim-model" value="funnel" checked />
+            漏斗分析 (AppOpen → ViewProduct → AddCart → CheckoutStart → PaySuccess)
+          </label>
+          <label class="model-chip">
+            <input type="checkbox" class="chk-sim-model" value="retention" checked />
+            留存分析 ($signup / $login → 次日与多日复访 Purchase)
+          </label>
+          <label class="model-chip">
+            <input type="checkbox" class="chk-sim-model" value="path" checked />
+            路径分析 (会话内连续页面与商品流转路径)
+          </label>
+          <label class="model-chip">
+            <input type="checkbox" class="chk-sim-model" value="distribution" checked />
+            分布与间隔分析 (多频次金额分布 &amp; 结算至支付间隔)
+          </label>
+        </div>
+        <div class="btn-grid">
+          <button id="btn-sim-analytics-submit" class="submit-btn" type="button">
+            🚀 生成完整分析模拟事件并立即上报
+          </button>
+          <button id="btn-sim-analytics-preview" class="emerald" type="button">
+            👁 仅生成模拟报文至右侧预览
+          </button>
+        </div>
+        <div id="sim-report-banner" class="report-summary-banner" role="status" aria-live="polite">
+          <div class="report-summary-title" id="sim-report-title"></div>
+          <div id="sim-report-text"></div>
+          <div class="event-count-chips" id="sim-report-chips"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右侧：唯一请求参数预览 + 确认提交按钮 -->
+    <aside class="inspector-card" aria-label="待提交请求参数与确认提交面板">
+      <div class="inspector-header">
+        <div class="inspector-header-left">
+          <h2>待提交请求 JSON 预览</h2>
+          <span class="inspector-sub" id="endpoint-preview">POST http://localhost:8081/collect/api/v1/track/batch</span>
+        </div>
+        <div class="inspector-actions">
+          <button id="btn-copy-curl" class="amber" type="button" title="复制当前请求体对应的完整 cURL 命令">复制 cURL</button>
+          <label class="batch-toggle" title="勾选后点击左侧事件会追加到当前类型的 events 数组，不勾选则每次只预览当前点击的单条事件">
+            <input type="checkbox" id="chk-append-batch" />
+            多条拼批模式
+          </label>
+          <button id="btn-reset-draft" type="button">重置待发参数</button>
+          <button id="btn-confirm-submit" class="submit-btn" type="button">确认提交</button>
+        </div>
+      </div>
+
+      <div class="json-section">
+        <div class="section-label">
+          <label for="request-json-preview" style="cursor: pointer;">
+            请求体参数 (Request Body JSON · 可手动编辑)
+          </label>
+          <div style="display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span class="hint" id="draft-summary-hint">共 1 条待提交事件</span>
+            <button id="btn-format-request-json" class="mini-btn" type="button" title="格式化当前请求体 JSON">格式化 JSON</button>
+          </div>
+        </div>
+        <textarea
+          class="json-box json-editor"
+          id="request-json-preview"
+          rows="18"
+          spellcheck="false"
+          aria-label="请求体参数 Request Body JSON"
+        >{}</textarea>
+        <div id="request-json-error" class="inline-hint" style="color: #fda4af; margin-top: 2px;"></div>
+      </div>
+
+      <div class="json-section">
+        <div class="section-label">
+          <span>最近一次提交结果 (Response)</span>
+          <span class="hint" id="response-status-hint">尚未提交</span>
+        </div>
+        <div id="response-summary-banner" class="report-summary-banner" style="margin-top: 0; margin-bottom: 6px;">
+          <div class="report-summary-title" id="response-summary-title"></div>
+          <div id="response-summary-text"></div>
+          <div class="event-count-chips" id="response-summary-chips"></div>
+        </div>
+        <pre class="json-box response-box" id="response-json-preview">点击右上角「确认提交」或左侧「生成完整分析模拟事件并立即上报」发送请求。</pre>
+      </div>
+    </aside>
+  </main>
+
+  <script type="module">
+    // 内置轻量内存存储与兜底 SDK（支持离线直接双击打开）
+    class DemoMemoryStorage {
+      constructor() {
+        this.map = new Map();
+      }
+      getItem(k) {
+        return this.map.has(k) ? this.map.get(k) : null;
+      }
+      setItem(k, v) {
+        this.map.set(k, String(v));
+      }
+      removeItem(k) {
+        this.map.delete(k);
+      }
+    }
+
+    class FallbackAbiWebSdk {
+      constructor() {
+        this.superProperties = {};
+        this.dynamicSuperPropsFn = null;
+        this.timers = new Map();
+        this.queue = [];
+        this.distinctId = crypto.randomUUID ? crypto.randomUUID() : 'visitor_' + Math.random().toString(36).slice(2, 10);
+        this.loginId = '';
+      }
+      init(config) {
+        this.config = config;
+        this.storage = config.storage || new DemoMemoryStorage();
+        this.projectId = config.projectId;
+        this.endpoint = config.serverUrl.replace(/\/+$/, '') + '/collect/api/v1/track/batch';
+        this.transport = config.transport;
+        const savedDistinct = this.storage.getItem(`abi_sdk_${this.projectId}_distinct_id`);
+        if (savedDistinct) {
+          this.distinctId = savedDistinct;
+        } else {
+          this.storage.setItem(`abi_sdk_${this.projectId}_distinct_id`, this.distinctId);
+        }
+        this.loginId = this.storage.getItem(`abi_sdk_${this.projectId}_login_id`) || '';
+        this.persistQueue();
+        return this;
+      }
+      persistQueue() {
+        this.storage.setItem(`abi_sdk_${this.projectId}_offline_queue`, JSON.stringify(this.queue));
+      }
+      getDistinctId() { return this.distinctId; }
+      getLoginId() { return this.loginId; }
+      getSuperProperties() { return { ...this.superProperties }; }
+      getQueueLength() { return this.queue.length; }
+      identify(id) {
+        this.distinctId = id.trim();
+        this.storage.setItem(`abi_sdk_${this.projectId}_distinct_id`, this.distinctId);
+      }
+      login(accountId) {
+        this.loginId = accountId.trim();
+        this.storage.setItem(`abi_sdk_${this.projectId}_login_id`, this.loginId);
+      }
+      logout() {
+        this.loginId = '';
+        this.storage.removeItem(`abi_sdk_${this.projectId}_login_id`);
+      }
+      setSuperProperties(props) {
+        this.superProperties = { ...this.superProperties, ...props };
+      }
+      clearSuperProperties() {
+        this.superProperties = {};
+      }
+      setDynamicSuperProperties(fn) {
+        this.dynamicSuperPropsFn = fn;
+      }
+      timeEvent(name) {
+        this.timers.set(name, performance.now());
+      }
+      normalizeProps(props = {}) {
+        const out = {};
+        for (const [k, v] of Object.entries(props)) {
+          if (k === '#time' || k === '$time') continue;
+          if (typeof v === 'bigint') {
+            out[k] = v <= 9007199254740991n && v >= -9007199254740991n ? Number(v) : v.toString();
+          } else if (Array.isArray(v)) {
+            out[k] = v.map((item) => (typeof item === 'bigint' ? item.toString() : item));
+          } else {
+            out[k] = v;
+          }
+        }
+        return out;
+      }
+      track(eventName, properties = {}, options = {}) {
+        const isUser = eventName.startsWith('$user_') || eventName.startsWith('#user_');
+        const merged = isUser
+          ? {}
+          : {
+              $lib: 'abi-web-sdk',
+              $lib_version: '1.0.0',
+              $zone_offset: -(new Date().getTimezoneOffset() / 60),
+              $url: window.location.href,
+              $url_path: window.location.pathname,
+              ...this.superProperties,
+              ...(this.dynamicSuperPropsFn ? this.dynamicSuperPropsFn() : {}),
+            };
+        if (!isUser && this.timers.has(eventName)) {
+          const started = this.timers.get(eventName);
+          this.timers.delete(eventName);
+          merged.$duration = Number(((performance.now() - started) / 1000).toFixed(3));
+        }
+        Object.assign(merged, this.normalizeProps(properties));
+        const eventId = options.eventId || (crypto.randomUUID ? crypto.randomUUID() : 'evt_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7));
+        const ts = options.timestamp && options.timestamp > 0 ? options.timestamp : Date.now();
+        this.queue.push({
+          event_id: eventId,
+          event_name: eventName,
+          distinct_id: this.distinctId,
+          ...(this.loginId ? { login_id: this.loginId } : {}),
+          timestamp: ts,
+          properties: merged,
+        });
+        this.persistQueue();
+        return eventId;
+      }
+      trackFirst() {
+        throw new Error('trackFirst is unsupported in current version (RESTFUL_API.md §3.3 D7① / G6 gate)');
+      }
+      trackUpdate() {
+        throw new Error('trackUpdate is unsupported in current version (RESTFUL_API.md §3.3 D7① / G6 gate)');
+      }
+      trackOverwrite() {
+        throw new Error('trackOverwrite is unsupported in current version (RESTFUL_API.md §3.3 D7① / G6 gate)');
+      }
+      userSet(props) { return this.track('$user_set', props); }
+      userSetOnce(props) { return this.track('$user_set_once', props); }
+      userAdd(props) { return this.track('$user_add', props); }
+      userAppend(props) { return this.track('$user_append', props); }
+      userUniqAppend(props) { return this.track('$user_uniq_append', props); }
+      userUnset(...keys) {
+        const p = {};
+        keys.forEach((k) => { p[k] = ''; });
+        return this.track('$user_unset', p);
+      }
+      userDelete() { return this.track('$user_del', {}); }
+      async flush() {
+        if (!this.queue.length) return true;
+        const batch = this.queue.slice(0);
+        const payload = {
+          project_id: this.config.projectId,
+          project_token: this.config.token,
+          ...(this.config.dryRun ? { dry_run: true } : {}),
+          events: batch,
+        };
+        const res = await this.transport(this.endpoint, { 'Content-Type': 'application/json' }, JSON.stringify(payload));
+        if (res.status >= 200 && res.status < 300) {
+          this.queue = [];
+          this.persistQueue();
+          return true;
+        }
+        return false;
+      }
+      destroy() {}
+    }
+
+    let SdkClass = FallbackAbiWebSdk;
+    const badgeEl = document.getElementById('sdk-source-badge');
+    try {
+      const mod = await import('../dist/index.js');
+      if (mod && mod.AbiWebSdk) {
+        SdkClass = mod.AbiWebSdk;
+        badgeEl.textContent = '已加载 ../dist/index.js';
+      }
+    } catch {
+      badgeEl.textContent = '内置兜底 SDK（执行 pnpm run build 可加载 dist/index.js）';
+    }
+
+    // 随机辅助工具
+    const pickOne = (arr) => arr[Math.floor(Math.random() * arr.length)];
+    const randInt = (min, max) => Math.floor(min + Math.random() * (max - min + 1));
+    const randFloat = (min, max, digits = 2) => Number((min + Math.random() * (max - min)).toFixed(digits));
+    const randToken = (len = 4) => Math.random().toString(36).slice(2, 2 + len);
+
+    const CHANNELS = ['organic_search', 'wechat_ads', 'douyin_live', 'app_store', 'search_sem', 'kol_referral', 'email_edm'];
+    const AB_GROUPS = ['checkout_fast_v2', 'pricing_pro_b', 'smart_rec_exp', 'control_group_a', 'landing_hero_c'];
+    const CITIES = ['Shanghai', 'Beijing', 'Shenzhen', 'Hangzhou', 'Guangzhou', 'Chengdu', 'Suzhou'];
+    const PROVINCES = ['Shanghai', 'Beijing', 'Guangdong', 'Zhejiang', 'Sichuan', 'Jiangsu'];
+    const OS_LIST = ['iOS', 'Android', 'macOS', 'Windows'];
+    const NETWORKS = ['wifi', '5g', '4g'];
+    const BROWSERS = ['Chrome', 'Safari', 'Edge', 'Firefox'];
+    const KEYWORDS = ['无线机械键盘', '4K显示器', '人体工学椅', 'Type-C扩展坞', '降噪耳机', 'AI数据分析'];
+    const PRODUCTS = [
+      { id: 'sku_kb_pro', name: 'ABI 无线双模机械键盘 Pro', price: 299.0 },
+      { id: 'sku_mouse_air', name: 'ABI 轻量化电竞鼠标 Air', price: 189.0 },
+      { id: 'sku_hub_10in1', name: 'ABI 雷电4 十合一扩展坞', price: 359.0 },
+      { id: 'sku_monitor_4k', name: 'ABI 27寸 4K Designer 显示器', price: 1899.0 },
+      { id: 'sku_headset_anc', name: 'ABI 空间音频主动降噪耳机', price: 599.0 },
+    ];
+    const PAGE_TITLES = ['商城首页', '限时秒杀专区', '商品分类列表', '商品详情页', '购物车结算页', '会员中心'];
+    const FEATURE_FLAGS = ['ai_copilot', 'one_click_pay', 'realtime_bi', 'smart_cohort', 'dark_chart', 'fast_refund'];
+
+    // 生成随机静态公共属性（包含随机业务公共参数 + 随机自定义参数名与多类型值）
+    function generateRandomSuperProperties() {
+      const poolGenerators = [
+        ['channel', () => pickOne(CHANNELS)],
+        ['ab_group', () => pickOne(AB_GROUPS)],
+        ['$city', () => pickOne(CITIES)],
+        ['$province', () => pickOne(PROVINCES)],
+        ['$os', () => pickOne(OS_LIST)],
+        ['$network', () => pickOne(NETWORKS)],
+        ['$browser', () => pickOne(BROWSERS)],
+        ['app_theme', () => pickOne(['dark', 'light', 'system_auto'])],
+        ['membership_tier', () => pickOne(['free', 'silver', 'gold', 'diamond', 'enterprise'])],
+        ['traffic_score', () => randFloat(15, 99.5, 2)],
+        ['session_seq', () => randInt(1, 35)],
+        ['is_new_visitor', () => Math.random() > 0.5],
+        ['feature_flags', () => {
+          const first = pickOne(FEATURE_FLAGS);
+          const second = pickOne(FEATURE_FLAGS.filter((x) => x !== first));
+          return [first, second];
+        }],
+      ];
+
+      // 随机打乱并抽取 3~5 个标准业务公共属性
+      const shuffled = [...poolGenerators].sort(() => Math.random() - 0.5);
+      const selectedCount = randInt(3, 5);
+      const result = {};
+      for (let i = 0; i < selectedCount; i++) {
+        const [k, fn] = shuffled[i];
+        result[k] = fn();
+      }
+
+      // 额外生成 1~2 个完全随机的参数名与随机类型值
+      const customKeyCount = randInt(1, 2);
+      for (let i = 0; i < customKeyCount; i++) {
+        const keyPrefix = pickOne(['custom_tag', 'exp_bucket', 'scene_attr', 'campaign_var', 'client_flag']);
+        const key = `${keyPrefix}_${randToken(3)}`;
+        const valType = randInt(0, 3);
+        if (valType === 0) {
+          result[key] = `${pickOne(['v', 'grp', 'node', 'src'])}_${randToken(4)}`;
+        } else if (valType === 1) {
+          result[key] = randInt(10, 999);
+        } else if (valType === 2) {
+          result[key] = randFloat(0.1, 9.9, 2);
+        } else {
+          result[key] = Math.random() > 0.5;
+        }
+      }
+      return result;
+    }
+
+    // 生成单项随机公共属性键值
+    function generateSingleRandomSuperPair(existingObj = {}) {
+      const candidateKeys = [
+        ['channel', () => pickOne(CHANNELS)],
+        ['ab_group', () => pickOne(AB_GROUPS)],
+        ['$city', () => pickOne(CITIES)],
+        ['$network', () => pickOne(NETWORKS)],
+        ['$os', () => pickOne(OS_LIST)],
+        ['traffic_score', () => randFloat(10, 99, 2)],
+        ['is_canary', () => Math.random() > 0.5],
+      ].filter(([k]) => !(k in existingObj));
+
+      if (candidateKeys.length > 0 && Math.random() > 0.45) {
+        const [k, fn] = pickOne(candidateKeys);
+        return [k, fn()];
+      }
+      const randKey = `${pickOne(['custom_attr', 'rand_prop', 'ext_tag', 'ab_slot'])}_${randToken(3)}`;
+      const randVal = pickOne([
+        `val_${randToken(4)}`,
+        randInt(1, 500),
+        randFloat(1.0, 99.9, 2),
+        Math.random() > 0.5,
+        [pickOne(FEATURE_FLAGS), `tag_${randToken(3)}`],
+      ]);
+      return [randKey, randVal];
+    }
+
+    // 核心演练场状态
+    let sdk = null;
+    let storage = new DemoMemoryStorage();
+    let dynamicEnabled = false;
+    let dynamicSequence = 1;
+    let dynamicSnapshot = {
+      network_type: 'wifi',
+      latency_ms: 24,
+      dyn_nonce: 'n_init',
+    };
+    let mutableOrderEventId = 'ord_mutable_2026_001';
+    let lastTimedDurationSec = null;
+
+    // 二选一模式：'event'（行为事件上报） | 'user'（用户画像上报 $user_*）
+    let currentReportMode = 'event';
+
+    const DEFAULT_EVENT_DRAFT_ACTION = () => {
+      const prod = pickOne(PRODUCTS);
+      return {
+        category: 'event',
+        label: 'ViewProduct',
+        apply: (instance) => {
+          instance.track('ViewProduct', {
+            product_id: prod.id,
+            sku_name: prod.name,
+            price: prod.price,
+            in_stock: true,
+          });
+        },
+      };
+    };
+
+    const DEFAULT_USER_DRAFT_ACTION = () => {
+      const city = pickOne(CITIES);
+      const ch = pickOne(CHANNELS);
+      return {
+        category: 'user',
+        label: 'userSet',
+        apply: (instance) => {
+          instance.userSet({
+            is_vip: true,
+            gender: pickOne(['male', 'female']),
+            register_channel: ch,
+            city,
+          });
+        },
+      };
+    };
+
+    let stagedActions = [DEFAULT_EVENT_DRAFT_ACTION()];
+
+    function getFormConfig() {
+      const serverUrl = (document.getElementById('cfg-server-url').value.trim() || 'http://localhost:8081').replace(/\/+$/, '');
+      const projectId = Number(document.getElementById('cfg-project-id').value) || 1;
+      const token = document.getElementById('cfg-token').value.trim() || 'abi_tok_playground_demo_001';
+      const sendMode = document.getElementById('cfg-send-mode').value;
+      const endpoint = serverUrl.endsWith('/collect/api/v1/track/batch')
+        ? serverUrl
+        : `${serverUrl}/collect/api/v1/track/batch`;
+      return { serverUrl, endpoint, projectId, token, sendMode };
+    }
+
+    function getDynamicSuperPropsObject() {
+      if (!dynamicEnabled) return {};
+      return {
+        dyn_sequence: dynamicSequence,
+        viewport_width: window.innerWidth,
+        $network: dynamicSnapshot.network_type,
+        latency_ms: dynamicSnapshot.latency_ms,
+        dyn_nonce: dynamicSnapshot.dyn_nonce,
+      };
+    }
+
+    function applyDynamicSuperPropsState() {
+      if (!sdk) return;
+      const btn = document.getElementById('btn-super-dynamic');
+      if (dynamicEnabled) {
+        sdk.setDynamicSuperProperties(() => getDynamicSuperPropsObject());
+        btn.textContent = '启用动态公共属性：开 (含随机延迟/网络/序号)';
+        btn.classList.add('emerald');
+      } else {
+        sdk.setDynamicSuperProperties(() => ({}));
+        btn.textContent = '启用动态公共属性：关';
+        btn.classList.remove('emerald');
+      }
+    }
+
+    function autoResizeSuperTextarea() {
+      const el = document.getElementById('input-super-json');
+      if (!el) return;
+      el.style.height = 'auto';
+      const nextHeight = Math.min(Math.max(el.scrollHeight + 6, 190), 380);
+      el.style.height = `${nextHeight}px`;
+    }
+
+    function readCurrentSuperPropsFromTextarea() {
+      const rawText = (document.getElementById('input-super-json')?.value || '').trim();
+      if (!rawText) return {};
+      try {
+        const parsed = JSON.parse(rawText);
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+          return parsed;
+        }
+      } catch {
+        // 保持上一次有效值
+      }
+      return sdk ? sdk.getSuperProperties() : {};
+    }
+
+    function readQueuedEventsFromStorage(projectId) {
+      const raw = storage.getItem(`abi_sdk_${projectId}_offline_queue`);
+      if (!raw) return [];
+      try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+
+    // 统计批次内各事件名称的条数并生成「上报了 XX 事件几条，YY 事件几条」文案
+    function summarizeEventsByCount(events = []) {
+      const counts = new Map();
+      for (const ev of events) {
+        const name = (ev && ev.event_name) ? String(ev.event_name) : 'UnknownEvent';
+        counts.set(name, (counts.get(name) || 0) + 1);
+      }
+      const entries = Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
+      const detailParts = entries.map(([name, count], idx) =>
+        idx === 0 ? `上报了 ${name} 事件 ${count} 条` : `${name} 事件 ${count} 条`
+      );
+      const shortParts = entries.map(([name, count]) => `${name} ${count} 条`);
+      return {
+        total: events.length,
+        entries,
+        countsObj: Object.fromEntries(entries),
+        detailSentence: detailParts.join('，'),
+        shortSentence: shortParts.join('、'),
+      };
+    }
+
+    function renderBreakdownBanner(prefixId, summary, isError = false, errorMsg = '') {
+      const bannerEl = document.getElementById(`${prefixId}-banner`);
+      const titleEl = document.getElementById(`${prefixId}-title`);
+      const textEl = document.getElementById(`${prefixId}-text`);
+      const chipsEl = document.getElementById(`${prefixId}-chips`);
+      if (!bannerEl) return;
+
+      bannerEl.classList.add('visible');
+      bannerEl.classList.toggle('error', isError);
+      chipsEl.innerHTML = '';
+
+      if (isError) {
+        titleEl.textContent = '❌ 上报失败';
+        textEl.textContent = errorMsg;
+        return;
+      }
+
+      titleEl.textContent = `✅ 上报成功（共 ${summary.total} 条事件）`;
+      textEl.textContent = summary.detailSentence;
+      for (const [name, count] of summary.entries) {
+        const chip = document.createElement('span');
+        chip.className = 'event-count-chip';
+        chip.textContent = `${name}: ${count} 条`;
+        chipsEl.appendChild(chip);
+      }
+    }
+
+    const requestPreviewEl = document.getElementById('request-json-preview');
+    const requestJsonErrEl = document.getElementById('request-json-error');
+    let isManualJsonEdited = false;
+    let lastAppliedSuperKeys = new Set();
+
+    function clearRequestJsonError() {
+      requestJsonErrEl.textContent = '';
+      requestJsonErrEl.classList.remove('visible');
+      requestPreviewEl.classList.remove('invalid');
+    }
+
+    function showRequestJsonError(msg) {
+      requestJsonErrEl.textContent = msg;
+      requestJsonErrEl.classList.add('visible');
+      requestPreviewEl.classList.add('invalid');
+    }
+
+    function parseRequestEditorPayload() {
+      const rawText = requestPreviewEl.value.trim();
+      if (!rawText) {
+        return { ok: false, error: '请求体 JSON 不能为空' };
+      }
+      let parsed;
+      try {
+        parsed = JSON.parse(rawText);
+      } catch (err) {
+        return { ok: false, error: `JSON 语法错误：${err.message || String(err)}` };
+      }
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+        return { ok: false, error: '请求体顶层必须是 JSON 对象（包含 project_id、project_token、events）' };
+      }
+      if (!Array.isArray(parsed.events)) {
+        return { ok: false, error: '请求体必须包含数组类型的 events 字段' };
+      }
+      return { ok: true, rawText, payload: parsed };
+    }
+
+    function writeFormattedPayloadKeepManualFlag(payloadObj) {
+      const events = Array.isArray(payloadObj.events) ? payloadObj.events : [];
+      const summary = summarizeEventsByCount(events);
+      clearRequestJsonError();
+      requestPreviewEl.value = JSON.stringify(payloadObj, null, 2);
+      document.getElementById('draft-summary-hint').textContent =
+        events.length > 0
+          ? `已手动编辑 · 共 ${events.length} 条待提交（${summary.shortSentence}）`
+          : '已手动编辑 · 共 0 条待提交事件';
+      document.getElementById('btn-confirm-submit').disabled = events.length === 0;
+    }
+
+    // 根据当前身份 + 静态/动态公共属性 + 已选事件规格，重算唯一一份待提交请求体 JSON
+    function rebuildDraftRequestPreview() {
+      const cfg = getFormConfig();
+      const savedSuper = readCurrentSuperPropsFromTextarea();
+      const dynSuper = getDynamicSuperPropsObject();
+
+      isManualJsonEdited = false;
+      clearRequestJsonError();
+      lastAppliedSuperKeys = new Set([...Object.keys(savedSuper), ...Object.keys(dynSuper)]);
+
+      // 清空离线队列并重放当前待提交动作，使最新的公共属性/身份实时体现在待提交请求 JSON 中
+      storage.setItem(`abi_sdk_${cfg.projectId}_offline_queue`, '[]');
+      if (sdk && typeof sdk.destroy === 'function') {
+        sdk.destroy();
+      }
+
+      sdk = new SdkClass();
+      sdk.init({
+        serverUrl: cfg.serverUrl,
+        projectId: cfg.projectId,
+        token: cfg.token,
+        appVersion: '3.4.0-playground',
+        maxBatchSize: 500,
+        maxQueueSize: 1000,
+        flushIntervalMs: 3600000, // 禁用后台定时自动发送，由点击上报按钮触发
+        dryRun: cfg.sendMode === 'dry_run',
+        storage,
+        transport: executePlaygroundTransport,
+      });
+
+      if (Object.keys(savedSuper).length > 0) {
+        sdk.setSuperProperties(savedSuper);
+      }
+      applyDynamicSuperPropsState();
+
+      for (const item of stagedActions) {
+        item.apply(sdk);
+      }
+
+      // 将静态与动态公共属性合入非 $user_*/#user_* 行为事件的 properties 中，保持用户画像事件严格隔离
+      const queuedEvents = readQueuedEventsFromStorage(cfg.projectId).map((ev) => {
+        const evName = ev && typeof ev.event_name === 'string' ? ev.event_name : '';
+        const isUserProfileOp = evName.startsWith('$user_') || evName.startsWith('#user_');
+        return {
+          ...ev,
+          properties: isUserProfileOp
+            ? { ...(ev && ev.properties ? ev.properties : {}) }
+            : {
+                ...savedSuper,
+                ...dynSuper,
+                ...(ev && ev.properties ? ev.properties : {}),
+              },
+        };
+      });
+      storage.setItem(`abi_sdk_${cfg.projectId}_offline_queue`, JSON.stringify(queuedEvents));
+      if (Array.isArray(sdk.queue)) {
+        sdk.queue = queuedEvents;
+      }
+
+      const summary = summarizeEventsByCount(queuedEvents);
+      const requestBody = {
+        project_id: cfg.projectId,
+        project_token: cfg.token,
+        ...(cfg.sendMode === 'dry_run' ? { dry_run: true } : {}),
+        events: queuedEvents,
+      };
+
+      document.getElementById('endpoint-preview').textContent = `POST ${cfg.endpoint}`;
+      requestPreviewEl.value = JSON.stringify(requestBody, null, 2);
+      document.getElementById('draft-summary-hint').textContent =
+        queuedEvents.length > 0
+          ? `共 ${queuedEvents.length} 条待提交（${summary.shortSentence}）`
+          : '共 0 条待提交事件';
+      document.getElementById('btn-confirm-submit').disabled = queuedEvents.length === 0;
+
+      // 刷新顶部身份状态栏
+      document.getElementById('st-distinct-id').textContent = sdk.getDistinctId();
+      document.getElementById('st-login-id').textContent = sdk.getLoginId() || '(未登录)';
+      autoResizeSuperTextarea();
+    }
+
+    async function executePlaygroundTransport(url, headers, body) {
+      const cfg = getFormConfig();
+      const parsed = JSON.parse(body);
+      const events = Array.isArray(parsed.events) ? parsed.events : [];
+      const summary = summarizeEventsByCount(events);
+      const respBox = document.getElementById('response-json-preview');
+      const respHint = document.getElementById('response-status-hint');
+      const nowStr = new Date().toLocaleTimeString();
+
+      if (cfg.sendMode === 'mock') {
+        const mockResp = {
+          code: 200,
+          message: `success (${summary.detailSentence})`,
+          data: {
+            accepted: events.length,
+            rejected: 0,
+            dry_run: false,
+            report_summary: summary.detailSentence,
+            event_counts: summary.countsObj,
+          },
+        };
+        respBox.classList.remove('error');
+        respHint.textContent = `本地 Mock 200 OK · ${nowStr}`;
+        respBox.textContent = JSON.stringify(mockResp, null, 2);
+        renderBreakdownBanner('response-summary', summary, false);
+        return { status: 200, bodyText: JSON.stringify(mockResp) };
+      }
+
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers,
+          body,
+          keepalive: new Blob([body]).size < 60000,
+        });
+        const text = await res.text();
+        let displayPayload = text;
+        const isOk = res.status >= 200 && res.status < 300;
+        try {
+          const jsonResp = JSON.parse(text);
+          displayPayload = JSON.stringify(
+            {
+              ...jsonResp,
+              report_summary: summary.detailSentence,
+              event_counts: summary.countsObj,
+            },
+            null,
+            2
+          );
+        } catch {
+          displayPayload = `${summary.detailSentence}\n\n${text}`;
+        }
+        respBox.classList.toggle('error', !isOk);
+        const modeLabel = cfg.sendMode === 'dry_run' ? 'Dry-Run 校验' : '正式上报';
+        respHint.textContent = `${modeLabel} · HTTP ${res.status} · ${nowStr}`;
+        respBox.textContent = displayPayload;
+        renderBreakdownBanner(
+          'response-summary',
+          summary,
+          !isOk,
+          `网关返回 HTTP ${res.status}：${text}`
+        );
+        return { status: res.status, bodyText: text };
+      } catch (err) {
+        const errMsg = `无法连接采集网关 ${url}：${String(err)}（提示：若本地未启动 :8081 网关，可将顶部模式切换为「本地 Mock 模拟」）。`;
+        respBox.classList.add('error');
+        respHint.textContent = `网络请求失败 · ${nowStr}`;
+        respBox.textContent = errMsg;
+        renderBreakdownBanner('response-summary', summary, true, errMsg);
+        throw err;
+      }
+    }
+
+    // 切换「行为事件上报」与「用户画像上报 ($user_*)」二选一模式
+    function setReportCategoryMode(mode, keepStagedIfMatching = false) {
+      currentReportMode = mode === 'user' ? 'user' : 'event';
+      const tabEvent = document.getElementById('tab-mode-event');
+      const tabUser = document.getElementById('tab-mode-user');
+      const panelEvent = document.getElementById('panel-mode-event');
+      const panelUser = document.getElementById('panel-mode-user');
+      const subEl = document.getElementById('mode-active-sub');
+
+      const isEvent = currentReportMode === 'event';
+      tabEvent.classList.toggle('active', isEvent);
+      tabEvent.setAttribute('aria-selected', String(isEvent));
+      tabUser.classList.toggle('active', !isEvent);
+      tabUser.setAttribute('aria-selected', String(!isEvent));
+
+      panelEvent.classList.toggle('active', isEvent);
+      panelUser.classList.toggle('active', !isEvent);
+      subEl.textContent = isEvent
+        ? '当前：行为事件上报 (abi.dwd_events)'
+        : '当前：用户画像上报 (abi.dim_users)';
+
+      if (!keepStagedIfMatching) {
+        document.querySelectorAll('.groups-col button.selected-action').forEach((el) => {
+          el.classList.remove('selected-action');
+        });
+        if (isEvent) {
+          stagedActions = [DEFAULT_EVENT_DRAFT_ACTION()];
+          document.getElementById('btn-track-product').classList.add('selected-action');
+        } else {
+          stagedActions = [DEFAULT_USER_DRAFT_ACTION()];
+          document.getElementById('btn-user-set').classList.add('selected-action');
+        }
+        rebuildDraftRequestPreview();
+      }
+    }
+
+    function stageEventAction(actionSpec, sourceButton) {
+      const targetCategory = actionSpec.category || 'event';
+      if (targetCategory === 'event' || targetCategory === 'user') {
+        if (currentReportMode !== targetCategory) {
+          setReportCategoryMode(targetCategory, true);
+        }
+      }
+
+      const appendMode = document.getElementById('chk-append-batch').checked;
+      // 二选一约束：即使在多条拼批模式下，也不混入另一类型的事件
+      const compatibleExisting = stagedActions.filter((item) => item.category === targetCategory);
+      if (appendMode && compatibleExisting.length > 0) {
+        stagedActions = [...compatibleExisting, actionSpec];
+      } else {
+        stagedActions = [actionSpec];
+      }
+
+      document.querySelectorAll('.groups-col button.selected-action').forEach((el) => {
+        el.classList.remove('selected-action');
+      });
+      if (sourceButton) {
+        sourceButton.classList.add('selected-action');
+      }
+      rebuildDraftRequestPreview();
+    }
+
+    // 顶部配置变更即时刷新请求预览（若右侧已手动编辑 JSON，则仅同步顶层配置字段，保留手动编辑的 events 内容）
+    function syncTopConfigToRequestPreview() {
+      const cfg = getFormConfig();
+      document.getElementById('endpoint-preview').textContent = `POST ${cfg.endpoint}`;
+      if (!isManualJsonEdited) {
+        rebuildDraftRequestPreview();
+        return;
+      }
+      const parsedResult = parseRequestEditorPayload();
+      if (!parsedResult.ok) {
+        return;
+      }
+      const rest = { ...parsedResult.payload };
+      delete rest.project_id;
+      delete rest.project_token;
+      delete rest.dry_run;
+      const events = rest.events;
+      delete rest.events;
+      const updated = {
+        project_id: cfg.projectId,
+        project_token: cfg.token,
+        ...(cfg.sendMode === 'dry_run' ? { dry_run: true } : {}),
+        ...rest,
+        events,
+      };
+      writeFormattedPayloadKeepManualFlag(updated);
+    }
+
+    ['cfg-server-url', 'cfg-project-id', 'cfg-token', 'cfg-send-mode'].forEach((id) => {
+      document.getElementById(id).addEventListener('change', () => syncTopConfigToRequestPreview());
+      document.getElementById(id).addEventListener('input', () => syncTopConfigToRequestPreview());
+    });
+
+    document.getElementById('btn-init-sdk').addEventListener('click', () => {
+      storage = new DemoMemoryStorage();
+      dynamicEnabled = false;
+      dynamicSequence = 1;
+      setReportCategoryMode('event', false);
+      document.getElementById('response-status-hint').textContent = 'SDK 已重置';
+      document.getElementById('response-json-preview').classList.remove('error');
+      document.getElementById('response-json-preview').textContent = '已重新生成访客标识 (distinct_id) 并重置待发参数，点击「确认提交」即可发送。';
+    });
+
+    function ensureDraftIfEmpty() {
+      if (stagedActions.length === 0) {
+        if (currentReportMode === 'user') {
+          stagedActions = [DEFAULT_USER_DRAFT_ACTION()];
+          document.getElementById('btn-user-set').classList.add('selected-action');
+        } else {
+          stagedActions = [DEFAULT_EVENT_DRAFT_ACTION()];
+          document.getElementById('btn-track-product').classList.add('selected-action');
+        }
+      }
+    }
+
+    function syncIdentityToRequestPreview() {
+      document.getElementById('st-distinct-id').textContent = sdk.getDistinctId();
+      document.getElementById('st-login-id').textContent = sdk.getLoginId() || '(未登录)';
+      if (isManualJsonEdited) {
+        const parsedResult = parseRequestEditorPayload();
+        if (parsedResult.ok && parsedResult.payload.events.length > 0) {
+          const nextDistinct = sdk.getDistinctId();
+          const nextLogin = sdk.getLoginId();
+          const nextEvents = parsedResult.payload.events.map((ev) => {
+            if (!ev || typeof ev !== 'object' || Array.isArray(ev)) return ev;
+            const copy = { ...ev, distinct_id: nextDistinct };
+            if (nextLogin) {
+              copy.login_id = nextLogin;
+            } else {
+              delete copy.login_id;
+            }
+            return copy;
+          });
+          writeFormattedPayloadKeepManualFlag({
+            ...parsedResult.payload,
+            events: nextEvents,
+          });
+          return;
+        }
+      }
+      ensureDraftIfEmpty();
+      rebuildDraftRequestPreview();
+    }
+
+    function syncSuperPropsToRequestPreview() {
+      autoResizeSuperTextarea();
+      if (isManualJsonEdited) {
+        const parsedResult = parseRequestEditorPayload();
+        if (parsedResult.ok && parsedResult.payload.events.length > 0) {
+          const savedSuper = readCurrentSuperPropsFromTextarea();
+          const dynSuper = getDynamicSuperPropsObject();
+          applyDynamicSuperPropsState();
+          const nextSuper = { ...savedSuper, ...dynSuper };
+          const nextEvents = parsedResult.payload.events.map((ev) => {
+            if (!ev || typeof ev !== 'object' || Array.isArray(ev)) return ev;
+            const evName = typeof ev.event_name === 'string' ? ev.event_name : '';
+            const isUserProfileOp = evName.startsWith('$user_') || evName.startsWith('#user_');
+            if (isUserProfileOp) return ev;
+            const prevProps = ev.properties && typeof ev.properties === 'object' && !Array.isArray(ev.properties)
+              ? { ...ev.properties }
+              : {};
+            for (const oldKey of lastAppliedSuperKeys) {
+              if (!(oldKey in nextSuper)) {
+                delete prevProps[oldKey];
+              }
+            }
+            return {
+              ...ev,
+              properties: {
+                ...prevProps,
+                ...nextSuper,
+              },
+            };
+          });
+          lastAppliedSuperKeys = new Set(Object.keys(nextSuper));
+          writeFormattedPayloadKeepManualFlag({
+            ...parsedResult.payload,
+            events: nextEvents,
+          });
+          return;
+        }
+      }
+      ensureDraftIfEmpty();
+      rebuildDraftRequestPreview();
+    }
+
+    // 1. 身份与会话参数（纯本地状态变更，不触发额外网络事件，即时刷新右侧待发请求中的 distinct_id / login_id）
+    document.getElementById('btn-identify').addEventListener('click', () => {
+      const customVisitor = `visitor_${randToken(4)}_${randInt(1000, 9999)}`;
+      sdk.identify(customVisitor);
+      syncIdentityToRequestPreview();
+    });
+
+    document.getElementById('btn-login').addEventListener('click', () => {
+      const acctId = `user_${randInt(10001, 19999)}`;
+      sdk.login(acctId);
+      syncIdentityToRequestPreview();
+    });
+
+    document.getElementById('btn-logout').addEventListener('click', () => {
+      sdk.logout();
+      syncIdentityToRequestPreview();
+    });
+
+    // 2. 公共属性管理（支持一键随机生成公共参数名与多类型值）
+    const superPropErrEl = document.getElementById('super-prop-error');
+
+    function applySuperPropertiesFromTextarea() {
+      const rawText = document.getElementById('input-super-json').value.trim();
+      try {
+        const parsed = rawText ? JSON.parse(rawText) : {};
+        if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+          throw new Error('请输入合法的 JSON 对象，例如 {"channel": "web"}');
+        }
+        superPropErrEl.classList.remove('visible');
+        sdk.clearSuperProperties();
+        sdk.setSuperProperties(parsed);
+        syncSuperPropsToRequestPreview();
+      } catch (err) {
+        superPropErrEl.textContent = `静态公共属性 JSON 格式有误：${err.message || String(err)}`;
+        superPropErrEl.classList.add('visible');
+      }
+    }
+
+    document.getElementById('btn-super-random').addEventListener('click', () => {
+      const randomProps = generateRandomSuperProperties();
+      document.getElementById('input-super-json').value = JSON.stringify(randomProps, null, 2);
+      applySuperPropertiesFromTextarea();
+    });
+
+    document.getElementById('btn-super-add-random').addEventListener('click', () => {
+      let currentObj = {};
+      try {
+        const raw = document.getElementById('input-super-json').value.trim();
+        const parsed = raw ? JSON.parse(raw) : {};
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+          currentObj = parsed;
+        }
+      } catch {
+        currentObj = {};
+      }
+      const [newKey, newVal] = generateSingleRandomSuperPair(currentObj);
+      currentObj[newKey] = newVal;
+      document.getElementById('input-super-json').value = JSON.stringify(currentObj, null, 2);
+      applySuperPropertiesFromTextarea();
+    });
+
+    document.getElementById('btn-super-static').addEventListener('click', () => {
+      applySuperPropertiesFromTextarea();
+    });
+
+    document.getElementById('input-super-json').addEventListener('input', () => {
+      autoResizeSuperTextarea();
+      const rawText = document.getElementById('input-super-json').value.trim();
+      try {
+        const parsed = rawText ? JSON.parse(rawText) : {};
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+          superPropErrEl.classList.remove('visible');
+          sdk.clearSuperProperties();
+          sdk.setSuperProperties(parsed);
+          syncSuperPropsToRequestPreview();
+        }
+      } catch {
+        // 编辑中途未闭合 JSON 时仅调整高度，点击应用时提示具体语法错误
+      }
+    });
+
+    document.getElementById('btn-super-dynamic').addEventListener('click', () => {
+      dynamicEnabled = !dynamicEnabled;
+      if (dynamicEnabled) {
+        dynamicSequence += 1;
+        dynamicSnapshot = {
+          network_type: pickOne(NETWORKS),
+          latency_ms: randInt(12, 185),
+          dyn_nonce: `dyn_${randToken(5)}`,
+        };
+      }
+      syncSuperPropsToRequestPreview();
+    });
+
+    document.getElementById('btn-super-clear').addEventListener('click', () => {
+      superPropErrEl.classList.remove('visible');
+      dynamicEnabled = false;
+      document.getElementById('input-super-json').value = '{}';
+      sdk.clearSuperProperties();
+      syncSuperPropsToRequestPreview();
+    });
+
+    // 3. 事件上报 vs 用户画像上报 二选一切换监听
+    document.getElementById('tab-mode-event').addEventListener('click', () => {
+      if (currentReportMode !== 'event') {
+        setReportCategoryMode('event', false);
+      }
+    });
+
+    document.getElementById('tab-mode-user').addEventListener('click', () => {
+      if (currentReportMode !== 'user') {
+        setReportCategoryMode('user', false);
+      }
+    });
+
+    // 3A. 行为事件参数构建
+    let timerStartedAtMs = null;
+    const timerHintEl = document.getElementById('timer-active-hint');
+
+    document.getElementById('btn-track-product').addEventListener('click', (ev) => {
+      stageEventAction(DEFAULT_EVENT_DRAFT_ACTION(), ev.currentTarget);
+    });
+
+    document.getElementById('btn-track-purchase').addEventListener('click', (ev) => {
+      const prod = pickOne(PRODUCTS);
+      const qty = randInt(1, 3);
+      stageEventAction({
+        category: 'event',
+        label: 'Purchase',
+        apply: (instance) => {
+          instance.track('Purchase', {
+            product_id: prod.id,
+            sku_name: prod.name,
+            quantity: qty,
+            amount: Number((prod.price * qty).toFixed(2)),
+            channel: pickOne(CHANNELS),
+          });
+        },
+      }, ev.currentTarget);
+    });
+
+    document.getElementById('btn-time-start').addEventListener('click', () => {
+      timerStartedAtMs = performance.now();
+      timerHintEl.classList.add('visible');
+    });
+
+    document.getElementById('btn-time-end').addEventListener('click', (ev) => {
+      const durationSec = timerStartedAtMs !== null
+        ? Math.max(0, Number(((performance.now() - timerStartedAtMs) / 1000).toFixed(3)))
+        : randFloat(1.2, 8.5, 3);
+      timerStartedAtMs = null;
+      timerHintEl.classList.remove('visible');
+      lastTimedDurationSec = durationSec;
+      const prod = pickOne(PRODUCTS);
+
+      stageEventAction({
+        category: 'event',
+        label: 'PaySuccess($duration)',
+        apply: (instance) => {
+          mutableOrderEventId = instance.track('PaySuccess', {
+            $duration: lastTimedDurationSec,
+            product_id: prod.id,
+            amount: prod.price,
+            payment_method: pickOne(['apple_pay', 'wechat_pay', 'alipay', 'credit_card']),
+          });
+        },
+      }, ev.currentTarget);
+    });
+
+    document.getElementById('btn-track-idempotent').addEventListener('click', (ev) => {
+      const fixedId = `evt_checkout_idem_${randInt(100, 999)}`;
+      stageEventAction({
+        category: 'event',
+        label: 'CheckoutStart(eventId)',
+        apply: (instance) => {
+          instance.track('CheckoutStart', {
+            coupon_code: pickOne(['WELCOME_ABI', 'VIP_DISCOUNT_50', 'NEW_USER_20']),
+            amount: randFloat(99, 599, 2),
+          }, { eventId: fixedId });
+        },
+      }, ev.currentTarget);
+    });
+
+    document.getElementById('btn-track-bigint').addEventListener('click', (ev) => {
+      const prod = pickOne(PRODUCTS);
+      stageEventAction({
+        category: 'event',
+        label: 'Purchase(BigInt)',
+        apply: (instance) => {
+          instance.track('Purchase', {
+            order_id: 9007199254740993n,
+            snowflake_trace_id: 1844674407370955161n,
+            product_id: prod.id,
+            amount: prod.price,
+            items: [prod.id, 2, true, 9007199254740995n],
+          });
+        },
+      }, ev.currentTarget);
+    });
+
+    // 3B. 用户画像属性操作 ($user_*)
+    document.getElementById('btn-user-set').addEventListener('click', (ev) => {
+      stageEventAction(DEFAULT_USER_DRAFT_ACTION(), ev.currentTarget);
+    });
+
+    document.getElementById('btn-user-set-once').addEventListener('click', (ev) => {
+      const ch = pickOne(CHANNELS);
+      stageEventAction({
+        category: 'user',
+        label: 'userSetOnce',
+        apply: (instance) => instance.userSetOnce({ register_channel: ch }),
+      }, ev.currentTarget);
+    });
+
+    document.getElementById('btn-user-add').addEventListener('click', (ev) => {
+      const delta = pickOne([20, 50, 100, 200]);
+      stageEventAction({
+        category: 'user',
+        label: 'userAdd',
+        apply: (instance) => instance.userAdd({ loyalty_points: delta }),
+      }, ev.currentTarget);
+    });
+
+    document.getElementById('btn-user-append').addEventListener('click', (ev) => {
+      const tagPair = [pickOne(['analytics', 'bi_user', 'power_buyer']), pickOne(['starrocks', 'realtime', 'mobile_vip'])];
+      stageEventAction({
+        category: 'user',
+        label: 'userAppend',
+        apply: (instance) => instance.userAppend({ tags: tagPair }),
+      }, ev.currentTarget);
+    });
+
+    document.getElementById('btn-user-uniq-append').addEventListener('click', (ev) => {
+      stageEventAction({
+        category: 'user',
+        label: 'userUniqAppend',
+        apply: (instance) => instance.userUniqAppend({ tags: ['early_adopter', 'verified_analyst'] }),
+      }, ev.currentTarget);
+    });
+
+    document.getElementById('btn-user-unset').addEventListener('click', (ev) => {
+      stageEventAction({
+        category: 'user',
+        label: 'userUnset',
+        apply: (instance) => instance.userUnset('city'),
+      }, ev.currentTarget);
+    });
+
+    document.getElementById('btn-user-delete').addEventListener('click', (ev) => {
+      stageEventAction({
+        category: 'user',
+        label: 'userDelete',
+        apply: (instance) => instance.userDelete(),
+      }, ev.currentTarget);
+    });
+
+    // 4. 多分析模型完整模拟数据生成与一键上报
+    function buildFullAnalyticsSimulationAction() {
+      const checkedModels = Array.from(document.querySelectorAll('.chk-sim-model:checked')).map((el) => el.value);
+      const activeModels = checkedModels.length > 0
+        ? checkedModels
+        : ['event', 'funnel', 'retention', 'path', 'distribution'];
+
+      const baseNow = Date.now();
+      // 预先生成随机但确定的一批模拟事件规格，保证在预览与确认提交时一致
+      const generatedRecords = [];
+
+      const pushSimRecord = (userId, distinctId, eventName, offsetSec, props) => {
+        generatedRecords.push({
+          userId,
+          distinctId,
+          eventName,
+          timestamp: baseNow - Math.max(0, Math.round(offsetSec * 1000)),
+          props,
+        });
+      };
+
+      // (1) 事件分析 (Event Analysis)：多维度高频基础事件 (AppOpen / PageView / Search / Share / AppClick)
+      if (activeModels.includes('event')) {
+        const eventUsers = randInt(4, 6);
+        for (let u = 1; u <= eventUsers; u++) {
+          const uid = `u_evt_${100 + u}`;
+          const did = `visitor_evt_${100 + u}`;
+          const common = {
+            $os: pickOne(OS_LIST),
+            $network: pickOne(NETWORKS),
+            $city: pickOne(CITIES),
+            $province: pickOne(PROVINCES),
+            channel: pickOne(CHANNELS),
+          };
+          pushSimRecord(uid, did, 'AppOpen', randInt(1800, 3600), { ...common });
+          const pvCount = randInt(2, 3);
+          for (let p = 0; p < pvCount; p++) {
+            pushSimRecord(uid, did, 'PageView', randInt(900, 1790), {
+              ...common,
+              page_title: pickOne(PAGE_TITLES),
+              duration: randInt(3000, 95000),
+            });
+          }
+          pushSimRecord(uid, did, 'Search', randInt(600, 890), {
+            ...common,
+            keyword: pickOne(KEYWORDS),
+          });
+          if (Math.random() > 0.35) {
+            pushSimRecord(uid, did, 'Share', randInt(120, 580), {
+              ...common,
+              product_id: pickOne(PRODUCTS).id,
+            });
+          }
+        }
+      }
+
+      // (2) 漏斗分析 (Funnel Analysis)：AppOpen -> ViewProduct -> AddCart -> CheckoutStart -> PaySuccess
+      if (activeModels.includes('funnel')) {
+        const funnelUsers = 6;
+        for (let i = 1; i <= funnelUsers; i++) {
+          const uid = `u_fnl_${200 + i}`;
+          const did = `visitor_fnl_${200 + i}`;
+          const prod = pickOne(PRODUCTS);
+          const common = {
+            $os: pickOne(OS_LIST),
+            $network: pickOne(NETWORKS),
+            $city: pickOne(CITIES),
+            channel: pickOne(CHANNELS),
+          };
+          let tOffset = 1500 - i * 60;
+          // Step 1: 100% 启动
+          pushSimRecord(uid, did, 'AppOpen', tOffset, { ...common });
+          // Step 2: 浏览商品
+          if (i <= 5) {
+            tOffset -= randInt(15, 40);
+            pushSimRecord(uid, did, 'ViewProduct', tOffset, {
+              ...common,
+              product_id: prod.id,
+              sku_name: prod.name,
+            });
+          }
+          // Step 3: 加入购物车
+          if (i <= 4) {
+            tOffset -= randInt(15, 45);
+            pushSimRecord(uid, did, 'AddCart', tOffset, {
+              ...common,
+              product_id: prod.id,
+              quantity: randInt(1, 3),
+            });
+          }
+          // Step 4: 开始结算
+          if (i <= 3) {
+            tOffset -= randInt(20, 50);
+            pushSimRecord(uid, did, 'CheckoutStart', tOffset, {
+              ...common,
+              product_id: prod.id,
+              amount: prod.price,
+            });
+          }
+          // Step 5: 支付成功
+          if (i <= 2) {
+            tOffset -= randInt(10, 35);
+            pushSimRecord(uid, did, 'PaySuccess', tOffset, {
+              ...common,
+              product_id: prod.id,
+              amount: prod.price,
+            });
+          }
+        }
+      }
+
+      // (3) 留存分析 (Retention Analysis)：$signup -> $login -> AppOpen -> Purchase
+      if (activeModels.includes('retention')) {
+        for (let r = 1; r <= 3; r++) {
+          const uid = `u_ret_${300 + r}`;
+          const did = `visitor_ret_${300 + r}`;
+          const prod = pickOne(PRODUCTS);
+          const ch = pickOne(CHANNELS);
+          pushSimRecord(uid, did, '$signup', 2400 - r * 100, {
+            channel: ch,
+            $os: pickOne(OS_LIST),
+            $city: pickOne(CITIES),
+          });
+          pushSimRecord(uid, did, '$login', 1200 - r * 80, {
+            channel: ch,
+            $os: pickOne(OS_LIST),
+          });
+          if (r <= 2) {
+            pushSimRecord(uid, did, 'Purchase', 300 - r * 40, {
+              channel: ch,
+              product_id: prod.id,
+              amount: prod.price,
+            });
+          }
+        }
+      }
+
+      // (4) 路径分析 (Path Analysis)：同一会话内完整流转序列
+      if (activeModels.includes('path')) {
+        for (let p = 1; p <= 2; p++) {
+          const uid = `u_path_${400 + p}`;
+          const did = `visitor_path_${400 + p}`;
+          const sid = `sess_${randToken(5)}`;
+          const prod = pickOne(PRODUCTS);
+          const pathSteps = [
+            ['AppOpen', { $session_id: sid, page_title: '商城首页' }],
+            ['PageView', { $session_id: sid, page_title: '商城首页', duration: randInt(5000, 18000) }],
+            ['Search', { $session_id: sid, keyword: pickOne(KEYWORDS) }],
+            ['ViewProduct', { $session_id: sid, product_id: prod.id, sku_name: prod.name }],
+            ['AddCart', { $session_id: sid, product_id: prod.id, quantity: 1 }],
+            ['CheckoutStart', { $session_id: sid, product_id: prod.id, amount: prod.price }],
+            ['Purchase', { $session_id: sid, product_id: prod.id, amount: prod.price }],
+            ['AppClose', { $session_id: sid, duration: randInt(45000, 160000) }],
+          ];
+          let stepOffset = 800;
+          for (const [evName, stepProps] of pathSteps) {
+            pushSimRecord(uid, did, evName, stepOffset, stepProps);
+            stepOffset -= randInt(12, 30);
+          }
+        }
+      }
+
+      // (5) 分布与间隔分析 (Distribution & Interval Analysis)：多频次购买金额分布 + CheckoutStart -> PaySuccess 精确间隔
+      if (activeModels.includes('distribution')) {
+        for (let d = 1; d <= 3; d++) {
+          const uid = `u_dist_${500 + d}`;
+          const did = `visitor_dist_${500 + d}`;
+          const repeatCount = d + 1; // 不同频次桶 (2次, 3次, 4次)
+          let offset = 950;
+          for (let k = 0; k < repeatCount; k++) {
+            const prod = pickOne(PRODUCTS);
+            const intervalSec = randInt(25, 180); // 25s ~ 180s 转化间隔
+            pushSimRecord(uid, did, 'CheckoutStart', offset, {
+              product_id: prod.id,
+              amount: prod.price,
+            });
+            offset -= intervalSec;
+            pushSimRecord(uid, did, 'PaySuccess', offset, {
+              product_id: prod.id,
+              amount: prod.price,
+              $duration: intervalSec,
+            });
+            offset -= randInt(30, 90);
+          }
+        }
+      }
+
+      return {
+        category: 'event',
+        label: 'FullAnalyticsSimulation',
+        apply: (instance) => {
+          const prevDistinct = instance.getDistinctId();
+          const prevLogin = instance.getLoginId();
+
+          for (const rec of generatedRecords) {
+            instance.identify(rec.distinctId);
+            if (rec.userId) {
+              instance.login(rec.userId);
+            } else {
+              instance.logout();
+            }
+            instance.track(rec.eventName, rec.props, { timestamp: rec.timestamp });
+          }
+
+          // 恢复演练场当前双身份状态
+          instance.logout();
+          if (prevDistinct) {
+            instance.identify(prevDistinct);
+          }
+          if (prevLogin) {
+            instance.login(prevLogin);
+          }
+        },
+      };
+    }
+
+    document.getElementById('btn-sim-analytics-preview').addEventListener('click', (ev) => {
+      const simAction = buildFullAnalyticsSimulationAction();
+      setReportCategoryMode('event', true);
+      stagedActions = [simAction];
+      document.querySelectorAll('.groups-col button.selected-action').forEach((el) => {
+        el.classList.remove('selected-action');
+      });
+      ev.currentTarget.classList.add('selected-action');
+      rebuildDraftRequestPreview();
+    });
+
+    document.getElementById('btn-sim-analytics-submit').addEventListener('click', async (ev) => {
+      const btn = ev.currentTarget;
+      const origText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = '正在生成并上报模拟事件...';
+      try {
+        const simAction = buildFullAnalyticsSimulationAction();
+        setReportCategoryMode('event', true);
+        stagedActions = [simAction];
+        rebuildDraftRequestPreview();
+
+        const cfg = getFormConfig();
+        const pendingEvents = readQueuedEventsFromStorage(cfg.projectId);
+        const summary = summarizeEventsByCount(pendingEvents);
+
+        const ok = await sdk.flush();
+        if (ok) {
+          renderBreakdownBanner('sim-report', summary, false);
+          document.getElementById('draft-summary-hint').textContent =
+            `已上报 ${summary.total} 条模拟事件（${summary.shortSentence}）`;
+          document.getElementById('btn-confirm-submit').disabled = true;
+          if (dynamicEnabled) {
+            dynamicSequence += 1;
+          }
+        } else {
+          renderBreakdownBanner('sim-report', summary, true, '上报未成功，请检查右侧响应面板。');
+        }
+      } catch (err) {
+        renderBreakdownBanner('sim-report', { total: 0, entries: [], detailSentence: '' }, true, String(err));
+      } finally {
+        btn.disabled = false;
+        btn.textContent = origText;
+      }
+    });
+
+    // 右侧面板：实时手动编辑请求体 JSON、格式化、复制 cURL、重置待发参数 & 确认提交
+    requestPreviewEl.addEventListener('input', () => {
+      isManualJsonEdited = true;
+      const result = parseRequestEditorPayload();
+      const hintEl = document.getElementById('draft-summary-hint');
+      const submitBtn = document.getElementById('btn-confirm-submit');
+
+      if (!result.ok) {
+        showRequestJsonError(result.error);
+        hintEl.textContent = 'JSON 格式待修正';
+        submitBtn.disabled = true;
+        return;
+      }
+
+      clearRequestJsonError();
+      const events = result.payload.events;
+      const summary = summarizeEventsByCount(events);
+      hintEl.textContent =
+        events.length > 0
+          ? `已手动编辑 · 共 ${events.length} 条待提交（${summary.shortSentence}）`
+          : '已手动编辑 · 共 0 条待提交事件';
+      submitBtn.disabled = events.length === 0;
+    });
+
+    document.getElementById('btn-format-request-json').addEventListener('click', () => {
+      const result = parseRequestEditorPayload();
+      if (!result.ok) {
+        showRequestJsonError(result.error);
+        return;
+      }
+      clearRequestJsonError();
+      requestPreviewEl.value = JSON.stringify(result.payload, null, 2);
+    });
+
+    function buildCurrentCurlCommand() {
+      const cfg = getFormConfig();
+      const rawJson = requestPreviewEl.value || '{}';
+      const escapedBody = rawJson.replace(/'/g, "'\\''");
+      return `curl -X POST '${cfg.endpoint}' \\\n  -H 'Content-Type: application/json' \\\n  -d '${escapedBody}'`;
+    }
+
+    async function copyTextToClipboard(text) {
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch {
+          // 降级到 textarea 复制（例如 file:// 协议下）
+        }
+      }
+      const tempTa = document.createElement('textarea');
+      tempTa.value = text;
+      tempTa.style.position = 'fixed';
+      tempTa.style.opacity = '0';
+      document.body.appendChild(tempTa);
+      tempTa.focus();
+      tempTa.select();
+      let copied = false;
+      try {
+        copied = document.execCommand('copy');
+      } finally {
+        document.body.removeChild(tempTa);
+      }
+      return copied;
+    }
+
+    document.getElementById('btn-copy-curl').addEventListener('click', async (ev) => {
+      const btn = ev.currentTarget;
+      const curlCmd = buildCurrentCurlCommand();
+      const ok = await copyTextToClipboard(curlCmd);
+      const origText = '复制 cURL';
+      btn.textContent = ok ? '✅ 已复制 cURL' : '❌ 复制失败';
+      setTimeout(() => {
+        btn.textContent = origText;
+      }, 1800);
+    });
+
+    document.getElementById('btn-reset-draft').addEventListener('click', () => {
+      document.querySelectorAll('.groups-col button.selected-action').forEach((el) => {
+        el.classList.remove('selected-action');
+      });
+      if (currentReportMode === 'user') {
+        stagedActions = [DEFAULT_USER_DRAFT_ACTION()];
+        document.getElementById('btn-user-set').classList.add('selected-action');
+      } else {
+        stagedActions = [DEFAULT_EVENT_DRAFT_ACTION()];
+        document.getElementById('btn-track-product').classList.add('selected-action');
+      }
+      rebuildDraftRequestPreview();
+    });
+
+    document.getElementById('btn-confirm-submit').addEventListener('click', async () => {
+      const parsedResult = parseRequestEditorPayload();
+      const submitBtn = document.getElementById('btn-confirm-submit');
+      if (!parsedResult.ok) {
+        showRequestJsonError(parsedResult.error);
+        submitBtn.disabled = true;
+        return;
+      }
+      const pendingEvents = parsedResult.payload.events;
+      if (pendingEvents.length === 0) {
+        showRequestJsonError('events 数组为空，请至少保留 1 条事件后再提交');
+        submitBtn.disabled = true;
+        return;
+      }
+
+      clearRequestJsonError();
+      submitBtn.disabled = true;
+      const origText = submitBtn.textContent;
+      submitBtn.textContent = '提交中...';
+      const cfg = getFormConfig();
+      const summary = summarizeEventsByCount(pendingEvents);
+
+      try {
+        const res = await executePlaygroundTransport(
+          cfg.endpoint,
+          { 'Content-Type': 'application/json' },
+          parsedResult.rawText
+        );
+        const ok = res && res.status >= 200 && res.status < 300;
+        if (ok) {
+          renderBreakdownBanner('sim-report', summary, false);
+          if (dynamicEnabled) {
+            dynamicSequence += 1;
+          }
+          // 清空内部暂存动作与离线队列，使下次点击左侧按钮从新批次开始，同时保留当前编辑器 JSON 便于继续修改重发
+          storage.setItem(`abi_sdk_${cfg.projectId}_offline_queue`, '[]');
+          if (sdk && typeof sdk.clearQueue === 'function') {
+            sdk.clearQueue();
+          } else if (sdk && Array.isArray(sdk.queue)) {
+            sdk.queue = [];
+          }
+          stagedActions = [];
+          document.querySelectorAll('.groups-col button.selected-action').forEach((el) => {
+            el.classList.remove('selected-action');
+          });
+          document.getElementById('draft-summary-hint').textContent =
+            `已提交 ${summary.total} 条（${summary.shortSentence} · 可直接编辑再次提交）`;
+        } else {
+          renderBreakdownBanner('sim-report', summary, true, '上报未成功，请检查右侧响应面板。');
+        }
+      } catch (err) {
+        renderBreakdownBanner('sim-report', summary, true, String(err));
+      } finally {
+        submitBtn.textContent = origText;
+        const latestCheck = parseRequestEditorPayload();
+        submitBtn.disabled = !latestCheck.ok || latestCheck.payload.events.length === 0;
+      }
+    });
+
+    // 首次加载默认选中商品浏览事件并渲染完整待提交请求参数
+    document.getElementById('btn-track-product').classList.add('selected-action');
+    rebuildDraftRequestPreview();
+  </script>
+</body>
+</html>
