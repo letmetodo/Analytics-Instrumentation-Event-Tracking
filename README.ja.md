@@ -11,8 +11,18 @@
 <p>
   <strong>🌐 言語 / Language / 语言：</strong>
   <a href="README.md">简体中文</a> ·
+  <a href="README.zh-TW.md">繁體中文</a> ·
   <a href="README.en.md">English</a> ·
-  <a href="README.ja.md"><b>日本語</b></a>
+  <a href="README.ja.md"><b>日本語</b></a> ·
+  <a href="README.ko.md">한국어</a> ·
+  <a href="README.es.md">Español</a> ·
+  <a href="README.pt.md">Português</a> ·
+  <a href="README.de.md">Deutsch</a> ·
+  <a href="README.fr.md">Français</a> ·
+  <a href="README.ru.md">Русский</a> ·
+  <a href="README.vi.md">Tiếng Việt</a> ·
+  <a href="README.th.md">ไทย</a> ·
+  <a href="README.id.md">Bahasa Indonesia</a>
 </p>
 
 <p>
@@ -53,7 +63,7 @@
 | **🎯 顧客 360° プロファイル＆セグメント** | 未ログイン端末とログイン会員IDをリアルタイムで自動名寄せし、**単一ユーザーの 360° カルテと時系列行動タイムライン** を可視化。**条件ルールによるセグメント抽出**、**CSVリスト取り込み**、**分析結果からのワンクリック集団保存**、**自動更新対応のユーザータグ** を提供。 |
 | **🧩 対話型 BI ダッシュボード** | スペース・フォルダ階層管理、ドラッグ＆ドロップによる自由なグリッドレイアウト、複数分析モデルの混在配置、ダッシュボード全体の日付・フィルタ一括連動、チームメンバーへの共有権限設定に対応。 |
 | **🔌 データ資産・イベントガバナンス** | 複数プロジェクト・タイムゾーン、イベント定義、プロパティ辞書、ビジネスメトリクスを一元管理。本番データを汚さずに疎通確認できる **オンライン計測テスト画面** や、リアルタイム受信ログ・エラー調査機能を搭載。 |
-| **🔐 エンタープライズ権限管理＆多言語** | ユーザー・ロールおよび「メニュー / 画面 / 操作ボタン」単位の細粒度 RBAC 権限ツリー、プロジェクト単位のデータ分離、操作監査ログを完備。**日本語・英語・中国語（簡体字）** の切り替え、ライト/ダークモード、画面透かし（ウォーターマーク）に対応。 |
+| **🔐 エンタープライズ権限管理＆多言語** | ユーザー・ロールおよび「メニュー / 画面 / 操作ボタン」単位の細粒度 RBAC 権限ツリー、プロジェクト単位のデータ分離、操作監査ログを完備。**全13言語（日本語・英語・簡体字/繁体字中国語・韓国語・スペイン語・ポルトガル語・ドイツ語・フランス語・ロシア語・ベトナム語・タイ語・インドネシア語）** の切り替え、ライト/ダークモード、画面透かし（ウォーターマーク）に対応。 |
 
 ---
 
@@ -228,7 +238,7 @@ Go / Java / Python / Node.js / C# / PHP / Ruby / C++ / Lua"]
 
 ## 📦 マルチプラットフォーム計測 SDK
 
-中国語・英語・日本語の3言語ドキュメントとサンプルコードを備えた充実のデータ収集エコシステムを内蔵しています（詳細は **[SDK スイート＆導入ドキュメント](abi.sdk/README.ja.md)** をご覧ください）：
+13言語のドキュメントとサンプルコードを備えた充実のデータ収集エコシステムを内蔵しています（詳細は **[SDK スイート＆導入ドキュメント](abi.sdk/README.ja.md)** をご覧ください）：
 
 - **Web・クロスプラットフォーム**：JavaScript / TypeScript Web SDK、アプリ内 WebView（App-H5）連携ブリッジ、ミニアプリ、React Native
 - **ネイティブモバイル**：iOS（Swift）、Android（Kotlin）、Flutter（Dart）
@@ -251,7 +261,7 @@ Go / Java / Python / Node.js / C# / PHP / Ruby / C++ / Lua"]
 
 <div align="center">
 
-**[简体中文](README.md)** · **[English](README.en.md)** · **[日本語](README.ja.md)**
+**[简体中文](README.md)** · **[繁體中文](README.zh-TW.md)** · **[English](README.en.md)** · **[日本語](README.ja.md)** · **[한국어](README.ko.md)** · **[Español](README.es.md)** · **[Português](README.pt.md)** · **[Deutsch](README.de.md)** · **[Français](README.fr.md)** · **[Русский](README.ru.md)** · **[Tiếng Việt](README.vi.md)** · **[ไทย](README.th.md)** · **[Bahasa Indonesia](README.id.md)**
 
 <sub>Keywords: ユーザー行動分析, UBA, プロダクトアナリティクス, ビジネスインテリジェンス, BIツール, イベント計測, ファネル分析, リテンション分析, 経路分析, 顧客360度分析, セグメント配信, プライベートクラウド分析基盤, StarRocks, Apache Flink, User Behavior Analytics, Self-Hosted BI</sub>
 

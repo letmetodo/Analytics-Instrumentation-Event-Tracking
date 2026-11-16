@@ -1,8 +1,8 @@
 # ABI Multi-Language Data Collection SDK Suite (`abi.sdk`)
 
-**语言 / Language / 言語**: [简体中文](README.md) | [English](README.en.md) | [日本語](README.ja.md)
+**语言 / Language / 言語**: [简体中文](README.md) | [繁體中文](README.zh-TW.md) | **[English](README.en.md)** | [日本語](README.ja.md) | [한국어](README.ko.md) | [Español](README.es.md) | [Português](README.pt.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Русский](README.ru.md) | [Tiếng Việt](README.vi.md) | [ไทย](README.th.md) | [Bahasa Indonesia](README.id.md)
 
-`abi.sdk` provides production-grade client and server data collection SDKs for the ABI User Behavior Analytics (UBA) & Business Intelligence (BI) platform. This suite strictly aligns wire contracts, dual-identity mapping, and schema validation with the ABI Ingestion Gateway and real-time streaming ETL engines.
+`abi.sdk` provides production-grade client and server data collection SDKs for the ABI User Behavior Analytics (UBA) & Business Intelligence (BI) platform. Benchmarked against the [ThinkingData SDK v3.4 specification](https://docs.thinkingdata.cn/ta-manual/v3.4/installation/installation_menu/installation_menu.html), this suite strictly aligns wire contracts, dual-identity mapping, and schema validation with the ABI Ingestion Gateway [`abi.srv`](../abi.srv/) (`:8081`) and streaming engines [`abi.flink`](../abi.flink/) (Job1 real-time ETL & Job2 raw ODS ingestion).
 
 ---
 
@@ -59,7 +59,7 @@ All client and server HTTP consumers send a standard JSON batch payload to the i
 }
 ```
 
-### 2.1 Dual-ID Identity & Idempotency Constraints
+### 2.1 ThinkingData-Aligned Dual-ID Identity & Idempotency Constraints
 
 - **`distinct_id` (Visitor / Device ID)**: The sole visitor or client device identifier on wire. ASCII control characters (`0x00–0x08`, `0x0E–0x1F`, `0x7F`) are rejected, leading/trailing Unicode whitespace is trimmed, and max UTF-8 byte length is **64 bytes**. Client SDKs auto-generate and persist `distinct_id` locally (overridable via `identify(visitorId)`); server SDKs may send empty `""` when reporting pure account events that already carry a non-empty `login_id` (**never copy or truncate `login_id` into `distinct_id`**).
 - **`login_id` (Authenticated Account ID)**: The authenticated business account identifier; max UTF-8 byte length is **128 bytes** (omitted or `""` for unauthenticated visitors). At least one of `distinct_id` or `login_id` **must be non-empty** on every event.
@@ -126,6 +126,7 @@ All visual UI demos and CLI/method demos across `abi.sdk` follow a unified **Two
 | **Lua 5.3+ Cross-Platform SDK** | [`lua/examples/demo.lua`](lua/examples/demo.lua) | [`lua/abi_sdk.lua`](lua/abi_sdk.lua) (`StagingConsumer`) | `lua abi.sdk/lua/examples/demo.lua --yes` |
 | **Web / H5 Interactive Playground** | [`ts-web/examples/interactive-demo.html`](ts-web/examples/interactive-demo.html) & [`ts-web/examples/usage-examples.ts`](ts-web/examples/usage-examples.ts) (`previewAndConfirmWebSdkExample`) | [`ts-web/src/index.ts`](ts-web/src/index.ts) (`buildPendingBatchPayload`) | Open `ts-web/examples/interactive-demo.html` in a browser or run `cd abi.sdk/ts-web && pnpm test` |
 | **App-H5 WebView Bridge & H5 Game Engines** | [`ts-web/test/abi-web-sdk.test.ts`](ts-web/test/abi-web-sdk.test.ts) | [`h5-bridge.ts`](ts-web/src/adapters/h5-bridge.ts) & [`game-engines.ts`](ts-web/src/adapters/game-engines.ts) | `cd abi.sdk/ts-web && pnpm test` (Android/iOS WebView Bridge + Cocos Creator / Egret / LayaAir / Weex) |
+| **ABI Admin Console SDK Drawer** | [`../abi.cli/src/pages/Meta/MetaProjects.tsx`](../abi.cli/src/pages/Meta/MetaProjects.tsx) & [`../abi.cli/src/lib/sdk-guide-token.ts`](../abi.cli/src/lib/sdk-guide-token.ts) | Same as above | In Admin Console `Metadata -> Projects -> SDK Guide`, configure parameters to preview JSON and click `Confirm & Submit` |
 | **WeChat MiniProgram & React Native** | [`ts-web/examples/usage-examples.ts`](ts-web/examples/usage-examples.ts) (`runWeChatMiniProgramExample`, `runReactNativeExample`) | [`miniapp.ts`](ts-web/src/adapters/miniapp.ts) & [`react-native.ts`](ts-web/src/adapters/react-native.ts) | `cd abi.sdk/ts-web && pnpm test` |
 | **Unity Game Engine Client SDK** | [`game-engines/unity/AbiUnityDemoMonoBehaviour.cs`](game-engines/unity/AbiUnityDemoMonoBehaviour.cs) (`AbiUnityDemoMonoBehaviour` / `AbiUnityDemoRunner`) | [`game-engines/unity/AbiUnityAnalytics.cs`](game-engines/unity/AbiUnityAnalytics.cs) (`BuildPendingBatchJson`) | Mount `AbiUnityDemoMonoBehaviour` in Unity or run `dotnet run --project abi.sdk/csharp -- --test` |
 | **Flutter Client SDK** | [`mobile/flutter/example/lib/main.dart`](mobile/flutter/example/lib/main.dart) (`AbiSdkDemoApp`) | [`mobile/flutter/lib/abi_sdk.dart`](mobile/flutter/lib/abi_sdk.dart) (`buildPendingBatchPayload` / `previewScenarioPayload` + `confirmSubmit`) | Mount `AbiSdkDemoApp` in Flutter or call `previewScenarioPayload` + `confirmSubmit` (see [`mobile/flutter/README.en.md`](mobile/flutter/README.en.md)) |

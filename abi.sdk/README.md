@@ -1,8 +1,8 @@
 # ABI 多语言数据采集 SDK 套件 (`abi.sdk`)
 
-**语言 / Language / 言語**: [简体中文](README.md) | [English](README.en.md) | [日本語](README.ja.md)
+**语言 / Language / 言語**: **[简体中文](README.md)** | [繁體中文](README.zh-TW.md) | [English](README.en.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Español](README.es.md) | [Português](README.pt.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Русский](README.ru.md) | [Tiếng Việt](README.vi.md) | [ไทย](README.th.md) | [Bahasa Indonesia](README.id.md)
 
-`abi.sdk` 为 ABI 用户行为分析（UBA）与商业智能（BI）平台提供生产级客户端与服务端数据采集 SDK。在字段契约、双 ID 身份映射与数据校验层面与 ABI 高并发采集网关及实时流处理引擎严格对齐。
+`abi.sdk` 为 ABI 用户行为分析（UBA）与商业智能（BI）平台提供生产级客户端与服务端数据采集 SDK。套件整体设计对标 [ThinkingData（数数科技）SDK v3.4 规范](https://docs.thinkingdata.cn/ta-manual/v3.4/installation/installation_menu/installation_menu.html)，在字段契约、身份映射与数据校验层面与后端采集网关 [`abi.srv`](../abi.srv/)（`:8081`）及流批一体处理引擎 [`abi.flink`](../abi.flink/)（Job1 实时 ETL 与 Job2 原始 ODS 入湖）严格对齐。
 
 ---
 
@@ -59,7 +59,7 @@
 }
 ```
 
-### 2.1 身份双 ID 与幂等标识约束
+### 2.1 身份双 ID 与幂等标识约束（对标数数科技 ThinkingData）
 
 - **`distinct_id`（访客 / 设备 ID）**：协议层唯一的访客或终端设备标识，严禁包含 ASCII 控制字符（`0x00–0x08`、`0x0E–0x1F`、`0x7F`），首尾 Unicode 空白符自动裁剪，UTF-8 字节长度上限为 **64 字节**。客户端 SDK 初始化时自动生成并持久化本地访客 ID，也可通过 `identify(visitorId)` 自定义；服务端在纯账号场景（已提供非空 `login_id` 且无客户端设备上下文）下允许传空字符串 `""`（**严禁将 `login_id` 拷贝或截断回填至 `distinct_id`**）。
 - **`login_id`（实名登录账号 ID）**：用户完成认证或账号登录后的业务账号标识，UTF-8 字节长度上限为 **128 字节**（未登录访客可省略或传 `""`）。每条事件的 `distinct_id` 与 `login_id` **至少有一个非空**。
@@ -124,6 +124,7 @@ SDK 提供 7 类标准用户画像变更接口，底层统一编码为系统保�
 | **Lua 5.3+ 跨端 SDK** | [`lua/examples/demo.lua`](lua/examples/demo.lua) | [`lua/abi_sdk.lua`](lua/abi_sdk.lua)（含 `StagingConsumer`） | `lua abi.sdk/lua/examples/demo.lua --yes` |
 | **Web / H5 可视化演练场** | [`ts-web/examples/interactive-demo.html`](ts-web/examples/interactive-demo.html) & [`ts-web/examples/usage-examples.ts`](ts-web/examples/usage-examples.ts)（`previewAndConfirmWebSdkExample`） | [`ts-web/src/index.ts`](ts-web/src/index.ts)（`buildPendingBatchPayload`） | 浏览器打开 `ts-web/examples/interactive-demo.html` 配置参数预览 JSON 并点击「确认提交」，或运行 `cd abi.sdk/ts-web && pnpm test` |
 | **App 内嵌 H5 WebView 打通 & H5 游戏引擎** | [`ts-web/test/abi-web-sdk.test.ts`](ts-web/test/abi-web-sdk.test.ts) | [`ts-web/src/adapters/h5-bridge.ts`](ts-web/src/adapters/h5-bridge.ts) & [`ts-web/src/adapters/game-engines.ts`](ts-web/src/adapters/game-engines.ts) | `cd abi.sdk/ts-web && pnpm test`（覆盖 Android/iOS WebView Bridge 及 Cocos Creator / Egret / LayaAir / Weex） |
+| **ABI 管理端内置接入指南抽屉** | [`../abi.cli/src/pages/Meta/MetaProjects.tsx`](../abi.cli/src/pages/Meta/MetaProjects.tsx) & [`../abi.cli/src/lib/sdk-guide-token.ts`](../abi.cli/src/lib/sdk-guide-token.ts) | 同上 | 在后台「元数据 → 项目管理 → 接入指南」中选择场景/公共属性预览单份 JSON 并点击「确认提交」 |
 | **微信小程序 & React Native** | [`ts-web/examples/usage-examples.ts`](ts-web/examples/usage-examples.ts)（`runWeChatMiniProgramExample`、`runReactNativeExample`） | [`ts-web/src/adapters/miniapp.ts`](ts-web/src/adapters/miniapp.ts) & [`ts-web/src/adapters/react-native.ts`](ts-web/src/adapters/react-native.ts) | 调用适配器演练函数，或运行 `cd abi.sdk/ts-web && pnpm test` |
 | **Unity 游戏引擎客户端 SDK** | [`game-engines/unity/AbiUnityDemoMonoBehaviour.cs`](game-engines/unity/AbiUnityDemoMonoBehaviour.cs)（`AbiUnityDemoMonoBehaviour` / `AbiUnityDemoRunner`） | [`game-engines/unity/AbiUnityAnalytics.cs`](game-engines/unity/AbiUnityAnalytics.cs)（`BuildPendingBatchJson`） | 在 Unity 挂载 `AbiUnityDemoMonoBehaviour` 或运行 `dotnet run --project abi.sdk/csharp -- --test` |
 | **Flutter 客户端 SDK** | [`mobile/flutter/example/lib/main.dart`](mobile/flutter/example/lib/main.dart)（`AbiSdkDemoApp` / `AbiSdkDemoScreen`） | [`mobile/flutter/lib/abi_sdk.dart`](mobile/flutter/lib/abi_sdk.dart)（`buildPendingBatchPayload` / `previewScenarioPayload` + `confirmSubmit`） | 在 Flutter 宿主工程挂载 `AbiSdkDemoApp` 配置参数预览 JSON 后点击「确认提交」，或调用 `previewScenarioPayload` + `confirmSubmit`（详见 [`mobile/README.md`](mobile/README.md)） |

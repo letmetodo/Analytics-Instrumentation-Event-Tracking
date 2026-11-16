@@ -1,8 +1,8 @@
 # ABI 多言語データ収集 SDK スイート (`abi.sdk`)
 
-**语言 / Language / 言語**: [简体中文](README.md) | [English](README.en.md) | [日本語](README.ja.md)
+**语言 / Language / 言語**: [简体中文](README.md) | [繁體中文](README.zh-TW.md) | [English](README.en.md) | **[日本語](README.ja.md)** | [한국어](README.ko.md) | [Español](README.es.md) | [Português](README.pt.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Русский](README.ru.md) | [Tiếng Việt](README.vi.md) | [ไทย](README.th.md) | [Bahasa Indonesia](README.id.md)
 
-`abi.sdk` は、ABI ユーザー行動分析（UBA）およびビジネスインテリジェンス（BI）プラットフォーム向けの商用グレード・クライアント／サーバーデータ収集 SDK スイートです。フィールド契約、デュアル ID マッピング、データ検証において ABI 収集ゲートウェイおよびリアルタイムストリーミングエンジンと完全に整合しています。
+`abi.sdk` は、ABI ユーザー行動分析（UBA）およびビジネスインテリジェンス（BI）プラットフォーム向けの商用グレード・クライアント／サーバーデータ収集 SDK スイートです。[ThinkingData SDK v3.4 仕様](https://docs.thinkingdata.cn/ta-manual/v3.4/installation/installation_menu/installation_menu.html) に準拠し、フィールド契約、デュアル ID マッピング、データ検証においてバックエンド収集ゲートウェイ [`abi.srv`](../abi.srv/)（`:8081`）およびストリーミングエンジン [`abi.flink`](../abi.flink/)（Job1 リアルタイム ETL / Job2 生データ ODS 格納）と完全に整合しています。
 
 ---
 
@@ -59,7 +59,7 @@
 }
 ```
 
-### 2.1 デュアル ID 識別子とべき等キーの制約
+### 2.1 ThinkingData 準拠のデュアル ID 識別子とべき等キーの制約
 
 - **`distinct_id`（ビジター / デバイス ID）**：通信ペイロード上の唯一の訪問者または端末識別子です。ASCII 制御文字（`0x00–0x08`、`0x0E–0x1F`、`0x7F`）は不可、前後の Unicode 空白は自動除去され、UTF-8 最大バイト長は **64 バイト**です。クライアント SDK は初期化時にローカルで自動生成・永続化し、`identify(visitorId)` で上書き可能です。サーバーサイドで非空の `login_id` のみを持つバックエンド専用イベントでは空文字列 `""` が許可されます（**`login_id` を `distinct_id` にコピー・切り詰め補完することは厳禁**）。
 - **`login_id`（認証済みアカウント ID）**：認証完了後のビジネスアカウント識別子で、UTF-8 最大バイト長は **128 バイト**です（未ログイン時は省略または `""`）。すべてのイベントで `distinct_id` と `login_id` の **少なくとも一方が非空**である必要があります。
@@ -124,6 +124,7 @@ JavaScript および一般的な JSON パーサーは IEEE-754 倍精度浮動�
 | **Lua 5.3+ クロスプラットフォーム SDK** | [`lua/examples/demo.lua`](lua/examples/demo.lua) | [`lua/abi_sdk.lua`](lua/abi_sdk.lua)（`StagingConsumer`） | `lua abi.sdk/lua/examples/demo.lua --yes` |
 | **Web / H5 対話型プレイグラウンド** | [`ts-web/examples/interactive-demo.html`](ts-web/examples/interactive-demo.html) & [`ts-web/examples/usage-examples.ts`](ts-web/examples/usage-examples.ts)（`previewAndConfirmWebSdkExample`） | [`ts-web/src/index.ts`](ts-web/src/index.ts)（`buildPendingBatchPayload`） | ブラウザで `ts-web/examples/interactive-demo.html` を開くか、`cd abi.sdk/ts-web && pnpm test` を実行 |
 | **App 内 WebView (H5) ブリッジ & H5 ゲームエンジン** | [`ts-web/test/abi-web-sdk.test.ts`](ts-web/test/abi-web-sdk.test.ts) | [`h5-bridge.ts`](ts-web/src/adapters/h5-bridge.ts) & [`game-engines.ts`](ts-web/src/adapters/game-engines.ts) | `cd abi.sdk/ts-web && pnpm test`（Android/iOS WebView Bridge + Cocos Creator / Egret / LayaAir / Weex） |
+| **ABI 管理画面 SDK ガイドドロワー** | [`../abi.cli/src/pages/Meta/MetaProjects.tsx`](../abi.cli/src/pages/Meta/MetaProjects.tsx) & [`../abi.cli/src/lib/sdk-guide-token.ts`](../abi.cli/src/lib/sdk-guide-token.ts) | 同上 | 管理画面「メタデータ → プロジェクト管理 → SDK ガイド」にて JSON をプレビューし「確定して送信」をクリック |
 | **WeChat ミニプログラム & React Native** | [`ts-web/examples/usage-examples.ts`](ts-web/examples/usage-examples.ts)（`runWeChatMiniProgramExample`、`runReactNativeExample`） | [`miniapp.ts`](ts-web/src/adapters/miniapp.ts) & [`react-native.ts`](ts-web/src/adapters/react-native.ts) | `cd abi.sdk/ts-web && pnpm test` |
 | **Unity ゲームエンジン SDK** | [`game-engines/unity/AbiUnityDemoMonoBehaviour.cs`](game-engines/unity/AbiUnityDemoMonoBehaviour.cs)（`AbiUnityDemoMonoBehaviour` / `AbiUnityDemoRunner`） | [`game-engines/unity/AbiUnityAnalytics.cs`](game-engines/unity/AbiUnityAnalytics.cs)（`BuildPendingBatchJson`） | Unity で `AbiUnityDemoMonoBehaviour` をアタッチするか `dotnet run --project abi.sdk/csharp -- --test` を実行 |
 | **Flutter クライアント SDK** | [`mobile/flutter/example/lib/main.dart`](mobile/flutter/example/lib/main.dart)（`AbiSdkDemoApp`） | [`mobile/flutter/lib/abi_sdk.dart`](mobile/flutter/lib/abi_sdk.dart)（`buildPendingBatchPayload` / `previewScenarioPayload` + `confirmSubmit`） | Flutter アプリに `AbiSdkDemoApp` をマウントするか `previewScenarioPayload` + `confirmSubmit` を呼び出し（詳細：[`mobile/flutter/README.ja.md`](mobile/flutter/README.ja.md)） |

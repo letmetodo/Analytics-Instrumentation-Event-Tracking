@@ -11,8 +11,18 @@ Unifying **Multi-Platform Event Tracking · Real-Time Stream Processing · Sub-S
 <p>
   <strong>🌐 Language / 语言 / 言語:</strong>
   <a href="README.md">简体中文</a> ·
+  <a href="README.zh-TW.md">繁體中文</a> ·
   <a href="README.en.md"><b>English</b></a> ·
-  <a href="README.ja.md">日本語</a>
+  <a href="README.ja.md">日本語</a> ·
+  <a href="README.ko.md">한국어</a> ·
+  <a href="README.es.md">Español</a> ·
+  <a href="README.pt.md">Português</a> ·
+  <a href="README.de.md">Deutsch</a> ·
+  <a href="README.fr.md">Français</a> ·
+  <a href="README.ru.md">Русский</a> ·
+  <a href="README.vi.md">Tiếng Việt</a> ·
+  <a href="README.th.md">ไทย</a> ·
+  <a href="README.id.md">Bahasa Indonesia</a>
 </p>
 
 <p>
@@ -53,7 +63,7 @@ Unifying **Multi-Platform Event Tracking · Real-Time Stream Processing · Sub-S
 | **🎯 Customer 360 & Audience Engine** | Real-time cross-device identity resolution linking anonymous visitors and authenticated accounts into a unified user profile; includes **Single-User 360 Timelines**, **Visual Rule-Based Cohorts**, **CSV List Imports**, **One-Click Cohort Saving from Charts**, and **Scheduled User Tags**. |
 | **🧩 Interactive BI Dashboards** | Organize workspaces with multi-space folders, responsive drag-and-drop grid layouts, mixed-model visualization widgets, dashboard-wide dynamic date & filter overrides, and granular team sharing. |
 | **🔌 Metadata & Tracking Governance** | Centrally manage projects, timezones, event schemas, property dictionaries, and business metrics; features an **Interactive SDK Onboarding Playground** (live payload validation without polluting production data) plus real-time ingestion & error logs. |
-| **🔐 Enterprise Security & Global i18n** | Fine-grained RBAC across menus, routes, and action buttons with strict project-level data isolation and audit logging; native **English, Simplified Chinese, and Japanese** localization, Light/Dark themes, and anti-leak screen watermarks. |
+| **🔐 Enterprise Security & Global i18n** | Fine-grained RBAC across menus, routes, and action buttons with strict project-level data isolation and audit logging; native **13-language localization** (Simplified/Traditional Chinese, English, Japanese, Korean, Spanish, Portuguese, German, French, Russian, Vietnamese, Thai, Indonesian), Light/Dark themes, and anti-leak screen watermarks. |
 
 ---
 
@@ -228,7 +238,7 @@ Behavioral Analytics · BI Dashboards · Governance Console"]
 
 ## 📦 Multi-Platform SDK Ecosystem
 
-Comprehensive data collection SDKs with full trilingual documentation (English, Simplified Chinese, Japanese) and interactive examples — browse the **[Full SDK Suite & Integration Docs](abi.sdk/README.en.md)**:
+Comprehensive data collection SDKs with full 13-language documentation and interactive examples — browse the **[Full SDK Suite & Integration Docs](abi.sdk/README.en.md)**:
 
 - **Web & Cross-Platform**: JavaScript / TypeScript Web SDK, App-to-WebView H5 Bridge, WeChat Mini-Program, React Native
 - **Native Mobile**: iOS (`Swift`), Android (`Kotlin`), Flutter (`Dart`)
@@ -251,7 +261,7 @@ If you are interested in purchasing ABI, requesting a live demo, or discussing e
 
 <div align="center">
 
-**[简体中文](README.md)** · **[English](README.en.md)** · **[日本語](README.ja.md)**
+**[简体中文](README.md)** · **[繁體中文](README.zh-TW.md)** · **[English](README.en.md)** · **[日本語](README.ja.md)** · **[한국어](README.ko.md)** · **[Español](README.es.md)** · **[Português](README.pt.md)** · **[Deutsch](README.de.md)** · **[Français](README.fr.md)** · **[Русский](README.ru.md)** · **[Tiếng Việt](README.vi.md)** · **[ไทย](README.th.md)** · **[Bahasa Indonesia](README.id.md)**
 
 <sub>Keywords: User Behavior Analytics, UBA, Product Analytics, Business Intelligence, BI Dashboard, Self-Hosted Analytics, Event Tracking SDK, Funnel Analysis, Cohort Retention, User Journey Sankey, Customer 360, Audience Segmentation, CDP, StarRocks OLAP, Apache Flink, Enterprise RBAC</sub>
 

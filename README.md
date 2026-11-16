@@ -11,8 +11,18 @@
 <p>
   <strong>🌐 语言 / Language / 言語：</strong>
   <a href="README.md"><b>简体中文</b></a> ·
+  <a href="README.zh-TW.md">繁體中文</a> ·
   <a href="README.en.md">English</a> ·
-  <a href="README.ja.md">日本語</a>
+  <a href="README.ja.md">日本語</a> ·
+  <a href="README.ko.md">한국어</a> ·
+  <a href="README.es.md">Español</a> ·
+  <a href="README.pt.md">Português</a> ·
+  <a href="README.de.md">Deutsch</a> ·
+  <a href="README.fr.md">Français</a> ·
+  <a href="README.ru.md">Русский</a> ·
+  <a href="README.vi.md">Tiếng Việt</a> ·
+  <a href="README.th.md">ไทย</a> ·
+  <a href="README.id.md">Bahasa Indonesia</a>
 </p>
 
 <p>
@@ -53,7 +63,7 @@
 | **🎯 用户 360° 画像与人群运营** | 自动打通匿名访客设备与实名登录账号的跨端身份，提供 **单用户 360° 档案与行为时间线回溯**；支持 **条件规则圈选分群**、**离线名单导入分群**、**分析结果一键存为分群** 以及 **动态用户标签管理**（支持定时自动更新）。 |
 | **🧩 交互式 BI 看板工作台** | 支持多业务空间与文件夹分级管理，提供自由拖拽栅格布局、多类型分析图表同屏混排、看板级全局时间与筛选联动，以及团队成员共享协作。 |
 | **🔌 数据资产与埋点治理** | 集中管理多项目、多时区、事件定义、属性字典与业务指标；内置 **在线接入联调工具**（支持模拟上报与实时校验），并提供入库数据日志与异常数据排查视图。 |
-| **🔐 企业级权限与国际化体验** | 提供用户、角色及「菜单 / 页面 / 按钮」细粒度 RBAC 权限管控，支持多项目数据隔离与操作审计日志；原生支持 **简体中文 / English / 日本語** 多语言切换、亮暗双主题及防泄密界面水印。 |
+| **🔐 企业级权限与国际化体验** | 提供用户、角色及「菜单 / 页面 / 按钮」细粒度 RBAC 权限管控，支持多项目数据隔离与操作审计日志；原生支持 **简体中文 / 繁體中文 / English / 日本語 / 한국어 / Español / Português / Deutsch / Français / Русский / Tiếng Việt / ไทย / Bahasa Indonesia（共 13 种语言）** 切换、亮暗双主题及防泄密界面水印。 |
 
 ---
 
@@ -228,7 +238,7 @@ Go / Java / Python / Node.js / C# / PHP / Ruby / C++ / Lua"]
 
 ## 📦 多端数据采集生态
 
-内置完整的跨平台数据采集 SDK 体系（配套中 / 英 / 日三语接入文档与交互式示例，详见 **[SDK 接入文档与源码目录](abi.sdk/README.md)**）：
+内置完整的跨平台数据采集 SDK 体系（配套 13 种语言接入文档与交互式示例，详见 **[SDK 接入文档与源码目录](abi.sdk/README.md)**）：
 
 - **Web 与跨端框架**：JavaScript / TypeScript Web SDK、App 内嵌 H5 WebView 桥接、微信小程序、React Native
 - **原生移动客户端**：iOS（Swift）、Android（Kotlin）、Flutter（Dart）
@@ -251,7 +261,7 @@ Go / Java / Python / Node.js / C# / PHP / Ruby / C++ / Lua"]
 
 <div align="center">
 
-**[简体中文](README.md)** · **[English](README.en.md)** · **[日本語](README.ja.md)**
+**[简体中文](README.md)** · **[繁體中文](README.zh-TW.md)** · **[English](README.en.md)** · **[日本語](README.ja.md)** · **[한국어](README.ko.md)** · **[Español](README.es.md)** · **[Português](README.pt.md)** · **[Deutsch](README.de.md)** · **[Français](README.fr.md)** · **[Русский](README.ru.md)** · **[Tiếng Việt](README.vi.md)** · **[ไทย](README.th.md)** · **[Bahasa Indonesia](README.id.md)**
 
 <sub>Keywords: User Behavior Analytics (UBA), Product Analytics, Business Intelligence (BI), Event Tracking, Funnel Analysis, Cohort Retention, User Path Sankey, Customer 360, Audience Segmentation, StarRocks OLAP, Apache Flink, Self-Hosted Analytics Platform, 用户行为分析系统, 埋点分析平台, 商业智能看板, 私有化数据分析</sub>
 
