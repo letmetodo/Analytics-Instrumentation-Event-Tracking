@@ -6,7 +6,7 @@
 
 **面向產品增長、精細化營運與數據團隊打造的一站式私有化數據分析系統**
 
-集 **全端埋點採集 · 即時串流處理 · 海量 OLAP 分析 · 七大行為分析模型 · 互動式 BI 儀表板 · 企業級權限治理** 於一體
+集 **全端埋點採集 · 即時串流處理 · 海量 OLAP 分析 · 十三大行為與增長分析模型 · 自助 SQL · 互動式 BI 儀表板 · 企業級權限治理** 於一體
 
 <p>
   <strong>🌐 語言 / Language：</strong>
@@ -30,6 +30,7 @@
   <img src="https://img.shields.io/badge/Backend-Go_%7C_Gin_%7C_GORM-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Go Backend" />
   <img src="https://img.shields.io/badge/Streaming-Apache_Flink_%7C_Kafka-E6526F?style=flat-square&logo=apacheflink&logoColor=white" alt="Flink Kafka Streaming" />
   <img src="https://img.shields.io/badge/OLAP-StarRocks-3B82F6?style=flat-square" alt="StarRocks OLAP" />
+  <img src="https://img.shields.io/badge/Models-13_Analytics_Engines-6366F1?style=flat-square" alt="13 Behavioral Analytics Models" />
   <img src="https://img.shields.io/badge/SDKs-14%2B_Platforms-10B981?style=flat-square" alt="14+ Multi-Platform SDKs" />
   <a href="mailto:baidushanxivip@gmail.com"><img src="https://img.shields.io/badge/商業購買諮詢-baidushanxivip%40gmail.com-F59E0B?style=flat-square&logo=gmail&logoColor=white" alt="聯絡購買 baidushanxivip@gmail.com" /></a>
 </p>
@@ -59,7 +60,7 @@
 
 | 功能模組 | 核心能力說明 |
 | :--- | :--- |
-| **📊 多模型自助行為分析** | 內建 **事件分析**（多指標聚合、公式計算、同環比、多維分組）、**漏斗分析**（多步驟轉化與流失拆解）、**留存分析**（日/週/月隊列留存追蹤）、**路徑分析**（用戶流轉桑基圖）、**分佈分析**、**間隔分析**（轉化耗時統計）及 **用戶屬性分析**。 |
+| **📊 十三大自助分析模型** | 涵蓋 **事件分析**（多指標公式、同環比、異常偵測與四象限視圖）、**漏斗分析**、**留存分析**、**路徑分析**、**分佈分析**、**間隔分析**、**用戶屬性分析**，以及全新升級的 **歸因分析**、**LTV 與 ROI 分析**、**生命週期分析**、**同時在線並發分析（PCU/ACU）**、**TopN 排行榜分析** 與 **自助 SQL 沙盒查詢**。
 | **🎯 用戶 360° 畫像與人群營運** | 自動打通匿名訪客設備與實名登入帳號的跨端身分，提供 **單用戶 360° 檔案與行為時間線回溯**；支援 **條件規則圈選分群**、**離線名單匯入分群**、**分析結果一鍵存為分群** 以及 **動態用戶標籤管理**（支援定時自動更新）。 |
 | **🧩 互動式 BI 儀表板工作台** | 支援多業務空間與資料夾分級管理，提供自由拖曳格線佈局、多類型分析圖表同屏混排、儀表板級全域時間與篩選聯動，以及團隊成員共享協作。 |
 | **🔌 數據資產與埋點治理** | 集中管理多專案、多時區、事件定義、屬性字典與業務指標；內建 **線上接入聯調工具**（支援模擬回報與即時校驗），並提供入庫數據日誌與異常數據排查視圖。 |
@@ -118,7 +119,51 @@
   </tr>
 </table>
 
-### 3. 用戶 360° 檔案與人群分群圈選
+### 3. 增長歸因、LTV 變現與用戶生命週期分析
+
+深入衡量渠道投放貢獻、隊列累計商業價值（LTV / CAC / ROI 回本線）及用戶活躍生命週期階段遷移。
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/attribution-analysis.png" alt="ABI 多觸點歸因分析 - 渠道轉化貢獻佔比與明細" title="歸因分析" width="100%" />
+      <p align="center"><b>歸因分析</b>：支援首次、末次、線性、U型與衰減模型，量化各觸點轉化貢獻</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ltv-analysis.png" alt="ABI LTV 與 ROI 分析 - 隊列生命週期價值曲線與 CAC 回本線" title="LTV 與 ROI 分析" width="100%" />
+      <p align="center"><b>LTV 與 ROI 分析</b>：累計生命週期價值曲線、CAC 回本線與階段明細矩陣</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/lifecycle-analysis.png" alt="ABI 用戶生命週期分析 - 新增留存回流流失分佈" title="生命週期分析" width="100%" />
+      <p align="center"><b>生命週期分析</b>：直觀呈現新增、留存、回流與流失用戶的階段趨勢與結構</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ranklist-analysis.png" alt="ABI TopN 排行榜分析 - 高價值核心用戶多指標即時榜單" title="排行榜分析" width="100%" />
+      <p align="center"><b>排行榜分析</b>：多指標即時 TopN 排名，快速定位核心用戶並支援檔案下鑽</p>
+    </td>
+  </tr>
+</table>
+
+### 4. 同時在線並發監控（PCU/ACU）與自助 SQL 沙盒
+
+兼顧遊戲/即時互動業務並發監控與高階分析師的自由探索需求，安全隔離且回應迅捷。
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/concurrency-analysis.png" alt="ABI 同時在線分析 - PCU 峰值在線與 ACU 平均同時在線趨勢" title="同時在線分析" width="100%" />
+      <p align="center"><b>同時在線分析（PCU/ACU）</b>：毫秒級重疊計算瞬時峰值與週期平均在線人數</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/sql-analysis.png" alt="ABI 自助 SQL 查詢工作台 - 租戶唯讀沙盒與一鍵視覺化圖表" title="自助 SQL 分析" width="100%" />
+      <p align="center"><b>自助 SQL 查詢</b>：內建多租戶唯讀沙盒、預設範本庫與結果一鍵圖表視覺化</p>
+    </td>
+  </tr>
+</table>
+
+### 5. 用戶 360° 檔案與人群分群圈選
 
 支援從宏觀匯總報表無縫下鑽至微觀個體軌跡，並透過視覺化規則圈選目標人群，複用於任意分析模型做交叉對比。
 
@@ -135,7 +180,7 @@
   </tr>
 </table>
 
-### 4. 元數據治理、線上接入聯調與權限管理
+### 6. 元數據治理、線上接入聯調與權限管理
 
 提供規範化的數據資產目錄、低門檻的線上模擬回報校驗工具，以及清晰完善的企業後台權限體系。
 
@@ -222,7 +267,7 @@ Session 管理 · 分散式快取與存取限流")]
 - **儲存與分析引擎層**：依託 StarRocks 列式儲存與向量化引擎支撐海量事件分析、留存計算與大規模人群圈選；MySQL 承載業務元數據、報表配置與權限體系；Redis 負責 Session 與高頻快取。
 - **分析服務與前端互動層**：Go 後端將前端視覺化查詢條件動態轉化為高效安全的分析查詢，並實現專案級數據隔離；React + TypeScript + ECharts 前端提供流暢的自助分析工作台與拖曳式 BI 儀表板。
 
-### 3. 技術棧速覽
+### 5. 技術棧速覽
 
 | 領域 | 核心技術選型 | 職責概述 |
 | :--- | :--- | :--- |
@@ -263,6 +308,6 @@ Session 管理 · 分散式快取與存取限流")]
 
 **[简体中文](README.md)** · **[繁體中文](README.zh-TW.md)** · **[English](README.en.md)** · **[日本語](README.ja.md)** · **[한국어](README.ko.md)** · **[Español](README.es.md)** · **[Português](README.pt.md)** · **[Deutsch](README.de.md)** · **[Français](README.fr.md)** · **[Русский](README.ru.md)** · **[Tiếng Việt](README.vi.md)** · **[ไทย](README.th.md)** · **[Bahasa Indonesia](README.id.md)**
 
-<sub>Keywords: User Behavior Analytics (UBA), Product Analytics, Business Intelligence (BI), Event Tracking, Funnel Analysis, Cohort Retention, User Path Sankey, Customer 360, Audience Segmentation, StarRocks OLAP, Apache Flink, Self-Hosted Analytics Platform, 用戶行為分析系統, 埋點分析平台, 商業智慧儀表板, 私有化數據分析</sub>
+<sub>Keywords: User Behavior Analytics (UBA), Product Analytics, Business Intelligence (BI), Event Tracking, Funnel Analysis, Cohort Retention, Multi-Touch Attribution, LTV & ROI, Lifecycle Analysis, PCU/ACU Concurrency, Self-Service SQL, User Path Sankey, Customer 360, Audience Segmentation, StarRocks OLAP, Apache Flink, Self-Hosted Analytics Platform, 用戶行為分析系統, 埋點分析平台, 商業智慧儀表板, 私有化數據分析</sub>
 
 </div>

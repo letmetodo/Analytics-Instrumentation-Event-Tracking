@@ -6,7 +6,7 @@
 
 **Nền tảng Tất-cả-trong-Một Tự Lưu trữ (Self-Hosted) cho Phân tích Sản phẩm, Chân dung Khách hàng 360° & Business Intelligence**
 
-Hợp nhất **Theo dõi sự kiện Đa nền tảng · Xử lý luồng Thời gian thực · Phân tích OLAP Dưới một giây · 7 Mô hình Phân tích Hành vi · Bảng điều khiển BI Tương tác · Phân quyền RBAC Doanh nghiệp**
+Hợp nhất **Theo dõi sự kiện Đa nền tảng · Xử lý luồng Thời gian thực · Phân tích OLAP Dưới một giây · 13 Mô hình Phân tích · SQL Tự phục vụ · Bảng điều khiển BI Tương tác · Phân quyền RBAC Doanh nghiệp**
 
 <p>
   <strong>🌐 Язык / Ngôn ngữ / Language:</strong>
@@ -118,7 +118,47 @@ Các mô hình trực quan hóa chuyên dụng để theo dõi tỷ lệ giữ c
   </tr>
 </table>
 
-### 3. Dòng thời gian Khách hàng 360° & Phân khúc đối tượng trực quan
+### 3. Phân bổ (Attribution), LTV & ROI, Vòng đời & Bảng xếp hạng TopN
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/attribution-analysis.png" alt="ABI Multi-Touch Attribution Analysis" title="Attribution Analysis" width="100%" />
+      <p align="center"><b>Attribution</b>: First-touch, last-touch, linear, U-shaped & decay models</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ltv-analysis.png" alt="ABI LTV & ROI Cohort Analysis" title="LTV & ROI Analysis" width="100%" />
+      <p align="center"><b>LTV & ROI</b>: Cumulative LTV growth curves, CAC payback line & milestone matrix</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/lifecycle-analysis.png" alt="ABI User Lifecycle Analysis" title="Lifecycle Analysis" width="100%" />
+      <p align="center"><b>Lifecycle</b>: New, Retained, Resurrected & Churned user stage trends</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ranklist-analysis.png" alt="ABI TopN Ranklist Analysis" title="Ranklist Analysis" width="100%" />
+      <p align="center"><b>TopN Ranklist</b>: Real-time multi-metric user leaderboard with profile drill-down</p>
+    </td>
+  </tr>
+</table>
+
+### 4. Đồng thời (PCU/ACU) & SQL Tự phục vụ
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/concurrency-analysis.png" alt="ABI PCU/ACU Concurrency Analysis" title="Concurrency Analysis" width="100%" />
+      <p align="center"><b>Concurrency (PCU/ACU)</b>: Peak & Average Concurrent Users with peak-to-average ratios</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/sql-analysis.png" alt="ABI Self-Service SQL Sandbox" title="Self-Service SQL" width="100%" />
+      <p align="center"><b>Self-Service SQL</b>: Tenant-isolated read-only SQL sandbox, templates & instant charts</p>
+    </td>
+  </tr>
+</table>
+
+### 5. Dòng thời gian Khách hàng 360° & Phân khúc đối tượng trực quan
 
 Xem chi tiết liền mạch từ các chỉ số KPI tổng hợp đến luồng sự kiện của từng người dùng cụ thể, hoặc xây dựng các phân khúc và thẻ người dùng động để phân tích chéo đa mô hình.
 
@@ -135,7 +175,7 @@ Xem chi tiết liền mạch từ các chỉ số KPI tổng hợp đến luồn
   </tr>
 </table>
 
-### 4. Quản trị siêu dữ liệu, Kết nối thử nghiệm SDK trực tiếp & Phân quyền RBAC chi tiết
+### 6. Quản trị siêu dữ liệu, Kết nối thử nghiệm SDK trực tiếp & Phân quyền RBAC chi tiết
 
 Duy trì từ điển dữ liệu chuẩn hóa, xác thực tải trọng theo dõi sự kiện trực tiếp và quản trị quyền truy cập nhóm với các cấp phân quyền chuẩn doanh nghiệp.
 
@@ -222,7 +262,7 @@ Phân tích hành vi · Bảng điều khiển BI · Bàn làm việc quản tr�
 - **Tầng lưu trữ & OLAP**: StarRocks cung cấp sức mạnh cho các truy vấn phân tích dưới một giây trên các bảng sự kiện khổng lồ, hồ sơ người dùng và các nhóm đối tượng; MySQL lưu trữ siêu dữ liệu, bố cục bảng điều khiển và cấu hình RBAC; Redis quản lý phiên đăng nhập và giới hạn tốc độ truy cập.
 - **Tầng dịch vụ & Ứng dụng**: Phía sau viết bằng Go biên dịch các điều kiện truy vấn trực quan thành SQL phân tích an toàn, được tham số hóa với cơ chế cô lập dự án nghiêm ngặt, phục vụ giao diện người dùng phân tích và bảng điều khiển nhạy bén bằng React + TypeScript + ECharts.
 
-### 3. Tóm tắt ngăn xếp công nghệ
+### 5. Tóm tắt ngăn xếp công nghệ
 
 | Tầng | Công nghệ cốt lõi | Vai trò |
 | :--- | :--- | :--- |

@@ -6,7 +6,7 @@
 
 **Plateforme tout-en-un auto-hébergée d'analyse produit, Customer 360 et Business Intelligence**
 
-Unifie **Collecte multi-plateforme · Traitement de flux temps réel · Moteur OLAP en moins d'une seconde · 7 Modèles d'analyse comportementale · Tableaux de bord BI interactifs · RBAC d'entreprise**
+Unifie **Collecte multi-plateforme · Traitement de flux temps réel · Moteur OLAP en moins d'une seconde · 13 Modèles d'Analyse · SQL Libre-Service · Tableaux de bord BI interactifs · RBAC d'entreprise**
 
 <p>
   <strong>🌐 Sprache / Langue / Language:</strong>
@@ -118,7 +118,47 @@ Visualisations dédiées au suivi de la rétention et à la découverte des parc
   </tr>
 </table>
 
-### 3. Chronologie Customer 360 et Segmentation visuelle des audiences
+### 3. Attribution, LTV & ROI, Cycle de Vie et Classement TopN
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/attribution-analysis.png" alt="ABI Multi-Touch Attribution Analysis" title="Attribution Analysis" width="100%" />
+      <p align="center"><b>Attribution</b>: First-touch, last-touch, linear, U-shaped & decay models</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ltv-analysis.png" alt="ABI LTV & ROI Cohort Analysis" title="LTV & ROI Analysis" width="100%" />
+      <p align="center"><b>LTV & ROI</b>: Cumulative LTV growth curves, CAC payback line & milestone matrix</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/lifecycle-analysis.png" alt="ABI User Lifecycle Analysis" title="Lifecycle Analysis" width="100%" />
+      <p align="center"><b>Lifecycle</b>: New, Retained, Resurrected & Churned user stage trends</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ranklist-analysis.png" alt="ABI TopN Ranklist Analysis" title="Ranklist Analysis" width="100%" />
+      <p align="center"><b>TopN Ranklist</b>: Real-time multi-metric user leaderboard with profile drill-down</p>
+    </td>
+  </tr>
+</table>
+
+### 4. Concurrence (PCU/ACU) et SQL Libre-Service
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/concurrency-analysis.png" alt="ABI PCU/ACU Concurrency Analysis" title="Concurrency Analysis" width="100%" />
+      <p align="center"><b>Concurrency (PCU/ACU)</b>: Peak & Average Concurrent Users with peak-to-average ratios</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/sql-analysis.png" alt="ABI Self-Service SQL Sandbox" title="Self-Service SQL" width="100%" />
+      <p align="center"><b>Self-Service SQL</b>: Tenant-isolated read-only SQL sandbox, templates & instant charts</p>
+    </td>
+  </tr>
+</table>
+
+### 5. Chronologie Customer 360 et Segmentation visuelle des audiences
 
 Passez en toute fluidité des indicateurs clés agrégés aux flux d'événements individuels, ou créez des segments et tags dynamiques pour des analyses ciblées entre modèles.
 
@@ -135,7 +175,7 @@ Passez en toute fluidité des indicateurs clés agrégés aux flux d'événement
   </tr>
 </table>
 
-### 4. Gouvernance des métadonnées, Intégration SDK en direct et RBAC granulaire
+### 6. Gouvernance des métadonnées, Intégration SDK en direct et RBAC granulaire
 
 Maintenez des dictionnaires de données fiables, validez les données de tracking de manière interactive et contrôlez les accès d'équipe avec des permissions de niveau entreprise.
 
@@ -222,7 +262,7 @@ Analyse comportementale · Tableaux de bord BI · Console de gouvernance"]
 - **Couche de stockage et OLAP** : StarRocks propulse les requêtes analytiques en moins d'une seconde sur d'immenses tables d'événements, profils utilisateurs et cohortes d'audiences ; MySQL stocke les métadonnées, les dispositions de tableaux de bord et les configurations RBAC ; Redis gère les sessions actives et la limitation de débit.
 - **Couche de service et d'application** : Le backend Go compile les conditions de requêtes visuelles en SQL analytique sécurisé et paramétré avec une stricte isolation par projet, alimentant un frontend réactif d'analyse et de tableaux de bord en React + TypeScript + ECharts.
 
-### 3. Récapitulatif de la pile technologique
+### 5. Récapitulatif de la pile technologique
 
 | Couche | Technologies clés | Rôle |
 | :--- | :--- | :--- |

@@ -6,7 +6,7 @@
 
 **All-in-One Self-Hosted Plattform für Produktanalytik, Customer 360 & Business Intelligence**
 
-Vereint **Multi-Plattform-Ereigniserfassung · Echtzeit-Stream-Processing · Vektorisierte Subsekunden-OLAP · 7 Verhaltensanalysemodelle · Interaktive BI-Dashboards · Enterprise-RBAC**
+Vereint **Multi-Plattform-Ereigniserfassung · Echtzeit-Stream-Processing · Vektorisierte Subsekunden-OLAP · 13 Analysemodelle · Self-Service SQL · Interaktive BI-Dashboards · Enterprise-RBAC**
 
 <p>
   <strong>🌐 Sprache / Langue / Language:</strong>
@@ -118,7 +118,47 @@ Maßgeschneiderte Visualisierungen für Retention-Tracking und die Erkennung von
   </tr>
 </table>
 
-### 3. Customer 360 Zeitleiste & Visuelle Zielgruppensegmentierung
+### 3. Attribution, LTV & ROI, Lifecycle und TopN-Rangliste
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/attribution-analysis.png" alt="ABI Multi-Touch Attribution Analysis" title="Attribution Analysis" width="100%" />
+      <p align="center"><b>Attribution</b>: First-touch, last-touch, linear, U-shaped & decay models</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ltv-analysis.png" alt="ABI LTV & ROI Cohort Analysis" title="LTV & ROI Analysis" width="100%" />
+      <p align="center"><b>LTV & ROI</b>: Cumulative LTV growth curves, CAC payback line & milestone matrix</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/lifecycle-analysis.png" alt="ABI User Lifecycle Analysis" title="Lifecycle Analysis" width="100%" />
+      <p align="center"><b>Lifecycle</b>: New, Retained, Resurrected & Churned user stage trends</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ranklist-analysis.png" alt="ABI TopN Ranklist Analysis" title="Ranklist Analysis" width="100%" />
+      <p align="center"><b>TopN Ranklist</b>: Real-time multi-metric user leaderboard with profile drill-down</p>
+    </td>
+  </tr>
+</table>
+
+### 4. Nebenläufigkeit (PCU/ACU) & Self-Service-SQL
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/concurrency-analysis.png" alt="ABI PCU/ACU Concurrency Analysis" title="Concurrency Analysis" width="100%" />
+      <p align="center"><b>Concurrency (PCU/ACU)</b>: Peak & Average Concurrent Users with peak-to-average ratios</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/sql-analysis.png" alt="ABI Self-Service SQL Sandbox" title="Self-Service SQL" width="100%" />
+      <p align="center"><b>Self-Service SQL</b>: Tenant-isolated read-only SQL sandbox, templates & instant charts</p>
+    </td>
+  </tr>
+</table>
+
+### 5. Customer 360 Zeitleiste & Visuelle Zielgruppensegmentierung
 
 Nahtloser Drilldown von aggregierten KPIs auf individuelle Ereignisströme einzelner Nutzer oder Erstellung dynamischer Nutzersegmente und Tags für zielgerichtete modulübergreifende Analysen.
 
@@ -135,7 +175,7 @@ Nahtloser Drilldown von aggregierten KPIs auf individuelle Ereignisströme einze
   </tr>
 </table>
 
-### 4. Metadaten-Governance, Live-SDK-Onboarding & Granulare RBAC
+### 6. Metadaten-Governance, Live-SDK-Onboarding & Granulare RBAC
 
 Saubere Datenkataloge pflegen, Ereignis-Tracking-Payloads interaktiv validieren und den Teamzugriff mit unternehmensweiten Berechtigungen steuern.
 
@@ -222,7 +262,7 @@ Verhaltensanalyse · BI-Dashboards · Governance-Konsole"]
 - **Speicher- & OLAP-Schicht**: StarRocks ermöglicht analytische Abfragen im Subsekundenbereich über riesige Ereignistabellen, Nutzerprofile und Zielgruppenkohorten hinweg; MySQL speichert Metadaten, Dashboard-Layouts und RBAC-Konfigurationen; Redis verwaltet aktive Sitzungen und Rate Limits.
 - **Service- & Anwendungsschicht**: Das Go-Backend kompiliert visuelle Abfragebedingungen in sicheres, parametrisiertes analytisches SQL mit strikter Projektisolation und bedient ein responsives Analyse- und Dashboard-Frontend auf Basis von React + TypeScript + ECharts.
 
-### 3. Zusammenfassung des Technologie-Stacks
+### 5. Zusammenfassung des Technologie-Stacks
 
 | Schicht | Kerntechnologien | Rolle |
 | :--- | :--- | :--- |

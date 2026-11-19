@@ -1,32 +1,8 @@
-# OS & Editor
 .DS_Store
-Thumbs.db
-.idea/
-.vscode/
-
-# Node / TypeScript
 node_modules/
 dist/
-coverage/
-
-# Java / Maven
-target/
-
-# Go
-*.test
-coverage.out
-coverage.html
-
-# Python
-__pycache__/
-*.py[cod]
-
-# .NET / C#
-bin/
-obj/
-
-# Mobile build caches
-.dart_tool/
-.gradle/
 build/
-DerivedData/
+target/
+*.log
+.idea/
+.vscode/

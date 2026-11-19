@@ -6,7 +6,7 @@
 
 **프로덕트 성장, 정밀한 그로스 운영 및 데이터 팀을 위한 올인원 프라이빗 데이터 분석 시스템**
 
-**전 플랫폼 이벤트 수집 · 실시간 스트리밍 처리 · 초고속 대용량 OLAP 분석 · 7대 행동 분석 모델 · 인터랙티브 BI 대시보드 · 엔터프라이즈 RBAC 권한 거버넌스** 통합 제공
+**전 플랫폼 이벤트 수집 · 실시간 스트리밍 처리 · 초고속 대용량 OLAP 분석 · 13대 행동·성장 분석 모델 · 셀프 서비스 SQL · 인터랙티브 BI 대시보드 · 엔터프라이즈 RBAC 권한 거버넌스** 통합 제공
 
 <p>
   <strong>🌐 語言 / Language：</strong>
@@ -30,6 +30,7 @@
   <img src="https://img.shields.io/badge/Backend-Go_%7C_Gin_%7C_GORM-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Go Backend" />
   <img src="https://img.shields.io/badge/Streaming-Apache_Flink_%7C_Kafka-E6526F?style=flat-square&logo=apacheflink&logoColor=white" alt="Flink Kafka Streaming" />
   <img src="https://img.shields.io/badge/OLAP-StarRocks-3B82F6?style=flat-square" alt="StarRocks OLAP" />
+  <img src="https://img.shields.io/badge/Models-13_Analytics_Engines-6366F1?style=flat-square" alt="13 Behavioral Analytics Models" />
   <img src="https://img.shields.io/badge/SDKs-14%2B_Platforms-10B981?style=flat-square" alt="14+ Multi-Platform SDKs" />
   <a href="mailto:baidushanxivip@gmail.com"><img src="https://img.shields.io/badge/상용_도입_문의-baidushanxivip%40gmail.com-F59E0B?style=flat-square&logo=gmail&logoColor=white" alt="구매 및 도입 문의 baidushanxivip@gmail.com" /></a>
 </p>
@@ -59,7 +60,7 @@
 
 | 기능 모듈 | 핵심 역량 설명 |
 | :--- | :--- |
-| **📊 멀티 모델 셀프서브 행동 분석** | **이벤트 분석**(멀티 지표 집계, 수식 계산, 전년/전월 대비 증감율, 다차원 그룹 분할), **퍼널 분석**(다단계 전환율 및 이탈 분석), **리텐션 분석**(일/주/월 단위 코호트 유지율 추적), **경로 분석**(사용자 이동 흐름 산키 다이어그램), **분포 분석**, **간격 분석**(전환 소요 시간 통계) 및 **사용자 속성 분석** 기본 내장. |
+| **📊 13대 셀프 서비스 분석 모델** | **이벤트 분석**(다중 지표 수식, YoY/MoM, 이상 탐지, 4분면), **퍼널**, **리텐션**, **유저 패스**, **분포**, **간격**, **유저 속성 분석**과 더불어 **어트리뷰션(기여도)**, **LTV & ROI**, **라이프사이클**, **동시 접속(PCU/ACU)**, **TopN 랭크리스트**, **셀프 서비스 SQL 샌드박스**를 지원합니다.
 | **🎯 사용자 360° 프로필 및 고객 코호트 운영** | 익명 방문자 디바이스와 로그인 실명 계정 간의 크로스 디바이스 아이덴티티 매핑을 자동 지원하며, **단일 사용자 360° 프로필 및 행동 타임라인 역추적**을 제공합니다. **조건식 규칙 기반 코호트 생성**, **오프라인 목록 파일 업로드 세그먼트**, **분석 결과 즉시 세그먼트 저장** 및 **동적 사용자 태그 관리**(정기 자동 갱신 지원)를 완벽히 지원합니다. |
 | **🧩 인터랙티브 BI 대시보드 워크스페이스** | 멀티 워크스페이스 및 폴더 계층 관리를 지원하며, 자유로운 드래그 앤 드롭 그리드 레이아웃, 다양한 유형의 분석 차트 단일 화면 혼합 배치, 대시보드 단위 글로벌 시간 및 필터 연동, 팀원 간 실시간 공유 협업 기능을 제공합니다. |
 | **🔌 데이터 자산 및 이벤트 트래킹 거버넌스** | 멀티 프로젝트, 멀티 타임존, 이벤트 정의, 속성 사전 및 비즈니스 지표를 중앙에서 통합 관리합니다. **온라인 연동 테스트 도구**(가상 전송 및 실시간 스키마 유효성 검증)를 내장하고, 적재 데이터 로그 및 이상 데이터 트러블슈팅 뷰를 제공합니다. |
@@ -118,7 +119,51 @@
   </tr>
 </table>
 
-### 3. 단일 사용자 360° 프로필 및 타겟 코호트 추출
+### 3. 어트리뷰션, LTV & ROI, 라이프사이클 및 TopN 랭크리스트
+
+채널별 전환 기여도, 코호트 누적 LTV 및 CAC 손익분기점(ROI), 사용자 라이프사이클 단계 변화를 심층 분석합니다.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/attribution-analysis.png" alt="ABI 멀티터치 어트리뷰션 분석" title="어트리뷰션 분석" width="100%" />
+      <p align="center"><b>어트리뷰션 분석</b>: 첫 터치, 마지막 터치, 선형, U자형 및 시간 감쇠 모델 지원</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ltv-analysis.png" alt="ABI LTV 및 ROI 코호트 분석" title="LTV & ROI 분석" width="100%" />
+      <p align="center"><b>LTV & ROI 분석</b>: 누적 LTV 성장 곡선, CAC 손익분기선 및 마일스톤 테이블</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/lifecycle-analysis.png" alt="ABI 사용자 라이프사이클 분석" title="라이프사이클 분석" width="100%" />
+      <p align="center"><b>라이프사이클 분석</b>: 신규, 유지, 복귀 및 이탈 사용자 단계별 추이 시각화</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ranklist-analysis.png" alt="ABI TopN 랭크리스트 분석" title="TopN 랭크리스트" width="100%" />
+      <p align="center"><b>TopN 랭크리스트</b>: 다중 지표 실시간 순위 및 사용자 프로필 드릴다운</p>
+    </td>
+  </tr>
+</table>
+
+### 4. 실시간 동시 접속(PCU/ACU) & 셀프 서비스 SQL 샌드박스
+
+게임·실시간 서비스의 동시 접속 모니터링과 테넌트 격리 읽기 전용 SQL 탐색을 모두 지원합니다.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/concurrency-analysis.png" alt="ABI PCU/ACU 동시 접속 분석" title="동시 접속 분석" width="100%" />
+      <p align="center"><b>동시 접속 분석 (PCU/ACU)</b>: 최대 동시 접속(PCU) 및 평균 동시 접속(ACU) 추이 분석</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/sql-analysis.png" alt="ABI 셀프 서비스 SQL 워크벤치" title="셀프 서비스 SQL" width="100%" />
+      <p align="center"><b>셀프 서비스 SQL</b>: 읽기 전용 샌드박스, 프리셋 템플릿 및 원클릭 차트 시각화</p>
+    </td>
+  </tr>
+</table>
+
+### 5. 단일 사용자 360° 프로필 및 타겟 코호트 추출
 
 거시적 집계 지표 보고서에서 미시적 개별 사용자 여정으로 매끄럽게 드릴다운하고, 시각적 규칙을 통해 타겟 고객군을 추출하여 모든 분석 모델에서 교차 비교할 수 있습니다.
 
@@ -135,7 +180,7 @@
   </tr>
 </table>
 
-### 4. 메타데이터 거버넌스, 온라인 수집 연동 테스트 및 권한 관리
+### 6. 메타데이터 거버넌스, 온라인 수집 연동 테스트 및 권한 관리
 
 표준화된 데이터 자산 카탈로그, 간편한 온라인 시뮬레이션 전송 검증 도구, 체계적인 엔터프라이즈 관리자 권한 시스템을 제공합니다.
 
@@ -222,7 +267,7 @@ Go / Java / Python / Node.js / C# / PHP / Ruby / C++ / Lua"]
 - **스토리지 및 분석 엔진 계층**: StarRocks 컬럼형 스토리지와 벡터화 연산 엔진을 통해 대규모 이벤트 분석, 코호트 리텐션 연산 및 대량 사용자 세그멘테이션을 초고속으로 지원합니다. MySQL은 비즈니스 메타데이터, 리포트 구성 및 권한 체계를 저장하며, Redis는 세션 관리와 고빈도 캐싱을 담당합니다.
 - **분석 서비스 및 프론트엔드 상호작용 계층**: Go 백엔드는 사용자의 시각적 쿼리 조건을 안전하고 최적화된 SQL로 동적 변환하며 프로젝트 단위 데이터 격리를 보장합니다. React + TypeScript + ECharts 기반 프론트엔드는 직관적인 셀프서브 분석 및 드래그 앤 드롭 BI 대시보드 경험을 선사합니다.
 
-### 3. 기술 스택 개요
+### 5. 기술 스택 개요
 
 | 영역 | 핵심 기술 스택 | 주요 역할 및 책임 |
 | :--- | :--- | :--- |
@@ -263,6 +308,6 @@ Go / Java / Python / Node.js / C# / PHP / Ruby / C++ / Lua"]
 
 **[简体中文](README.md)** · **[繁體中文](README.zh-TW.md)** · **[English](README.en.md)** · **[日本語](README.ja.md)** · **[한국어](README.ko.md)** · **[Español](README.es.md)** · **[Português](README.pt.md)** · **[Deutsch](README.de.md)** · **[Français](README.fr.md)** · **[Русский](README.ru.md)** · **[Tiếng Việt](README.vi.md)** · **[ไทย](README.th.md)** · **[Bahasa Indonesia](README.id.md)**
 
-<sub>Keywords: User Behavior Analytics (UBA), Product Analytics, Business Intelligence (BI), Event Tracking, Funnel Analysis, Cohort Retention, User Path Sankey, Customer 360, Audience Segmentation, StarRocks OLAP, Apache Flink, Self-Hosted Analytics Platform, 사용자 행동 분석 시스템, 로그 수집 분석 플랫폼, 비즈니스 인텔리전스 대시보드, 온프레미스 데이터 분석</sub>
+<sub>Keywords: User Behavior Analytics (UBA), Product Analytics, Business Intelligence (BI), Event Tracking, Funnel Analysis, Cohort Retention, Multi-Touch Attribution, LTV & ROI, Lifecycle Analysis, PCU/ACU Concurrency, Self-Service SQL, User Path Sankey, Customer 360, Audience Segmentation, StarRocks OLAP, Apache Flink, Self-Hosted Analytics Platform, 사용자 행동 분석 시스템, 로그 수집 분석 플랫폼, 비즈니스 인텔리전스 대시보드, 온프레미스 데이터 분석</sub>
 
 </div>

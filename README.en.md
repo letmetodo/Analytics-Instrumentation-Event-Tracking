@@ -1,12 +1,12 @@
 <div align="center">
 
-<img src="docs/readme/abi-logo.svg" alt="ABI Enterprise User Behavior Analytics and BI Platform Logo" title="ABI - Enterprise UBA & BI Platform" width="84" height="84" />
+<img src="docs/readme/abi-logo.svg" alt="ABI User Behavior Analytics & Business Intelligence Platform Logo" title="ABI - Enterprise UBA & BI Platform" width="84" height="84" />
 
-# ABI — Enterprise User Behavior Analytics (UBA) & BI Platform
+# ABI — Enterprise User Behavior Analytics (UBA) & Business Intelligence (BI) Platform
 
-**All-in-One Self-Hosted Product Analytics, Customer 360 & Business Intelligence Platform**
+**An all-in-one, self-hosted analytics platform built for product growth, lifecycle operations, game publishing, and data teams**
 
-Unifying **Multi-Platform Event Tracking · Real-Time Stream Processing · Sub-Second OLAP · 7 Behavioral Analytics Models · Interactive BI Dashboards · Enterprise RBAC**
+Unifying **Cross-Platform Event Tracking · Real-Time Streaming ETL · High-Speed OLAP · 13 Behavioral & Growth Models · Self-Service SQL · Interactive BI Dashboards · Enterprise RBAC**
 
 <p>
   <strong>🌐 Language / 语言 / 言語:</strong>
@@ -30,22 +30,24 @@ Unifying **Multi-Platform Event Tracking · Real-Time Stream Processing · Sub-S
   <img src="https://img.shields.io/badge/Backend-Go_%7C_Gin_%7C_GORM-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Go Backend" />
   <img src="https://img.shields.io/badge/Streaming-Apache_Flink_%7C_Kafka-E6526F?style=flat-square&logo=apacheflink&logoColor=white" alt="Flink Kafka Streaming" />
   <img src="https://img.shields.io/badge/OLAP-StarRocks-3B82F6?style=flat-square" alt="StarRocks OLAP" />
+  <img src="https://img.shields.io/badge/Models-13_Analytics_Engines-6366F1?style=flat-square" alt="13 Behavioral Analytics Models" />
   <img src="https://img.shields.io/badge/SDKs-14%2B_Platforms-10B981?style=flat-square" alt="14+ Multi-Platform SDKs" />
-  <a href="mailto:baidushanxivip@gmail.com"><img src="https://img.shields.io/badge/Purchase_%26_Inquiries-baidushanxivip%40gmail.com-F59E0B?style=flat-square&logo=gmail&logoColor=white" alt="Contact baidushanxivip@gmail.com to Purchase" /></a>
+  <a href="mailto:baidushanxivip@gmail.com"><img src="https://img.shields.io/badge/Commercial_Inquiry-baidushanxivip%40gmail.com-F59E0B?style=flat-square&logo=gmail&logoColor=white" alt="Contact baidushanxivip@gmail.com" /></a>
 </p>
 
 <p>
   <a href="#features">Core Features</a> •
+  <a href="#models">13 Analytics Models</a> •
   <a href="#scenarios">Use Cases</a> •
   <a href="#screenshots">Screenshots</a> •
   <a href="#architecture">Architecture</a> •
-  <a href="#sdks">SDK Ecosystem</a> •
-  <a href="#contact">Purchase & Contact</a>
+  <a href="#sdks">Multi-Platform SDKs</a> •
+  <a href="#contact">Licensing & Contact</a>
 </p>
 
 <br />
 
-<img src="docs/readme/signin-portal.png" alt="ABI Behavioral Intelligence and BI Analytics Platform Portal" title="ABI Analytics Platform" width="100%" />
+<img src="docs/readme/signin-portal.png" alt="ABI Enterprise User Behavior Analytics & BI Platform Sign-In Portal" title="ABI Analytics Platform" width="100%" />
 
 </div>
 
@@ -55,108 +57,167 @@ Unifying **Multi-Platform Event Tracking · Real-Time Stream Processing · Sub-S
 
 ## ✨ Core Features
 
-**ABI (AnyLink Behavioral Intelligence)** is an enterprise-ready **User Behavior Analytics (UBA) and Business Intelligence (BI)** platform built for product growth, operations, and data engineering teams. It delivers a complete closed-loop workflow—from multi-platform event collection and real-time streaming ingestion to self-service behavioral exploration, audience segmentation, and executive dashboards—with full support for private / on-premise deployment and data sovereignty.
+**ABI (AnyLink Behavioral Intelligence)** is an out-of-the-box, enterprise-grade **User Behavior Analytics (UBA)** and **Business Intelligence (BI)** platform. It connects the entire analytics lifecycle — from multi-platform event instrumentation and real-time stream processing to self-service exploration, SQL querying, customer segmentation, and collaborative BI dashboards — with full support for private cloud and on-premise deployment.
 
-| Capability Domain | Key Highlights |
+| Module | Capabilities |
 | :--- | :--- |
-| **📊 7 Self-Service Analytics Models** | Built-in **Event Analysis** (multi-metric aggregation, custom formulas, period-over-period comparison, multi-dimensional breakdowns), **Funnel Analysis** (conversion & drop-off diagnostics), **Retention Analysis** (daily/weekly/monthly cohort matrices), **Path Analysis** (forward/reverse user journey Sankey flows), **Distribution Analysis**, **Interval Analysis** (time-to-convert box plots), and **User Attribute Analysis**. |
-| **🎯 Customer 360 & Audience Engine** | Real-time cross-device identity resolution linking anonymous visitors and authenticated accounts into a unified user profile; includes **Single-User 360 Timelines**, **Visual Rule-Based Cohorts**, **CSV List Imports**, **One-Click Cohort Saving from Charts**, and **Scheduled User Tags**. |
-| **🧩 Interactive BI Dashboards** | Organize workspaces with multi-space folders, responsive drag-and-drop grid layouts, mixed-model visualization widgets, dashboard-wide dynamic date & filter overrides, and granular team sharing. |
-| **🔌 Metadata & Tracking Governance** | Centrally manage projects, timezones, event schemas, property dictionaries, and business metrics; features an **Interactive SDK Onboarding Playground** (live payload validation without polluting production data) plus real-time ingestion & error logs. |
-| **🔐 Enterprise Security & Global i18n** | Fine-grained RBAC across menus, routes, and action buttons with strict project-level data isolation and audit logging; native **13-language localization** (Simplified/Traditional Chinese, English, Japanese, Korean, Spanish, Portuguese, German, French, Russian, Vietnamese, Thai, Indonesian), Light/Dark themes, and anti-leak screen watermarks. |
+| **📊 13 Self-Service Analytics Models** | Includes **Event Analysis** (multi-metric formulas, YoY/MoM, anomaly detection & quadrant views), **Funnel**, **Retention**, **User Path**, **Distribution**, **Interval**, and **User Property Analysis**, plus **Multi-Touch Attribution**, **LTV & ROI**, **User Lifecycle**, **PCU/ACU Concurrency**, **TopN Ranklist**, and **Self-Service SQL Sandbox**. |
+| **🎯 Customer 360° & Segmentation** | Unifies anonymous device IDs and authenticated user accounts across platforms; provides **Customer 360° profiles & behavioral timelines**, **rule-based dynamic segments**, **offline batch imports**, **one-click segment saving from charts**, and **scheduled dynamic user tags**. |
+| **🧩 All-Model Interactive BI Dashboards** | Multi-workspace folder organization, drag-and-drop grid layouts supporting **all 13 analytics models**, dashboard-wide time/filter synchronization, compact chart modes, and team sharing. |
+| **🔌 Metadata & Tracking Governance** | Centralized multi-project, multi-timezone event dictionaries, property schemas, and business metrics; built-in **Live SDK Debug Playground** for payload validation, plus ingestion & error observability logs. |
+| **🔐 Enterprise RBAC & Global UX** | Fine-grained user, role, and **Menu / Page / Button RBAC** permissions, strict project-level data isolation, and audit logs; native **13-language UI**, Light/Dark themes, and anti-leakage screen watermarks. |
+
+---
+
+<a id="models"></a>
+
+## 🧠 13 Behavioral & Data Science Analytics Models
+
+| Category | Models | Key Capabilities |
+| :--- | :--- | :--- |
+| **Core Behavior** | **Event / User Property Analysis** | Multi-metric formulas, period-over-period comparisons, multi-dimensional breakdowns, anomaly detection, and quadrant analysis |
+| **Conversion & Retention** | **Funnel / Retention / Interval Analysis** | Multi-step conversion & drop-off diagnostics, cohort retention heatmaps & decay curves, conversion time-to-complete distributions |
+| **Flow & Distribution** | **User Path / Distribution Analysis** | Forward & reverse multi-step Sankey flow diagrams, top journey rankings, and frequency/amount/duration bucket distributions |
+| **Growth & Attribution** | **Attribution / TopN Ranklist Analysis** | First-touch, last-touch, linear, position-based (U-shaped), and time-decay attribution; real-time multi-metric TopN user leaderboards |
+| **Monetization & Lifecycle** | **LTV & ROI / Lifecycle Analysis** | Cumulative cohort LTV growth curves, CAC payback lines & ROI milestones; New, Retained, Resurrected, and Churned user stage trends |
+| **Real-Time & Ad-Hoc** | **Concurrency (PCU/ACU) / Self-Service SQL** | Peak Concurrent Users (PCU) & Average Concurrent Users (ACU) tracking; tenant-isolated read-only SQL sandbox with templates & instant charting |
 
 ---
 
 <a id="scenarios"></a>
 
-## 🌍 Key Use Cases
+## 🌍 Typical Use Cases
 
-- **Product Growth & Mobile Apps (Web / iOS / Android / Mini-Programs)**: Measure feature adoption, pinpoint onboarding funnel drop-offs, track cohort retention curves, and explore real user navigation flows.
-- **E-Commerce & Digital Retail**: Connect end-to-end attribution from product impressions and cart additions to checkout and payment, while segmenting high-LTV VIP buyers and churn-risk users.
-- **Gaming Studios & Global Publishers**: Collect high-volume telemetry across Unity, Unreal, Cocos, and game servers to analyze tutorial completion, stage intervals, daily retention, and monetization tiers.
-- **Self-Hosted Enterprise Data Infrastructure**: Deploy inside your own cloud or on-premise environment for full data privacy compliance, multi-business-unit isolation, and cross-timezone global collaboration.
+- **Web, Mobile & Mini-Program Product Growth**: Measure feature adoption, diagnose onboarding & activation funnels, and optimize retention curves and user navigation paths.
+- **E-Commerce & Digital Retail Operations**: Attribute conversions across ad channels and touchpoints, track CAC payback and LTV cohorts, and target high-value VIPs or churn-risk segments.
+- **Game Development & Global Publishing**: Monitor real-time PCU/ACU concurrency, top-spender leaderboards, tutorial drop-offs, and cohort monetization across game engines and server SDKs.
+- **Enterprise Private Data Platform**: Containerized delivery for air-gapped or private cloud environments requiring strict data sovereignty, multi-tenant isolation, and global multi-timezone collaboration.
 
 ---
 
 <a id="screenshots"></a>
 
-## 📸 Product Module Screenshots
+## 📸 Module Screenshots
 
-### 1. Event Analysis Workbench & Executive BI Dashboards
+### 1. Event Analysis Workbench & All-Model BI Dashboards
 
-An intuitive, no-code exploration workspace designed for product managers and analysts: configure metrics, filters, and breakdowns on the left, inspect interactive charts and drill-down tables on the right, and pin insights directly onto shared dashboards.
+A zero-code exploration workspace for product managers, growth teams, and analysts: select metrics, filters, and dimensions on the left to render interactive charts and drill-down tables instantly, and pin any of the 13 models to live BI dashboards.
 
-<img src="docs/readme/event-analysis.png" alt="ABI Event Analysis Workbench - Multi-Dimensional Trend Chart and Breakdown Table" title="Event Analysis Workbench" width="100%" />
+<img src="docs/readme/event-analysis.png" alt="ABI Event Analysis Workbench - Multi-Dimensional Trend Charts and Breakdown Tables" title="Event Analysis Workbench" width="100%" />
 
 <table>
   <tr>
     <td width="50%" valign="top">
-      <img src="docs/readme/dashboard-workspace.png" alt="ABI Interactive BI Dashboard Workspace - Drag-and-Drop Multi-Chart Layout" title="BI Dashboard Workspace" width="100%" />
-      <p align="center"><b>BI Dashboard Workspace</b>: Drag-and-drop grid layout, workspace folders, and global date filtering</p>
+      <img src="docs/readme/dashboard-workspace.png" alt="ABI BI Dashboard Workspace - All-Model Drag-and-Drop Grid and Global Filters" title="BI Dashboard Workspace" width="100%" />
+      <p align="center"><b>BI Dashboard Workspace</b>: Multi-model drag-and-drop layout, workspace folders, and global time/filter sync</p>
     </td>
     <td width="50%" valign="top">
-      <img src="docs/readme/funnel-analysis.png" alt="ABI Funnel Conversion Analysis - Multi-Step Conversion and Drop-Off Breakdown" title="Funnel Analysis" width="100%" />
-      <p align="center"><b>Funnel Analysis</b>: Configurable conversion windows with step-by-step conversion & drop-off insights</p>
+      <img src="docs/readme/funnel-analysis.png" alt="ABI Funnel Analysis - Multi-Step Conversion Rates and Drop-Off Insights" title="Funnel Analysis" width="100%" />
+      <p align="center"><b>Funnel Analysis</b>: Configurable conversion windows to pinpoint step-by-step conversion and drop-off</p>
     </td>
   </tr>
 </table>
 
-### 2. Cohort Retention & User Journey Path Analysis
+### 2. Cohort Retention & User Path Exploration
 
-Purpose-built visualizations for retention tracking and user flow discovery, powered by a high-speed vectorized OLAP engine.
+Dedicated visual models for tracking long-term engagement and discovering high-converting user journeys.
 
 <table>
   <tr>
     <td width="50%" valign="top">
-      <img src="docs/readme/retention-analysis.png" alt="ABI Cohort Retention Analysis - Decay Curves and Daily Retention Heatmap" title="Cohort Retention Analysis" width="100%" />
-      <p align="center"><b>Retention Analysis</b>: Multi-cohort retention decay curves paired with a daily cohort heatmap matrix</p>
+      <img src="docs/readme/retention-analysis.png" alt="ABI Cohort Retention Analysis - Decay Curves and Heatmap Matrix" title="Retention Analysis" width="100%" />
+      <p align="center"><b>Retention Analysis</b>: Multi-period retention decay curves and daily/weekly/monthly cohort heatmaps</p>
     </td>
     <td width="50%" valign="top">
-      <img src="docs/readme/path-analysis.png" alt="ABI User Journey Path Analysis - Multi-Step Sankey Diagram" title="User Path Analysis" width="100%" />
-      <p align="center"><b>Path Analysis</b>: Forward & reverse multi-step Sankey diagrams with top transition rankings</p>
+      <img src="docs/readme/path-analysis.png" alt="ABI User Path Analysis - Multi-Step Sankey Diagram and Top Journeys" title="User Path Analysis" width="100%" />
+      <p align="center"><b>User Path Analysis</b>: Forward and reverse Sankey flow diagrams with top-journey rankings</p>
     </td>
   </tr>
 </table>
 
-### 3. Customer 360 Timeline & Visual Audience Segmentation
+### 3. Attribution, LTV & ROI, Lifecycle, and TopN Ranklist
 
-Drill down seamlessly from aggregate KPIs to individual user event streams, or build dynamic user segments and tags for targeted cross-model analysis.
+Quantify channel contribution, track CAC payback timelines, monitor user lifecycle transitions, and rank top contributors.
 
 <table>
   <tr>
     <td width="50%" valign="top">
-      <img src="docs/readme/user-profile-timeline.png" alt="ABI Customer 360 User Profile and Chronological Event Timeline" title="Customer 360 Profile & Event Timeline" width="100%" />
-      <p align="center"><b>User 360 & Event Timeline</b>: Linked identities, profile attributes, and chronological behavior stream</p>
+      <img src="docs/readme/attribution-analysis.png" alt="ABI Multi-Touch Attribution Analysis - Channel Conversion Contribution" title="Attribution Analysis" width="100%" />
+      <p align="center"><b>Attribution Analysis</b>: First-touch, last-touch, linear, U-shaped, and decay models for channel ROI</p>
     </td>
     <td width="50%" valign="top">
-      <img src="docs/readme/audience-segments.png" alt="ABI Visual Audience Cohort Builder with Live User Count Preview" title="Audience Segmentation Builder" width="100%" />
-      <p align="center"><b>Audience Segmentation</b>: Combine profile traits & behavioral rules with instant size preview and scheduled refresh</p>
+      <img src="docs/readme/ltv-analysis.png" alt="ABI LTV & ROI Analysis - Cohort Value Curves and CAC Payback Line" title="LTV & ROI Analysis" width="100%" />
+      <p align="center"><b>LTV & ROI Analysis</b>: Cumulative cohort LTV curves, CAC breakeven line, and milestone tables</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/lifecycle-analysis.png" alt="ABI User Lifecycle Analysis - New, Retained, Resurrected, and Churned Users" title="Lifecycle Analysis" width="100%" />
+      <p align="center"><b>Lifecycle Analysis</b>: Track New, Retained, Resurrected, and Churned user stage trends</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ranklist-analysis.png" alt="ABI TopN Ranklist Analysis - Real-Time Multi-Metric User Leaderboard" title="Ranklist Analysis" width="100%" />
+      <p align="center"><b>TopN Ranklist Analysis</b>: Real-time multi-metric rankings with direct user profile drill-down</p>
     </td>
   </tr>
 </table>
 
-### 4. Metadata Governance, Live SDK Onboarding & Granular RBAC
+### 4. Real-Time Concurrency (PCU/ACU) & Self-Service SQL Sandbox
 
-Maintain clean data dictionaries, validate event tracking payloads interactively, and govern team access with enterprise-grade permissions.
+Built for both live-ops concurrency monitoring and flexible ad-hoc SQL exploration inside a tenant-isolated sandbox.
 
 <table>
   <tr>
     <td width="50%" valign="top">
-      <img src="docs/readme/meta-events-governance.png" alt="ABI Event Schema and Metadata Dictionary Governance" title="Metadata Governance" width="100%" />
-      <p align="center"><b>Event & Schema Governance</b>: Manage display names, active status toggles, and property dictionaries</p>
+      <img src="docs/readme/concurrency-analysis.png" alt="ABI Concurrency Analysis - Peak Concurrent Users (PCU) and Average Concurrent Users (ACU)" title="Concurrency Analysis" width="100%" />
+      <p align="center"><b>Concurrency Analysis (PCU/ACU)</b>: Track Peak and Average Concurrent Users with peak-to-average ratios</p>
     </td>
     <td width="50%" valign="top">
-      <img src="docs/readme/sdk-live-playground.png" alt="ABI Interactive SDK Integration Guide and Live Dry-Run Validator" title="Interactive SDK Onboarding" width="100%" />
-      <p align="center"><b>Interactive Onboarding Guide</b>: Preview JSON payloads and run live validation checks in seconds</p>
+      <img src="docs/readme/sql-analysis.png" alt="ABI Self-Service SQL Workbench - Read-Only Sandbox and Instant Visualization" title="Self-Service SQL Analysis" width="100%" />
+      <p align="center"><b>Self-Service SQL</b>: Tenant-isolated read-only SQL sandbox, preset templates, and instant charting</p>
+    </td>
+  </tr>
+</table>
+
+### 5. Customer 360° Profiles & Audience Segmentation
+
+Drill down seamlessly from aggregate metrics to individual user timelines, and build reusable audience segments for cross-model comparison.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/user-profile-timeline.png" alt="ABI Customer 360 Profile and Behavioral Event Timeline" title="Customer 360 Profile" width="100%" />
+      <p align="center"><b>Customer 360° & Timeline</b>: Unified identity graph, user properties, and chronological event stream</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/audience-segments.png" alt="ABI Audience Segmentation Builder - Rule Composer and Live Size Estimate" title="Audience Segments" width="100%" />
+      <p align="center"><b>Audience Segments</b>: Rule-based user cohorts with real-time size preview and scheduled refresh</p>
+    </td>
+  </tr>
+</table>
+
+### 6. Metadata Governance, Live SDK Playground & RBAC Permissions
+
+Maintain clean event schemas, validate tracking payloads in real time, and govern team access with granular RBAC controls.
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/meta-events-governance.png" alt="ABI Metadata Event Dictionary and Tracking Governance" title="Metadata Governance" width="100%" />
+      <p align="center"><b>Metadata Governance</b>: Manage display names, active status, and associated property schemas</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/sdk-live-playground.png" alt="ABI Live SDK Integration Guide and Payload Debugger" title="Live SDK Playground" width="100%" />
+      <p align="center"><b>Live SDK Playground</b>: Interactive payload inspection and test-event validation</p>
     </td>
   </tr>
 </table>
 
 <details>
-<summary><b>🔍 Click to expand: Enterprise Role & Granular Menu/Button RBAC Permission Tree</b></summary>
+<summary><b>🔍 Click to expand: Enterprise RBAC Role & Menu/Button Permission Tree</b></summary>
 <br />
-<img src="docs/readme/rbac-permission-tree.png" alt="ABI Enterprise RBAC Role and Granular Permission Tree" title="Enterprise RBAC Permission Tree" width="100%" />
-<p align="center"><b>Granular RBAC Authorization</b>: Visual permission tree across modules, pages, and in-page action buttons</p>
+<img src="docs/readme/rbac-permission-tree.png" alt="ABI Enterprise RBAC Role and Granular Permission Tree" title="RBAC Permission Management" width="100%" />
+<p align="center"><b>RBAC Permission Management</b>: Visual tree-based authorization across modules, pages, and action buttons</p>
 </details>
 
 ---
@@ -165,9 +226,9 @@ Maintain clean data dictionaries, validate event tracking payloads interactively
 
 ## 🏗️ Technical Architecture
 
-ABI adopts a modern, cloud-native **4-layer data platform architecture** combining a high-concurrency ingestion gateway, real-time stream processing, a vectorized columnar OLAP engine, and a decoupled web workbench.
+ABI adopts a decoupled four-tier architecture — **High-Concurrency Ingest Gateway + Real-Time Stream Processing + Vectorized Columnar OLAP + Modern Decoupled Web Workbench** — delivering both high-throughput event ingestion and sub-second interactive queries.
 
-### 1. High-Level Architecture Diagram
+### 1. Architecture Overview
 
 ```mermaid
 flowchart TB
@@ -176,37 +237,37 @@ flowchart TB
 Web / iOS / Android / Flutter / Mini-Programs / Game Engines"]
         Server["Server SDKs
 Go / Java / Python / Node.js / C# / PHP / Ruby / C++ / Lua"]
-        Import["Log Shippers & Batch Import Tools"]
+        Import["Log Collectors & Batch Importers"]
     end
 
-    subgraph Pipeline["2. Real-Time Ingestion & Stream Processing"]
-        Gateway["High-Concurrency Ingestion Gateway (Go)"]
+    subgraph Pipeline["2. Real-Time Ingest & Stream Processing"]
+        Gateway["High-Concurrency Ingest Gateway (Go)"]
         MQ[("Apache Kafka
-Event Streaming Queue")]
-        Stream["Apache Flink Stream Engine
-Cleaning · Dynamic Schema Check · Identity Resolution"]
+Streaming Message Buffer")]
+        Stream["Apache Flink Streaming Engine
+Cleansing · Schema Validation · Cross-Device ID Merge"]
     end
 
-    subgraph DataStore["3. Hybrid Storage & OLAP Layer"]
+    subgraph DataStore["3. Storage & OLAP Engine"]
         OLAP[("StarRocks
-Real-Time Columnar OLAP for Events & Profiles")]
+Columnar OLAP for Events & User Profiles")]
         RDBMS[("MySQL
 Metadata · Dashboards · RBAC & System Config")]
         Cache[("Redis
 Session Store · Distributed Cache & Rate Limiting")]
     end
 
-    subgraph Application["4. Analytics Engine & Web Workbench"]
-        API["Admin & Analytics Backend (Go)
-Query Engine · Cohort Scheduler · Multi-Project Isolation"]
+    subgraph Application["4. Analytics Service & Visual Workbench"]
+        API["Admin & Analytics API (Go)
+Query Compiler · Segment Scheduler · Project Isolation"]
         Web["ABI Web Workbench (React + TypeScript)
-Behavioral Analytics · BI Dashboards · Governance Console"]
+13 Analytics Models · BI Dashboards · Governance"]
     end
 
     Client & Server & Import -->|"Compressed Batch Ingest"| Gateway
     Gateway --> MQ
     MQ --> Stream
-    Stream -->|"Real-Time Load"| OLAP
+    Stream -->|"Real-Time Sink"| OLAP
     Stream <-->|"Metadata & Identity Sync"| RDBMS
 
     Web <-->|"RESTful API"| API
@@ -215,47 +276,47 @@ Behavioral Analytics · BI Dashboards · Governance Console"]
     API <--> Cache
 ```
 
-### 2. Architectural Layers Overview
+### 2. Layer Responsibilities
 
-- **Data Collection Layer**: Production-grade SDKs across web, mobile, game engines, and backend languages with local buffering, batch compression, and live validation tools.
-- **Real-Time Ingestion & Streaming Layer**: A dedicated Go ingestion gateway handles authentication and traffic buffering into Kafka, while Apache Flink continuously cleanses events, enforces dynamic schemas, enriches GeoIP location data, and resolves cross-device user identities.
-- **Storage & OLAP Layer**: StarRocks powers sub-second analytical queries across massive event tables, user profiles, and audience cohorts; MySQL stores metadata, dashboard layouts, and RBAC configurations; Redis manages active sessions and rate limits.
-- **Service & Application Layer**: The Go backend compiles visual query conditions into safe, parameterized analytical SQL with strict project isolation, serving a responsive React + TypeScript + ECharts analytics and dashboard frontend.
+- **Data Collection Layer**: Cross-platform SDKs for web, mobile, game engines, and backend servers, plus log watchers and batch importers with local buffering and compressed batching.
+- **Ingest & Stream Processing Layer**: A dedicated Go ingest gateway handles authentication and traffic spikes, buffered by Kafka; Apache Flink performs real-time data cleansing, dynamic schema validation, GeoIP enrichment, and cross-device identity resolution.
+- **Storage & OLAP Layer**: StarRocks columnar vectorized storage powers sub-second event, funnel, retention, attribution, LTV, and cohort queries; MySQL stores metadata, dashboard layouts, and RBAC rules; Redis handles caching and rate limiting.
+- **Analytics & Presentation Layer**: The Go backend compiles visual query builders and read-only SQL sandboxes into tenant-isolated OLAP queries, while the React + TypeScript + ECharts frontend provides an intuitive workbench and drag-and-drop BI experience.
 
-### 3. Technology Stack Summary
+### 3. Tech Stack Summary
 
-| Layer | Core Technologies | Role |
+| Layer | Technologies | Responsibilities |
 | :--- | :--- | :--- |
-| **Frontend Workbench** | React · TypeScript · Vite · Tailwind CSS · ECharts | Behavioral query builder, interactive charts, drag-and-drop dashboards & admin console |
-| **Backend Services** | Go · Gin · GORM | Admin API, analytical SQL compiler, audience scheduler & high-throughput ingestion gateway |
-| **Stream Processing** | Java · Apache Flink · Apache Kafka | Real-time event ETL, live metadata sync, identity resolution & raw event archival |
-| **Storage & OLAP** | StarRocks · MySQL · Redis | Vectorized columnar OLAP database, relational metadata store & distributed cache |
-| **Deployment** | Docker · Docker Compose · Nginx | One-command containerized deployment or scalable private cloud cluster rollout |
+| **Frontend Workbench** | React · TypeScript · Vite · Tailwind CSS · ECharts | 13 self-service analytics models, visualizations, drag-and-drop dashboards, 13-language UI |
+| **Backend Services** | Go · Gin · GORM | Admin API, multi-model SQL query compiler, segment scheduling, high-throughput ingest gateway |
+| **Stream Processing** | Java · Apache Flink · Apache Kafka | Real-time ETL, dynamic metadata sync, identity resolution, raw event archival |
+| **Storage & OLAP** | StarRocks · MySQL · Redis | Real-time columnar OLAP analytics, relational metadata/config store, distributed cache |
+| **Deployment** | Docker · Docker Compose · Nginx | Single-node containerized quickstart and horizontally scalable private-cloud clusters |
 
 ---
 
 <a id="sdks"></a>
 
-## 📦 Multi-Platform SDK Ecosystem
+## 📦 Multi-Platform Data Collection Ecosystem
 
-Comprehensive data collection SDKs with full 13-language documentation and interactive examples — browse the **[Full SDK Suite & Integration Docs](abi.sdk/README.en.md)**:
+Comprehensive cross-platform SDKs with documentation in 13 languages and interactive examples — see **[SDK Documentation & Source Directory](abi.sdk/README.en.md)**:
 
-- **Web & Cross-Platform**: JavaScript / TypeScript Web SDK, App-to-WebView H5 Bridge, WeChat Mini-Program, React Native
-- **Native Mobile**: iOS (`Swift`), Android (`Kotlin`), Flutter (`Dart`)
-- **Game Engines**: Unity (`C#`), Unreal Engine / Cocos2d-x (`C/C++`), Cocos Creator / Egret / LayaAir, Cocos2d-Lua
-- **Server-Side Languages**: Go, Java, Python, Node.js, C# (`.NET`), PHP, Ruby, Lua
-- **HTTP & Log Ingestion**: Standard HTTP RESTful batch ingestion API, real-time log file shipper, and ready-to-use log collector templates
+- **Web & Cross-Platform**: JavaScript / TypeScript Web SDK, App H5 WebView Bridge, WeChat Mini-Program, React Native
+- **Native Mobile**: iOS (Swift), Android (Kotlin), Flutter (Dart)
+- **Game Engines**: Unity (C#), Unreal Engine / Cocos2d-x (C/C++), Cocos Creator / Egret / LayaAir, Cocos2d-Lua
+- **Backend Languages**: Go, Java, Python, Node.js, C# (.NET), PHP, Ruby, Lua
+- **Universal API & Import Tools**: Standard HTTP RESTful batch ingestion API, real-time log file tailer, and log collector templates
 
 ---
 
 <a id="contact"></a>
 
-## 📬 Commercial Licensing & Purchase Inquiries
+## 📬 Commercial Licensing & Inquiries
 
-ABI is available for **commercial licensing, full source-code delivery, private / on-premise deployment assistance, and custom enterprise development**.  
-If you are interested in purchasing ABI, requesting a live demo, or discussing enterprise licensing options, please reach out via email:
+ABI is available for **enterprise commercial licensing, full source-code delivery, private deployment, and custom development**.  
+To request a live demo, pricing details, or commercial licensing, please contact us via email:
 
-- **Purchase & Business Contact**: **[baidushanxivip@gmail.com](mailto:baidushanxivip@gmail.com)**
+- **Sales & Licensing Email**: **[baidushanxivip@gmail.com](mailto:baidushanxivip@gmail.com)**
 
 ---
 
@@ -263,6 +324,6 @@ If you are interested in purchasing ABI, requesting a live demo, or discussing e
 
 **[简体中文](README.md)** · **[繁體中文](README.zh-TW.md)** · **[English](README.en.md)** · **[日本語](README.ja.md)** · **[한국어](README.ko.md)** · **[Español](README.es.md)** · **[Português](README.pt.md)** · **[Deutsch](README.de.md)** · **[Français](README.fr.md)** · **[Русский](README.ru.md)** · **[Tiếng Việt](README.vi.md)** · **[ไทย](README.th.md)** · **[Bahasa Indonesia](README.id.md)**
 
-<sub>Keywords: User Behavior Analytics, UBA, Product Analytics, Business Intelligence, BI Dashboard, Self-Hosted Analytics, Event Tracking SDK, Funnel Analysis, Cohort Retention, User Journey Sankey, Customer 360, Audience Segmentation, CDP, StarRocks OLAP, Apache Flink, Enterprise RBAC</sub>
+<sub>Keywords: User Behavior Analytics (UBA), Product Analytics, Business Intelligence (BI), Event Tracking, Funnel Analysis, Cohort Retention, Multi-Touch Attribution, LTV & ROI, Lifecycle Analysis, PCU/ACU Concurrency, Self-Service SQL, User Path Sankey, Customer 360, Audience Segmentation, StarRocks OLAP, Apache Flink, Self-Hosted Analytics Platform</sub>
 
 </div>

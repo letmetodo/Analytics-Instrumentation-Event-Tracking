@@ -6,7 +6,7 @@
 
 **Plataforma todo en uno autohospedada para analítica de producto, Customer 360 y Business Intelligence**
 
-Unificando **Captura de eventos multiplataforma · Procesamiento en flujo en tiempo real · OLAP subsegundo · 7 modelos de análisis de comportamiento · Paneles BI interactivos · RBAC empresarial**
+Unificando **Captura de eventos multiplataforma · Procesamiento en flujo en tiempo real · OLAP subsegundo · 13 Modelos de Análisis · SQL Autoservicio · Paneles BI interactivos · RBAC empresarial**
 
 <p>
   <strong>🌐 Idioma / Language:</strong>
@@ -118,7 +118,47 @@ Visualizaciones creadas específicamente para el seguimiento de la retención y 
   </tr>
 </table>
 
-### 3. Línea de Tiempo Customer 360 y Segmentación Visual de Audiencias
+### 3. Atribución, LTV & ROI, Ciclo de Vida y Ranking TopN
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/attribution-analysis.png" alt="ABI Multi-Touch Attribution Analysis" title="Attribution Analysis" width="100%" />
+      <p align="center"><b>Attribution</b>: First-touch, last-touch, linear, U-shaped & decay models</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ltv-analysis.png" alt="ABI LTV & ROI Cohort Analysis" title="LTV & ROI Analysis" width="100%" />
+      <p align="center"><b>LTV & ROI</b>: Cumulative LTV growth curves, CAC payback line & milestone matrix</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/lifecycle-analysis.png" alt="ABI User Lifecycle Analysis" title="Lifecycle Analysis" width="100%" />
+      <p align="center"><b>Lifecycle</b>: New, Retained, Resurrected & Churned user stage trends</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ranklist-analysis.png" alt="ABI TopN Ranklist Analysis" title="Ranklist Analysis" width="100%" />
+      <p align="center"><b>TopN Ranklist</b>: Real-time multi-metric user leaderboard with profile drill-down</p>
+    </td>
+  </tr>
+</table>
+
+### 4. Concurrencia (PCU/ACU) y SQL Autoservicio
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/concurrency-analysis.png" alt="ABI PCU/ACU Concurrency Analysis" title="Concurrency Analysis" width="100%" />
+      <p align="center"><b>Concurrency (PCU/ACU)</b>: Peak & Average Concurrent Users with peak-to-average ratios</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/sql-analysis.png" alt="ABI Self-Service SQL Sandbox" title="Self-Service SQL" width="100%" />
+      <p align="center"><b>Self-Service SQL</b>: Tenant-isolated read-only SQL sandbox, templates & instant charts</p>
+    </td>
+  </tr>
+</table>
+
+### 5. Línea de Tiempo Customer 360 y Segmentación Visual de Audiencias
 
 Profundice sin problemas desde los KPIs agregados hasta los flujos de eventos de usuarios individuales, o cree segmentos dinámicos y etiquetas de usuario para análisis cruzados específicos.
 
@@ -135,7 +175,7 @@ Profundice sin problemas desde los KPIs agregados hasta los flujos de eventos de
   </tr>
 </table>
 
-### 4. Gobernanza de Metadatos, Integración Interactiva de SDK y RBAC Granular
+### 6. Gobernanza de Metadatos, Integración Interactiva de SDK y RBAC Granular
 
 Mantenga diccionarios de datos limpios, valide cargas útiles de rastreo de eventos de forma interactiva y gobierne el acceso del equipo con permisos de nivel empresarial.
 
@@ -222,7 +262,7 @@ Analítica de Comportamiento · Paneles BI · Consola de Gobernanza"]
 - **Capa de Almacenamiento y OLAP**: StarRocks impulsa consultas analíticas subsegundo sobre tablas masivas de eventos, perfiles de usuario y segmentos de audiencia; MySQL almacena metadatos, diseños de paneles y configuraciones de RBAC; Redis gestiona sesiones activas y límites de tasa.
 - **Capa de Servicios y Aplicación**: El backend en Go compila condiciones de consulta visual en SQL analítico seguro y parametrizado con un estricto aislamiento de proyectos, sirviendo a un frontend ágil de analítica y paneles en React + TypeScript + ECharts.
 
-### 3. Resumen del Stack Tecnológico
+### 5. Resumen del Stack Tecnológico
 
 | Capa | Tecnologías Principales | Rol |
 | :--- | :--- | :--- |

@@ -6,7 +6,7 @@
 
 **Универсальная автономная платформа продуктовой аналитики, профилирования клиентов 360° и бизнес-аналитики**
 
-Объединяет **мультиплатформенный трекинг событий · потоковую обработку в реальном времени · субсекундный OLAP · 7 аналитических моделей поведения · интерактивные BI-дашборды · корпоративный RBAC**
+Объединяет **мультиплатформенный трекинг событий · потоковую обработку в реальном времени · субсекундный OLAP · 13 моделей аналитики · Self-Service SQL · интерактивные BI-дашборды · корпоративный RBAC**
 
 <p>
   <strong>🌐 Язык / Ngôn ngữ / Language:</strong>
@@ -30,6 +30,7 @@
   <img src="https://img.shields.io/badge/Backend-Go_%7C_Gin_%7C_GORM-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Go Backend" />
   <img src="https://img.shields.io/badge/Streaming-Apache_Flink_%7C_Kafka-E6526F?style=flat-square&logo=apacheflink&logoColor=white" alt="Flink Kafka Streaming" />
   <img src="https://img.shields.io/badge/OLAP-StarRocks-3B82F6?style=flat-square" alt="StarRocks OLAP" />
+  <img src="https://img.shields.io/badge/Models-13_Analytics_Engines-6366F1?style=flat-square" alt="13 Behavioral Analytics Models" />
   <img src="https://img.shields.io/badge/SDKs-14%2B_Platforms-10B981?style=flat-square" alt="14+ Мультиплатформенных SDK" />
   <a href="mailto:baidushanxivip@gmail.com"><img src="https://img.shields.io/badge/Коммерческая_лицензия-baidushanxivip%40gmail.com-F59E0B?style=flat-square&logo=gmail&logoColor=white" alt="Контакты для покупки baidushanxivip@gmail.com" /></a>
 </p>
@@ -118,7 +119,47 @@
   </tr>
 </table>
 
-### 3. Хронологический профиль пользователя 360° и визуальная сегментация аудитории
+### 3. Атрибуция, LTV и ROI, жизненный цикл и рейтинг TopN
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/attribution-analysis.png" alt="ABI Multi-Touch Attribution Analysis" title="Attribution Analysis" width="100%" />
+      <p align="center"><b>Attribution</b>: First-touch, last-touch, linear, U-shaped & decay models</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ltv-analysis.png" alt="ABI LTV & ROI Cohort Analysis" title="LTV & ROI Analysis" width="100%" />
+      <p align="center"><b>LTV & ROI</b>: Cumulative LTV growth curves, CAC payback line & milestone matrix</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/lifecycle-analysis.png" alt="ABI User Lifecycle Analysis" title="Lifecycle Analysis" width="100%" />
+      <p align="center"><b>Lifecycle</b>: New, Retained, Resurrected & Churned user stage trends</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ranklist-analysis.png" alt="ABI TopN Ranklist Analysis" title="Ranklist Analysis" width="100%" />
+      <p align="center"><b>TopN Ranklist</b>: Real-time multi-metric user leaderboard with profile drill-down</p>
+    </td>
+  </tr>
+</table>
+
+### 4. Одновременный онлайн (PCU/ACU) и Self-Service SQL
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/concurrency-analysis.png" alt="ABI PCU/ACU Concurrency Analysis" title="Concurrency Analysis" width="100%" />
+      <p align="center"><b>Concurrency (PCU/ACU)</b>: Peak & Average Concurrent Users with peak-to-average ratios</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/sql-analysis.png" alt="ABI Self-Service SQL Sandbox" title="Self-Service SQL" width="100%" />
+      <p align="center"><b>Self-Service SQL</b>: Tenant-isolated read-only SQL sandbox, templates & instant charts</p>
+    </td>
+  </tr>
+</table>
+
+### 5. Хронологический профиль пользователя 360° и визуальная сегментация аудитории
 
 Плавный переход от агрегированных KPI к детальной хронологии событий отдельного пользователя, а также построение динамических сегментов и тегов для глубокого кросс-модельного анализа.
 
@@ -135,7 +176,7 @@
   </tr>
 </table>
 
-### 4. Управление метаданными, интерактивная отладка SDK и гранулярный RBAC
+### 6. Управление метаданными, интерактивная отладка SDK и гранулярный RBAC
 
 Поддержание чистоты словарей данных, интерактивная валидация трекинговых событий и управление командным доступом на уровне корпоративных стандартов безопасности.
 
@@ -222,7 +263,7 @@ Go / Java / Python / Node.js / C# / PHP / Ruby / C++ / Lua"]
 - **Уровень хранения и OLAP-аналитики**: СУБД StarRocks обеспечивает субсекундное выполнение аналитических запросов по миллиардам событий, профилям пользователей и когортам; MySQL хранит метаданные, конфигурации дашбордов и настройки RBAC; Redis управляет активными сессиями и распределенным ограничением частоты запросов.
 - **Уровень сервисов и приложений**: бэкенд на Go динамически транслирует визуальные параметры запросов в безопасный параметризованный аналитический SQL со строгой изоляцией проектов, взаимодействуя с производительным интерфейсом аналитики и дашбордов на React + TypeScript + ECharts.
 
-### 3. Сводная таблица технологического стека
+### 5. Сводная таблица технологического стека
 
 | Уровень | Ключевые технологии | Назначение |
 | :--- | :--- | :--- |

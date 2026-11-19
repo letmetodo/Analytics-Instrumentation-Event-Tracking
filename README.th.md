@@ -6,7 +6,7 @@
 
 **แพลตฟอร์มวิเคราะห์ผลิตภัณฑ์, Customer 360 และระบบข่าวกรองธุรกิจแบบติดตั้งในองค์กร (Self-Hosted) ครบวงจรในหนึ่งเดียว**
 
-ผสานรวม **การติดตามอีเวนต์หลายแพลตฟอร์ม · การประมวลผลสตรีมแบบเรียลไทม์ · OLAP วิเคราะห์ในระดับต่ำกว่าวินาที · 7 โมเดลการวิเคราะห์พฤติกรรม · แดชบอร์ด BI แบบโต้ตอบ · ระบบจัดการสิทธิ์ RBAC ระดับองค์กร**
+ผสานรวม **การติดตามอีเวนต์หลายแพลตฟอร์ม · การประมวลผลสตรีมแบบเรียลไทม์ · OLAP วิเคราะห์ในระดับต่ำกว่าวินาที · 13 โมเดลวิเคราะห์ · SQL แบบบริการตนเอง · แดชบอร์ด BI แบบโต้ตอบ · ระบบจัดการสิทธิ์ RBAC ระดับองค์กร**
 
 <p>
   <strong>🌐 ภาษา / Bahasa / Language:</strong>
@@ -30,6 +30,7 @@
   <img src="https://img.shields.io/badge/Backend-Go_%7C_Gin_%7C_GORM-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Go Backend" />
   <img src="https://img.shields.io/badge/Streaming-Apache_Flink_%7C_Kafka-E6526F?style=flat-square&logo=apacheflink&logoColor=white" alt="Flink Kafka Streaming" />
   <img src="https://img.shields.io/badge/OLAP-StarRocks-3B82F6?style=flat-square" alt="StarRocks OLAP" />
+  <img src="https://img.shields.io/badge/Models-13_Analytics_Engines-6366F1?style=flat-square" alt="13 Behavioral Analytics Models" />
   <img src="https://img.shields.io/badge/SDKs-14%2B_Platforms-10B981?style=flat-square" alt="14+ Multi-Platform SDKs" />
   <a href="mailto:baidushanxivip@gmail.com"><img src="https://img.shields.io/badge/Purchase_%26_Inquiries-baidushanxivip%40gmail.com-F59E0B?style=flat-square&logo=gmail&logoColor=white" alt="ติดต่อ baidushanxivip@gmail.com เพื่อสั่งซื้อ" /></a>
 </p>
@@ -118,7 +119,47 @@
   </tr>
 </table>
 
-### 3. ไทม์ไลน์ Customer 360 และการแบ่งกลุ่มเป้าหมายเชิงภาพ
+### 3. การระบุแหล่งที่มา (Attribution), LTV & ROI, วงจรชีวิต และ TopN Ranklist
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/attribution-analysis.png" alt="ABI Multi-Touch Attribution Analysis" title="Attribution Analysis" width="100%" />
+      <p align="center"><b>Attribution</b>: First-touch, last-touch, linear, U-shaped & decay models</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ltv-analysis.png" alt="ABI LTV & ROI Cohort Analysis" title="LTV & ROI Analysis" width="100%" />
+      <p align="center"><b>LTV & ROI</b>: Cumulative LTV growth curves, CAC payback line & milestone matrix</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/lifecycle-analysis.png" alt="ABI User Lifecycle Analysis" title="Lifecycle Analysis" width="100%" />
+      <p align="center"><b>Lifecycle</b>: New, Retained, Resurrected & Churned user stage trends</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ranklist-analysis.png" alt="ABI TopN Ranklist Analysis" title="Ranklist Analysis" width="100%" />
+      <p align="center"><b>TopN Ranklist</b>: Real-time multi-metric user leaderboard with profile drill-down</p>
+    </td>
+  </tr>
+</table>
+
+### 4. ผู้ใช้งานพร้อมกัน (PCU/ACU) และ Self-Service SQL
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/concurrency-analysis.png" alt="ABI PCU/ACU Concurrency Analysis" title="Concurrency Analysis" width="100%" />
+      <p align="center"><b>Concurrency (PCU/ACU)</b>: Peak & Average Concurrent Users with peak-to-average ratios</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/sql-analysis.png" alt="ABI Self-Service SQL Sandbox" title="Self-Service SQL" width="100%" />
+      <p align="center"><b>Self-Service SQL</b>: Tenant-isolated read-only SQL sandbox, templates & instant charts</p>
+    </td>
+  </tr>
+</table>
+
+### 5. ไทม์ไลน์ Customer 360 และการแบ่งกลุ่มเป้าหมายเชิงภาพ
 
 เจาะลึกได้อย่างราบรื่นจาก KPI ภาพรวมลงสู่สตรีมอีเวนต์ของผู้ใช้รายบุคคล หรือสร้างกลุ่มผู้ใช้และแท็กแบบไดนามิกสำหรับการวิเคราะห์ข้ามโมเดลอย่างตรงเป้าหมาย
 
@@ -135,7 +176,7 @@
   </tr>
 </table>
 
-### 4. ธรรมาภิบาลข้อมูลเมทาดาทา, การทดสอบ SDK แบบสด และสิทธิ์ RBAC แบบละเอียด
+### 6. ธรรมาภิบาลข้อมูลเมทาดาทา, การทดสอบ SDK แบบสด และสิทธิ์ RBAC แบบละเอียด
 
 ดูแลพจนานุกรมข้อมูลให้สะอาดและเป็นระเบียบ ตรวจสอบความถูกต้องของเพย์โหลดการติดตามอีเวนต์แบบโต้ตอบ และควบคุมการเข้าถึงของทีมด้วยระบบสิทธิ์ระดับองค์กร
 
@@ -222,7 +263,7 @@ OLAP แบบคอลัมน์เรียลไทม์สำหรับ
 - **เลเยอร์การจัดเก็บข้อมูลและ OLAP (Storage & OLAP Layer)**: StarRocks มอบประสิทธิภาพการสืบค้นเชิงวิเคราะห์ในระดับต่ำกว่าวินาทีสำหรับตารางอีเวนต์ขนาดมหึมา โปรไฟล์ผู้ใช้ และกลุ่มเป้าหมาย; MySQL จัดเก็บข้อมูลเมทาดาทา เลย์เอาต์แดชบอร์ด และการตั้งค่า RBAC; Redis จัดการเซสชันที่ใช้งานอยู่และการจำกัดอัตราการเรียกใช้
 - **เลเยอร์บริการและแอปพลิเคชัน (Service & Application Layer)**: แบ็กเอนด์ Go แปลงเงื่อนไขการสืบค้นจากหน้าจอให้เป็น SQL วิเคราะห์ที่ปลอดภัยและมีพารามิเตอร์ พร้อมการแยกข้อมูลระดับโปรเจกต์อย่างเข้มงวด ให้บริการแก่ฟรอนต์เอนด์ React + TypeScript + ECharts สำหรับการวิเคราะห์และแดชบอร์ดที่ตอบสนองอย่างรวดเร็ว
 
-### 3. สรุปเทคโนโลยีที่ใช้ (Tech Stack)
+### 5. สรุปเทคโนโลยีที่ใช้ (Tech Stack)
 
 | เลเยอร์ | เทคโนโลยีหลัก | บทบาทและหน้าที่ |
 | :--- | :--- | :--- |

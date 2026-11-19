@@ -6,7 +6,7 @@
 
 **Platform Terpadu Self-Hosted untuk Product Analytics, Customer 360 & Business Intelligence**
 
-Menyatukan **Pelacakan Event Multi-Platform · Pemrosesan Stream Real-Time · OLAP Sub-Detik · 7 Model Analisis Perilaku · Dasbor BI Interaktif · RBAC Enterprise**
+Menyatukan **Pelacakan Event Multi-Platform · Pemrosesan Stream Real-Time · OLAP Sub-Detik · 13 Model Analitik · SQL Layanan Mandiri · Dasbor BI Interaktif · RBAC Enterprise**
 
 <p>
   <strong>🌐 ภาษา / Bahasa / Language:</strong>
@@ -30,6 +30,7 @@ Menyatukan **Pelacakan Event Multi-Platform · Pemrosesan Stream Real-Time · OL
   <img src="https://img.shields.io/badge/Backend-Go_%7C_Gin_%7C_GORM-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Backend Go" />
   <img src="https://img.shields.io/badge/Streaming-Apache_Flink_%7C_Kafka-E6526F?style=flat-square&logo=apacheflink&logoColor=white" alt="Streaming Flink Kafka" />
   <img src="https://img.shields.io/badge/OLAP-StarRocks-3B82F6?style=flat-square" alt="StarRocks OLAP" />
+  <img src="https://img.shields.io/badge/Models-13_Analytics_Engines-6366F1?style=flat-square" alt="13 Behavioral Analytics Models" />
   <img src="https://img.shields.io/badge/SDKs-14%2B_Platforms-10B981?style=flat-square" alt="14+ SDK Multi-Platform" />
   <a href="mailto:baidushanxivip@gmail.com"><img src="https://img.shields.io/badge/Purchase_%26_Inquiries-baidushanxivip%40gmail.com-F59E0B?style=flat-square&logo=gmail&logoColor=white" alt="Hubungi baidushanxivip@gmail.com untuk Pembelian" /></a>
 </p>
@@ -118,7 +119,47 @@ Visualisasi khusus untuk pemantauan retensi dan penemuan alur pengguna, ditenaga
   </tr>
 </table>
 
-### 3. Timeline Customer 360 & Segmentasi Audiens Visual
+### 3. Atribusi, LTV & ROI, Siklus Hidup & Peringkat TopN
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/attribution-analysis.png" alt="ABI Multi-Touch Attribution Analysis" title="Attribution Analysis" width="100%" />
+      <p align="center"><b>Attribution</b>: First-touch, last-touch, linear, U-shaped & decay models</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ltv-analysis.png" alt="ABI LTV & ROI Cohort Analysis" title="LTV & ROI Analysis" width="100%" />
+      <p align="center"><b>LTV & ROI</b>: Cumulative LTV growth curves, CAC payback line & milestone matrix</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/lifecycle-analysis.png" alt="ABI User Lifecycle Analysis" title="Lifecycle Analysis" width="100%" />
+      <p align="center"><b>Lifecycle</b>: New, Retained, Resurrected & Churned user stage trends</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ranklist-analysis.png" alt="ABI TopN Ranklist Analysis" title="Ranklist Analysis" width="100%" />
+      <p align="center"><b>TopN Ranklist</b>: Real-time multi-metric user leaderboard with profile drill-down</p>
+    </td>
+  </tr>
+</table>
+
+### 4. Konkurensi (PCU/ACU) & SQL Layanan Mandiri
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/concurrency-analysis.png" alt="ABI PCU/ACU Concurrency Analysis" title="Concurrency Analysis" width="100%" />
+      <p align="center"><b>Concurrency (PCU/ACU)</b>: Peak & Average Concurrent Users with peak-to-average ratios</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/sql-analysis.png" alt="ABI Self-Service SQL Sandbox" title="Self-Service SQL" width="100%" />
+      <p align="center"><b>Self-Service SQL</b>: Tenant-isolated read-only SQL sandbox, templates & instant charts</p>
+    </td>
+  </tr>
+</table>
+
+### 5. Timeline Customer 360 & Segmentasi Audiens Visual
 
 Telusuri data dengan mulus dari KPI agregat hingga ke aliran event pengguna individual, atau bangun segmen audiens dan tag dinamis untuk analisis lintas model yang terarah.
 
@@ -135,7 +176,7 @@ Telusuri data dengan mulus dari KPI agregat hingga ke aliran event pengguna indi
   </tr>
 </table>
 
-### 4. Tata Kelola Metadata, Integrasi SDK Langsung & RBAC Granular
+### 6. Tata Kelola Metadata, Integrasi SDK Langsung & RBAC Granular
 
 Pertahankan kamus data yang bersih, validasi muatan pelacakan event secara interaktif, dan atur akses tim dengan izin keamanan tingkat enterprise.
 
@@ -222,7 +263,7 @@ Analisis Perilaku · Dasbor BI · Konsol Tata Kelola Data"]
 - **Lapisan Penyimpanan & OLAP (Storage & OLAP Layer)**: StarRocks mendukung kueri analitik sub-detik di atas tabel event raksasa, profil pengguna, dan kohor audiens; MySQL menyimpan metadata, tata letak dasbor, dan konfigurasi RBAC; Redis mengelola sesi aktif dan pembatasan laju (rate limiting).
 - **Lapisan Layanan & Aplikasi (Service & Application Layer)**: Backend Go mengompilasi kondisi kueri visual menjadi SQL analitik yang aman dan berparameter dengan isolasi proyek yang ketat, melayani antarmuka analisis dan dasbor React + TypeScript + ECharts yang responsif.
 
-### 3. Ringkasan Tech Stack
+### 5. Ringkasan Tech Stack
 
 | Lapisan | Teknologi Inti | Peran & Tanggung Jawab |
 | :--- | :--- | :--- |

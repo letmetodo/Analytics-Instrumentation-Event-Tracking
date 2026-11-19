@@ -1,7 +1,7 @@
 {
   "name": "@anylink/abi-web-sdk",
   "version": "1.0.0",
-  "description": "ABI Web, H5, H5-App Bridge, WeChat MiniProgram, React Native, Cocos Creator, Egret, LayaAir & Weex Analytics SDK",
+  "description": "ABI Web, H5, H5-App Bridge, WeChat MiniProgram, React Native, Cocos Creator, Egret, LayaAir & Weex Analytics SDK (ThinkingData v3.4 compatible)",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -28,19 +28,13 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "test": "vitest run --config vitest.config.ts"
-  },
+    "build": "test": },
   "keywords": [
     "abi",
     "analytics",
     "uba",
-    "event-tracking",
+    "thinkingdata",
     "sdk"
   ],
-  "license": "Proprietary",
-  "devDependencies": {
-    "typescript": "5.7.3",
-    "vitest": "3.2.4"
-  }
+  "license": "Proprietary"
 }

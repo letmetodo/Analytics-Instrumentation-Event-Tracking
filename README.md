@@ -4,9 +4,9 @@
 
 # ABI — 企业级用户行为分析（UBA）与商业智能（BI）平台
 
-**面向产品增长、精细化运营与数据团队打造的一站式私有化数据分析系统**
+**面向产品增长、精细化运营、游戏发行与数据团队打造的一站式私有化数据分析系统**
 
-集 **全端埋点采集 · 实时流式处理 · 海量 OLAP 分析 · 七大行为分析模型 · 交互式 BI 看板 · 企业级权限治理** 于一体
+集 **全端埋点采集 · 实时流式处理 · 海量 OLAP 分析 · 十三大行为与增长分析模型 · 自助 SQL · 交互式 BI 看板 · 企业级权限治理** 于一体
 
 <p>
   <strong>🌐 语言 / Language / 言語：</strong>
@@ -30,12 +30,14 @@
   <img src="https://img.shields.io/badge/Backend-Go_%7C_Gin_%7C_GORM-00ADD8?style=flat-square&logo=go&logoColor=white" alt="Go Backend" />
   <img src="https://img.shields.io/badge/Streaming-Apache_Flink_%7C_Kafka-E6526F?style=flat-square&logo=apacheflink&logoColor=white" alt="Flink Kafka Streaming" />
   <img src="https://img.shields.io/badge/OLAP-StarRocks-3B82F6?style=flat-square" alt="StarRocks OLAP" />
+  <img src="https://img.shields.io/badge/Models-13_Analytics_Engines-6366F1?style=flat-square" alt="13 Behavioral Analytics Models" />
   <img src="https://img.shields.io/badge/SDKs-14%2B_Platforms-10B981?style=flat-square" alt="14+ Multi-Platform SDKs" />
   <a href="mailto:baidushanxivip@gmail.com"><img src="https://img.shields.io/badge/商业购买咨询-baidushanxivip%40gmail.com-F59E0B?style=flat-square&logo=gmail&logoColor=white" alt="联系购买 baidushanxivip@gmail.com" /></a>
 </p>
 
 <p>
   <a href="#features">基础功能</a> •
+  <a href="#models">十三大分析模型</a> •
   <a href="#scenarios">应用场景</a> •
   <a href="#screenshots">模块截图</a> •
   <a href="#architecture">技术架构</a> •
@@ -55,15 +57,30 @@
 
 ## ✨ 基础功能介绍
 
-**ABI（AnyLink Behavioral Intelligence）** 是一套开箱即用的企业级 **用户行为分析（User Behavior Analytics, UBA）与商业智能（Business Intelligence, BI）** 一体化数据分析平台。系统打通从「全端埋点数据采集 → 实时流式清洗入库 → 多模型自助探索分析 → 用户画像分群与数据看板决策」的完整业务闭环，支持私有化部署，助力企业实现数据自主可控与业务持续增长。
+**ABI（AnyLink Behavioral Intelligence）** 是一套开箱即用的企业级 **用户行为分析（User Behavior Analytics, UBA）与商业智能（Business Intelligence, BI）** 一体化数据分析平台。系统打通从「全端埋点数据采集 → 实时流式清洗入库 → 多模型自助探索与 SQL 分析 → 用户画像分群与 BI 看板决策」的完整业务闭环，支持私有化部署，助力企业实现数据自主可控与业务持续增长。
 
 | 功能模块 | 核心能力说明 |
 | :--- | :--- |
-| **📊 多模型自助行为分析** | 内置 **事件分析**（多指标聚合、公式计算、同比/环比、多维分组）、**漏斗分析**（多步转化与流失拆解）、**留存分析**（日/周/月队列留存追踪）、**路径分析**（用户流转桑基图）、**分布分析**、**间隔分析**（转化耗时统计）及 **用户属性分析**。 |
+| **📊 十三大自助分析模型** | 覆盖 **事件分析**（多指标公式、同比/环比、异常检测与四象限视图）、**漏斗分析**、**留存分析**、**路径分析**、**分布分析**、**间隔分析**、**用户属性分析**，以及全新升级的 **归因分析**、**LTV 与 ROI 分析**、**生命周期分析**、**同时在线并发分析（PCU/ACU）**、**TopN 排行榜分析** 与 **自助 SQL 沙箱查询**。 |
 | **🎯 用户 360° 画像与人群运营** | 自动打通匿名访客设备与实名登录账号的跨端身份，提供 **单用户 360° 档案与行为时间线回溯**；支持 **条件规则圈选分群**、**离线名单导入分群**、**分析结果一键存为分群** 以及 **动态用户标签管理**（支持定时自动更新）。 |
-| **🧩 交互式 BI 看板工作台** | 支持多业务空间与文件夹分级管理，提供自由拖拽栅格布局、多类型分析图表同屏混排、看板级全局时间与筛选联动，以及团队成员共享协作。 |
+| **🧩 全模型交互式 BI 看板** | 支持多业务空间与文件夹分级管理，全面支持 **13 类分析模型组件** 自由拖拽混排、看板级全局时间与筛选联动、多视图展示以及团队成员共享协作。 |
 | **🔌 数据资产与埋点治理** | 集中管理多项目、多时区、事件定义、属性字典与业务指标；内置 **在线接入联调工具**（支持模拟上报与实时校验），并提供入库数据日志与异常数据排查视图。 |
-| **🔐 企业级权限与国际化体验** | 提供用户、角色及「菜单 / 页面 / 按钮」细粒度 RBAC 权限管控，支持多项目数据隔离与操作审计日志；原生支持 **简体中文 / 繁體中文 / English / 日本語 / 한국어 / Español / Português / Deutsch / Français / Русский / Tiếng Việt / ไทย / Bahasa Indonesia（共 13 种语言）** 切换、亮暗双主题及防泄密界面水印。 |
+| **🔐 企业级权限与国际化体验** | 提供用户、角色及「菜单 / 页面 / 按钮」细粒度 RBAC 权限管控，支持多项目数据隔离与操作审计日志；原生支持 **13 种语言** 切换、亮暗双主题及防泄密界面水印。 |
+
+---
+
+<a id="models"></a>
+
+## 🧠 十三大行为与数据科学分析模型
+
+| 模型类别 | 模型名称 | 核心分析能力 |
+| :--- | :--- | :--- |
+| **基础行为洞察** | **事件分析 / 用户属性分析** | 多指标聚合与四则公式计算、同比/环比对比、多维分组下钻、异常波动识别与四象限分析 |
+| **转化与留存** | **漏斗分析 / 留存分析 / 间隔分析** | 多步骤转化与流失拆解、队列留存热力矩阵与衰减曲线、关键行为转化耗时分布 |
+| **流转与分布** | **路径分析 / 分布分析** | 正向与逆向多步桑基流向图、高频路径排行、频次/金额/时长区间分布统计 |
+| **增长与归因** | **归因分析 / 排行榜分析** | 支持首次、末次、线性、位置（U型）及时间衰减等多触点归因；多指标 TopN 实时排行与大 R 用户定位 |
+| **变现与周期** | **LTV 与 ROI / 生命周期分析** | 队列生命周期价值累计曲线、CAC 成本回收与回本周期评估；新增/留存/回流/流失全周期阶段分布 |
+| **实时与高阶** | **同时在线分析 / 自助 SQL 查询** | 游戏与实时互动业务 PCU 峰值与 ACU 平均同时在线趋势；租户级只读 SQL 沙箱、模板库与一键图表可视化 |
 
 ---
 
@@ -72,8 +89,8 @@
 ## 🌍 典型应用场景
 
 - **互联网产品与移动应用增长（Web / App / 小程序）**：评估新功能上线效果、诊断注册与激活转化漏斗、追踪新老用户留存曲线与访问路径。
-- **电商与数字零售精细化运营**：贯通「曝光浏览 → 搜索 → 加购 → 结算 → 支付」全链路归因，精准圈选高价值 VIP 与潜在流失客群。
-- **游戏研发与全球发行分析**：覆盖主流游戏客户端引擎与服务端埋点上报，实时监控新手引导流失、关卡转化耗时、活跃留存及付费分层。
+- **电商与数字零售精细化运营**：贯通「曝光浏览 → 搜索 → 加购 → 结算 → 支付」多触点渠道归因与 LTV 回本分析，精准圈选高价值 VIP 与潜在流失客群。
+- **游戏研发与全球发行分析**：覆盖主流游戏客户端引擎与服务端埋点上报，实时监控 PCU/ACU 同时在线人数、大 R 排行榜、新手流失与付费 LTV 表现。
 - **企业私有化数据中台建设**：全套系统支持容器化快速交付与私有云部署，满足数据隐私合规、多业务线权限隔离与全球跨时区团队协作需求。
 
 ---
@@ -82,17 +99,17 @@
 
 ## 📸 主要功能模块截图
 
-### 1. 事件分析工作台与 BI 决策看板
+### 1. 事件分析工作台与全模型 BI 决策看板
 
-面向产品、运营与数据分析人员的零代码探索工作台：左侧点选指标、过滤条件与拆解维度，右侧即时呈现可视化趋势图与可下钻的数据报表，并支持一键挂载至业务监控看板。
+面向产品、运营与数据分析人员的零代码探索工作台：左侧点选指标、过滤条件与拆解维度，右侧即时呈现可视化趋势图与可下钻的数据报表，并支持将全系 13 类分析模型一键挂载至业务监控看板。
 
 <img src="docs/readme/event-analysis.png" alt="ABI 事件分析工作台 - 多维指标趋势与分组对比报表" title="事件分析工作台" width="100%" />
 
 <table>
   <tr>
     <td width="50%" valign="top">
-      <img src="docs/readme/dashboard-workspace.png" alt="ABI 商业智能 BI 看板工作台 - 多图表混排与全局时间过滤" title="BI 看板工作台" width="100%" />
-      <p align="center"><b>BI 看板工作台</b>：多图表自由拖拽编排、空间目录管理与全局时间联动</p>
+      <img src="docs/readme/dashboard-workspace.png" alt="ABI 商业智能 BI 看板工作台 - 多模型图表混排与全局时间过滤" title="BI 看板工作台" width="100%" />
+      <p align="center"><b>BI 看板工作台</b>：全模型自由拖拽编排、空间目录管理与全局时间联动</p>
     </td>
     <td width="50%" valign="top">
       <img src="docs/readme/funnel-analysis.png" alt="ABI 漏斗转化分析 - 多步骤转化率与流失分析" title="漏斗转化分析" width="100%" />
@@ -118,7 +135,51 @@
   </tr>
 </table>
 
-### 3. 用户 360° 档案与人群分群圈选
+### 3. 增长归因、LTV 变现与用户生命周期分析
+
+深入衡量渠道投放贡献、队列累计商业价值（LTV / CAC / ROI 回本线）及用户活跃生命周期阶段迁移。
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/attribution-analysis.png" alt="ABI 多触点归因分析 - 渠道转化贡献占比与明细" title="归因分析" width="100%" />
+      <p align="center"><b>归因分析</b>：支持首次、末次、线性、U型与衰减模型，量化各触点转化贡献</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ltv-analysis.png" alt="ABI LTV 与 ROI 分析 - 队列生命周期价值曲线与 CAC 回本线" title="LTV 与 ROI 分析" width="100%" />
+      <p align="center"><b>LTV 与 ROI 分析</b>：累计生命周期价值曲线、CAC 回本线与阶段明细矩阵</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/lifecycle-analysis.png" alt="ABI 用户生命周期分析 - 新增留存回流流失分布" title="生命周期分析" width="100%" />
+      <p align="center"><b>生命周期分析</b>：直观呈现新增、留存、回流与流失用户的阶段趋势与结构</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ranklist-analysis.png" alt="ABI TopN 排行榜分析 - 高价值核心用户多指标实时榜单" title="排行榜分析" width="100%" />
+      <p align="center"><b>排行榜分析</b>：多指标实时 TopN 排名，快速定位核心用户并支持档案下钻</p>
+    </td>
+  </tr>
+</table>
+
+### 4. 同时在线并发监控（PCU/ACU）与自助 SQL 沙箱
+
+兼顾游戏/实时互动业务并发监控与高阶分析师的自由探索需求，安全隔离且响应迅捷。
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/concurrency-analysis.png" alt="ABI 同时在线分析 - PCU 峰值在线与 ACU 平均同时在线趋势" title="同时在线分析" width="100%" />
+      <p align="center"><b>同时在线分析（PCU/ACU）</b>：毫秒级重叠计算瞬时峰值与周期平均在线人数</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/sql-analysis.png" alt="ABI 自助 SQL 查询工作台 - 租户只读沙箱与一键可视化图表" title="自助 SQL 分析" width="100%" />
+      <p align="center"><b>自助 SQL 查询</b>：内置多租户只读沙箱、预设模板库与结果一键图表可视化</p>
+    </td>
+  </tr>
+</table>
+
+### 5. 用户 360° 档案与人群分群圈选
 
 支持从宏观汇总报表无缝下钻至微观个体轨迹，并通过可视化规则圈选目标人群，复用于任意分析模型做交叉对比。
 
@@ -135,7 +196,7 @@
   </tr>
 </table>
 
-### 4. 元数据治理、在线接入联调与权限管理
+### 6. 元数据治理、在线接入联调与权限管理
 
 提供规范化的数据资产目录、低门槛的在线模拟上报校验工具，以及清晰完善的企业后台权限体系。
 
@@ -200,7 +261,7 @@ Go / Java / Python / Node.js / C# / PHP / Ruby / C++ / Lua"]
         API["管理与分析后端服务 (Go)
 查询引擎 · 人群调度 · 多项目权限管控"]
         Web["ABI 前端工作台 (React + TypeScript)
-自助分析模型 · 交互式看板 · 数据治理后台"]
+十三大分析模型 · 交互式看板 · 数据治理后台"]
     end
 
     Client & Server & Import -->|"批量压缩上报"| Gateway
@@ -219,14 +280,14 @@ Go / Java / Python / Node.js / C# / PHP / Ruby / C++ / Lua"]
 
 - **多端数据采集层**：提供覆盖主流客户端、服务端与游戏引擎的采集 SDK 及日志导入工具，支持本地缓存、批量压缩传输与在线校验。
 - **实时接入与流处理层**：独立的高并发采集网关负责接入鉴权与流量削峰，通过 Kafka 解耦上下游；Flink 流处理引擎实时完成数据清洗、元数据动态校验、IP 地域解析及跨端用户身份合并。
-- **存储与分析引擎层**：依托 StarRocks 列式存储与向量化引擎支撑海量事件分析、留存计算与大规模人群圈选；MySQL 承载业务元数据、报表配置与权限体系；Redis 负责会话与高频缓存。
-- **分析服务与前端交互层**：Go 后端将前端可视化查询条件动态转化为高效安全的分析查询，并实现项目级数据隔离；React + TypeScript + ECharts 前端提供流畅的自助分析工作台与拖拽式 BI 看板。
+- **存储与分析引擎层**：依托 StarRocks 列式存储与向量化引擎支撑海量事件分析、留存、归因、LTV 与大规模人群圈选；MySQL 承载业务元数据、报表配置与权限体系；Redis 负责会话与高频缓存。
+- **分析服务与前端交互层**：Go 后端将前端可视化查询条件与只读 SQL 沙箱安全转化为高效分析查询，并实现项目级数据隔离；React + TypeScript + ECharts 前端提供流畅的自助分析工作台与拖拽式 BI 看板。
 
 ### 3. 技术栈速览
 
 | 领域 | 核心技术选型 | 职责概述 |
 | :--- | :--- | :--- |
-| **前端工作台** | React · TypeScript · Vite · Tailwind CSS · ECharts | 自助行为分析界面、图表可视化、拖拽栅格看板与多语言管理端 |
+| **前端工作台** | React · TypeScript · Vite · Tailwind CSS · ECharts | 十三大自助分析界面、图表可视化、拖拽栅格看板与多语言管理端 |
 | **后端服务** | Go · Gin · GORM | 后台管理服务、多模型分析查询编译、人群任务调度与高并发采集网关 |
 | **流式计算** | Java · Apache Flink · Apache Kafka | 实时埋点流清洗、动态元数据同步、跨端身份归一与原始数据归档 |
 | **存储与 OLAP** | StarRocks · MySQL · Redis | 实时列式 OLAP 分析库、关系型配置存储与高性能缓存 |
@@ -263,6 +324,6 @@ Go / Java / Python / Node.js / C# / PHP / Ruby / C++ / Lua"]
 
 **[简体中文](README.md)** · **[繁體中文](README.zh-TW.md)** · **[English](README.en.md)** · **[日本語](README.ja.md)** · **[한국어](README.ko.md)** · **[Español](README.es.md)** · **[Português](README.pt.md)** · **[Deutsch](README.de.md)** · **[Français](README.fr.md)** · **[Русский](README.ru.md)** · **[Tiếng Việt](README.vi.md)** · **[ไทย](README.th.md)** · **[Bahasa Indonesia](README.id.md)**
 
-<sub>Keywords: User Behavior Analytics (UBA), Product Analytics, Business Intelligence (BI), Event Tracking, Funnel Analysis, Cohort Retention, User Path Sankey, Customer 360, Audience Segmentation, StarRocks OLAP, Apache Flink, Self-Hosted Analytics Platform, 用户行为分析系统, 埋点分析平台, 商业智能看板, 私有化数据分析</sub>
+<sub>Keywords: User Behavior Analytics (UBA), Product Analytics, Business Intelligence (BI), Event Tracking, Funnel Analysis, Cohort Retention, Multi-Touch Attribution, LTV & ROI, Lifecycle Analysis, PCU/ACU Concurrency, Self-Service SQL, User Path Sankey, Customer 360, Audience Segmentation, StarRocks OLAP, Apache Flink, Self-Hosted Analytics Platform, 用户行为分析系统, 埋点分析平台, 商业智能看板, 私有化数据分析</sub>
 
 </div>

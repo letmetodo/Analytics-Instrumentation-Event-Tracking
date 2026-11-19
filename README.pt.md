@@ -6,7 +6,7 @@
 
 **Plataforma All-in-One Auto-Hospedada para Análise de Produto, Customer 360 e Business Intelligence**
 
-Unificando **Coleta de Eventos Multiplataforma · Processamento em Fluxo em Tempo Real · OLAP Subsegundo · 7 Modelos de Análise Comportamental · Painéis de BI Interativos · RBAC Empresarial**
+Unificando **Coleta de Eventos Multiplataforma · Processamento em Fluxo em Tempo Real · OLAP Subsegundo · 13 Modelos Analíticos · SQL Self-Service · Painéis de BI Interativos · RBAC Empresarial**
 
 <p>
   <strong>🌐 Idioma / Language:</strong>
@@ -118,7 +118,47 @@ Visualizações especializadas para monitoramento de retenção e descoberta de 
   </tr>
 </table>
 
-### 3. Linha do Tempo Customer 360 e Segmentação Visual de Usuários
+### 3. Atribuição, LTV & ROI, Ciclo de Vida e Ranking TopN
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/attribution-analysis.png" alt="ABI Multi-Touch Attribution Analysis" title="Attribution Analysis" width="100%" />
+      <p align="center"><b>Attribution</b>: First-touch, last-touch, linear, U-shaped & decay models</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ltv-analysis.png" alt="ABI LTV & ROI Cohort Analysis" title="LTV & ROI Analysis" width="100%" />
+      <p align="center"><b>LTV & ROI</b>: Cumulative LTV growth curves, CAC payback line & milestone matrix</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/lifecycle-analysis.png" alt="ABI User Lifecycle Analysis" title="Lifecycle Analysis" width="100%" />
+      <p align="center"><b>Lifecycle</b>: New, Retained, Resurrected & Churned user stage trends</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/ranklist-analysis.png" alt="ABI TopN Ranklist Analysis" title="Ranklist Analysis" width="100%" />
+      <p align="center"><b>TopN Ranklist</b>: Real-time multi-metric user leaderboard with profile drill-down</p>
+    </td>
+  </tr>
+</table>
+
+### 4. Concorrência (PCU/ACU) e SQL Self-Service
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/readme/concurrency-analysis.png" alt="ABI PCU/ACU Concurrency Analysis" title="Concurrency Analysis" width="100%" />
+      <p align="center"><b>Concurrency (PCU/ACU)</b>: Peak & Average Concurrent Users with peak-to-average ratios</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/readme/sql-analysis.png" alt="ABI Self-Service SQL Sandbox" title="Self-Service SQL" width="100%" />
+      <p align="center"><b>Self-Service SQL</b>: Tenant-isolated read-only SQL sandbox, templates & instant charts</p>
+    </td>
+  </tr>
+</table>
+
+### 5. Linha do Tempo Customer 360 e Segmentação Visual de Usuários
 
 Navegue com facilidade desde KPIs agregados até os fluxos de eventos de usuários individuais, ou construa segmentos dinâmicos e tags para análises cruzadas aprofundadas.
 
@@ -135,7 +175,7 @@ Navegue com facilidade desde KPIs agregados até os fluxos de eventos de usuári
   </tr>
 </table>
 
-### 4. Governança de Metadados, Onboarding Interativo de SDK e RBAC Granular
+### 6. Governança de Metadados, Onboarding Interativo de SDK e RBAC Granular
 
 Mantenha dicionários de dados limpos, valide cargas úteis de rastreamento de eventos interativamente e governe o acesso da equipe com permissões de nível corporativo.
 
@@ -222,7 +262,7 @@ Análise Comportamental · Painéis de BI · Console de Governança"]
 - **Camada de Armazenamento e OLAP**: O StarRocks viabiliza consultas analíticas subsegundo sobre tabelas massivas de eventos, perfis de usuários e coortes de audiência; o MySQL armazena metadatos, layouts de painéis e configurações de RBAC; o Redis gerencia sessões ativas e limites de taxa de requisições.
 - **Camada de Serviços e Aplicação**: O backend em Go compila condições visuais de consulta em SQL analítico seguro e parametrizado com isolamento estrito de projetos, alimentando uma interface ágil de análise e painéis em React + TypeScript + ECharts.
 
-### 3. Resumo da Pilha Tecnológica
+### 5. Resumo da Pilha Tecnológica
 
 | Camada | Tecnologias Principais | Função |
 | :--- | :--- | :--- |
